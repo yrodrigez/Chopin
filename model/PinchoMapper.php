@@ -41,7 +41,16 @@ class pinchoMapper {
                          $pincho->getDescripcionPincho(), 
                          $pincho->getEmailPincho(), 
                          $pincho->getAprobadaPincho(), 
-                         $pincho->getFotoPincho()));  
+                         $pincho->getFotoPincho()));
+
+    $pinchoInsertado = $this->db->lastInsertId();
+    $stmt = $this->db->prepare(
+        "INSERT INTO Ingredientes(idpropuesta, nombreCategoria) VALUES (?, ?);"
+    );
+    foreach($pincho->getIngredientesPincho() as $ingrediente){
+      $stmt->execute(array($pinchoInsertado,
+          $ingrediente));
+    }
   }
 
   /**
@@ -56,20 +65,20 @@ class pinchoMapper {
   ) {
     $stmt = $this->db->prepare("SELECT * FROM Propuesta WHERE idpropuesta=?");
     $stmt->execute(array($idPincho));
-    if(!($stmt->num_rows==0)) {
+    if($stmt->rowCount()>0) {
       foreach (
-        $stmt as $stmt
+        $stmt as $pincho
       ) {
-        $ingredientes = getIngredientesPincho($idPincho);
+        $ingredientes = $this->getIngredientesPincho($idPincho);
         return new Pincho(
-          $stmt["idpropuesta"],
-          $stmt["nombre"],
-          $stmt["descripcion"],
+          $pincho["idpropuesta"],
+          $pincho["nombre"],
+          $pincho["descripcion"],
           $ingredientes,
-          $stmt["precio"],
-          $stmt["email"],
-          $stmt["aprobada"],
-          $stmt["fotoPropuesta"]
+          $pincho["precio"],
+          $pincho["email"],
+          $pincho["aprobada"],
+          $pincho["fotoPropuesta"]
         );
       }
     } else {
@@ -88,16 +97,18 @@ class pinchoMapper {
   public function getIngredientesPincho(
           $idPincho
   ) {
+    $ingredientes = array();
     $stmt = $this->db->prepare("SELECT nombreCategoria FROM ingredientes WHERE idpropuesta=?");
     $stmt->execute(array($idPincho));
-    if(!$stmt->num_rows==0) {
-      return $stmt;
-    } else {
-      return NULL;
+    $i = $stmt->rowCount();
+    while($i>0) {
+      array_push($ingredientes, $stmt->fetchColumn());
+      $i--;
     }
+    return $ingredientes;
   }
 
-    /**
+  /**
    * Changes the approved flag of the Pincho specified by the id
    * 
    * @param Int $id The id of the pincho we want to change the approved flag
@@ -107,7 +118,7 @@ class pinchoMapper {
   public function aceptarPincho(
           $idPincho
   ) {
-    $stmt = $this->db->prepare("UPDATE aprobada = ? WHERE idpropuesta = ?;");
+    $stmt = $this->db->prepare("UPDATE Propuesta Set aprobada = ? WHERE idpropuesta = ?;");
     return $stmt->execute(array(1,$idPincho));
   }
 

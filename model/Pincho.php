@@ -26,7 +26,7 @@ class pincho {
   private $descripcionPincho;
   /**
    * The ingredients of the pincho
-   * @var string
+   * @var Array of String
    */
   private $ingredientesPincho;
   /**
