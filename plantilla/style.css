@@ -1,0 +1,21 @@
+
+body {
+	background-color: #E7ECFE;
+}
+
+#banner {
+	background-color: #ddd;
+	height: 80px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.nav-pill {	
+	background-color: #9BB1FE;
+	color: #FFF;
+}
+
+#footer {
+	background-color: #ddd;
+	margin-top: 20px;
+}
