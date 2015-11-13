@@ -159,5 +159,18 @@ class pinchoMapper {
     $stmt = $this->db->prepare("UPDATE codigo SET email = ? WHERE idcodigo = ?;");
     return $stmt->execute(array($emailUser, $idCodigo));
   }
+  /**
+   * Deletes a pincho
+   * 
+   * @param Int $idPincho The id of the pincho we want to delete
+   * @throws PDOException if a database error occurs
+   * @return True if the pincho was successfully deleted
+   */
+  public function borrarPincho(
+          $idPincho
+  ) {
+    $stmt = $this->db->prepare("DELETE FROM Propuesta WHERE idpropuesta= ?;");
+    return $stmt->execute(array($idPincho));
+  }
 }
 ?>
