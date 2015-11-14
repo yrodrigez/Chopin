@@ -1,10 +1,10 @@
 
 body {
-	background-color: #E7ECFE;
+	background-color: #f7edd5;
 }
 
 #banner {
-	background-color: #ddd;
+	background-color: #49040F;
 	height: 80px;
 	margin-top: 20px;
 	margin-bottom: 20px;
@@ -16,6 +16,17 @@ body {
 }
 
 #footer {
-	background-color: #ddd;
+	background-color: #49040F;
 	margin-top: 20px;
+}
+#content{
+	background-color: white;
+	height: 200px;
+	border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border: 0px solid #000000;
+	-webkit-box-shadow: 0px -1px 52px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px -1px 52px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px -1px 52px 0px rgba(0,0,0,0.75);
 }

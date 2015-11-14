@@ -1,9 +1,8 @@
 <?php
 // file: /core/PDOConnection.php
-
 class PDOConnection {
   private static $dbhost = "127.0.0.1";
-  private static $dbname = "mvcpinchos";
+  private static $dbname = "chopin";
   private static $dbuser = "root";
   private static $dbpass = "";
   private static $db_singleton = null;
