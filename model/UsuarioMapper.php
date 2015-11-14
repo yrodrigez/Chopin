@@ -139,6 +139,7 @@ class UsuarioMapper {
                 $stmt = $this->db->prepare(
                     "SELECT * FROM juradoprofesional WHERE email= ?"
                 );
+                $stmt->execute(array($usuario->getEmail()));
                 $fillData = $stmt->fetch(PDO::FETCH_ASSOC);
                 if($fillData != null) {
                     $usuario->setExperiencia(
@@ -150,8 +151,8 @@ class UsuarioMapper {
                 $stmt = $this->db->prepare(
                     "SELECT * FROM establecimiento WHERE email= ?"
                 );
+                $stmt->execute(array($usuario->getEmail()));
                 $fillData = $stmt->fetch(PDO::FETCH_ASSOC);
-
                 if($fillData != null) {
                     $usuario->setDireccion(
                         $fillData["direccion"]
