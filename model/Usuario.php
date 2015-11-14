@@ -1,12 +1,4 @@
 <?php
-/**
- * @author Yago Rodríguez
- * Date: 11/11/2015
- * Time: 10:40
- * Usuario será tanto Organizador
- * como jurado popular
- *
- */
 
 class Usuario {
     private $email;
@@ -15,21 +7,21 @@ class Usuario {
     private $tipo;
     private $telefono;
     private $fotoUsuario;
-
+	
     public function __construct(
-        $email,
-        $password,
-        $nombre,
-        $tipo,
-        $telefono,
-        $fotoUsuario
+        $email=NULL,
+        $password=NULL,
+        $nombre=NULL,
+        $tipo=NULL,
+        $telefono=NULL,
+        $fotoUsuario=NULL
     ) {
-        self::setEmail($email);
-        self::setFotoUsuario($fotoUsuario);
-        self::setNombre($nombre);
-        self::setPassword($password);
-        self::setTelefono($telefono);
-        self::setTipo($tipo);
+        $this->setEmail($email);
+        $this->setFotoUsuario($fotoUsuario);
+        $this->setNombre($nombre);
+        $this->setPassword($password);
+        $this->setTelefono($telefono);
+        $this->setTipo($tipo);
     }
 
     public function getEmail()
@@ -92,4 +84,19 @@ class Usuario {
         $this->tipo = $tipo;
     }
 
+	public function isValidForRegister() {
+		$errors = array();
+		
+		if (strlen($this->email) < 5) {
+			$errors["username"] = "El usuario debe tener al menos cinco caracteres.";
+		}
+      
+		if (strlen($this->password) < 5) {  // TODO: implementar verificacion de contraseña segura
+			$errors["passwd"] = "La contraseña debe tener al menos cinco caracteres.";	
+		}
+      
+		if (sizeof($errors)>0){
+			throw new ValidationException($errors, "user is not valid");
+		}
+	}
 }

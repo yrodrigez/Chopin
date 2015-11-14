@@ -15,7 +15,7 @@
   </head>
   <body> 
     <header>
-      <h1><?= i18n("Welcome to the Blog App!") ?></h1>
+      <h1><?= "Bienvenido a Chopin Alpha!" ?></h1>
     </header>
     <main>
       <!-- flash message -->
@@ -24,10 +24,6 @@
       </div>
       <?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>
     </main>
-    <footer>
-      <?php
-      include(__DIR__."/language_select_element.php");
-      ?>
-    </footer>
+
   </body>
 </html>

@@ -5,8 +5,9 @@
  * Time: 10:42
  */
 
-require_once("../core/PDOConnection.php");
-include_once("Usuario.php");
+require_once(__DIR__."/../core/PDOConnection.php");
+require_once(__DIR__."/Usuario.php");
+
 class UsuarioMapper {
 
     private $db;
@@ -24,13 +25,13 @@ class UsuarioMapper {
      * @param $usuario
      * @return bool
      */
-    public function modificarUsuario(
+    public function edit (
         $email,
         $usuario
     ) {
         $stmt= $this->db->prepare(
             "UPDATE usuario SET
-                        contraseña = ?,
+                        password = ?,
                         fotoperfil = ?,
                         telefono = ?,
                         tipo = ?
@@ -51,10 +52,10 @@ class UsuarioMapper {
      * @param $usuario
      * @return mixed
      */
-    public function registrarUsuario(
+    public function save (
         $usuario
     ) {
-        if($this->existeUsuario($usuario) == false) {
+        if($this->exists($usuario) == false) {
             $stmt = $this->db->prepare(
                 "INSERT INTO usuario(email, password, fotoperfil, telefono, tipo) VALUES (?,?,?,?,?)"
             );
@@ -77,20 +78,11 @@ class UsuarioMapper {
      * @param $email
      * @return bool
      */
-    public function existeUsuario(
-        $usuario
-    ) {
-        $stmt= $this->db->prepare(
-                "SELECT (email) from usuario where email= ?"
-            );
-
+    public function exists ($usuario) {
+        $stmt= $this->db->prepare("SELECT (email) from usuario where email= ?");
         $stmt->execute(array($usuario->getEmail()));
-        if($stmt->rowCount()>0){
-
-            return true;
-        }
-
-        return false;
+		
+        return $stmt->rowCount() > 0;
     }
 
     /**
@@ -98,11 +90,11 @@ class UsuarioMapper {
      * @param $password
      * @return bool
      */
-    public function isUsuarioValido(
+    public function isValid (
         $usuario
     ) {
         $stmt= $this->db->prepare(
-            "SELECT count(email) FROM usuario where email=? and contraseña=?"
+            "SELECT count(email) FROM usuario where email=? and password=?"
         );
         $stmt->execute(array($usuario->getEmail(), $usuario->getPassword()));
         if($stmt->fetchColumn() > 0){
@@ -115,10 +107,10 @@ class UsuarioMapper {
      * @param $usuario
      * @return bool
      */
-    public function borrarUsuario(
+    public function remove (
         $usuario
     ) {
-        if(self::existeUsuario($usuario)) {
+        if(self::exists($usuario)) {
             $stmt = $this->db->prepare(
                 "DELETE FROM usuario WHERE email= ?"
             );
