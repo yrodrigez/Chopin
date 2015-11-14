@@ -110,7 +110,7 @@ class UsuarioMapper {
     public function remove (
         $usuario
     ) {
-        if(self::exists($usuario)) {
+        if(exists($usuario)) {
             $stmt = $this->db->prepare(
                 "DELETE FROM usuario WHERE email= ?"
             );
@@ -121,5 +121,20 @@ class UsuarioMapper {
             return false;
         }
     }
+	
+	public function fill($usuario) {
+		$stmt= $this->db->prepare(
+            "SELECT * FROM usuario where email=?"
+        );
+        $stmt->execute(array($usuario->getEmail()));
+		$fillData = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+        if($fillData != null) {
+			$usuario->setFotoUsuario($fillData["fotoperfil"]);
+			// $usuario->setPassword($fillData["password"]);
+			$usuario->setTelefono($fillData["telefono"]);
+			$usuario->setTipo($fillData["tipo"]);
+        }
+	}
 
 }

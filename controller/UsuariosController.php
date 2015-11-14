@@ -21,8 +21,12 @@ class UsuariosController extends BaseController {
 
 	public function login() {
 		if (isset($_POST["username"])){ 
-			if ($this->userMapper->isValid(new Usuario($_POST["username"], $_POST["passwd"]))) {
-				$_SESSION["currentuser"]=$_POST["username"];
+			$user = new Usuario($_POST["username"], $_POST["passwd"]);
+			
+			if ($this->userMapper->isValid($user)) {
+				$_SESSION["user"]=$_POST["username"];
+				$this->userMapper->fill($user);
+				$_SESSION["type"]=$user->getTipo();
 				$this->view->redirect("concurso", "view");
 			}else{
 				$errors = array();

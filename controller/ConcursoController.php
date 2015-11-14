@@ -33,7 +33,7 @@ class ConcursoController extends BaseController {
 		  echo "Deben especificarse un nombre, una localización y una fecha";
 	  }
 	  
-	  // (?) Check if valid
+	  // TODO: Check if valid
 	  
 	  $concurso =  new Concurso($_POST["nombre"], $_POST["descripcion"], $_POST["localizacion"], $_POST["fecha"]);
 	  $this->concursomapper->add($concurso);
@@ -42,15 +42,11 @@ class ConcursoController extends BaseController {
   }
 
   public function view() {
-	
-    /*if (!isset($this->currentUser)) {
-      throw new Exception("Not in session. Adding posts requires login");
-    }*/
     
     $concurso = $this->concursomapper->getInfo();
     
     if ($concurso == NULL) {
-		throw new Exception("no existe el concurso");
+		throw new Exception("No existe el concurso");
     }
 
 	$this->view->setVariable("concurso", $concurso);
