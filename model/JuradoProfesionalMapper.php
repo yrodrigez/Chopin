@@ -24,10 +24,7 @@ class JuradoProfesionalMaper
             "SELECT count(email) from establecimiento where email=?"
         );
         $stmt->execute(array($juradoProfesional->getEmail()));
-        if($stmt->rowCount() > 0){
-            return true;
-        }
-        return false;
+        return $stmt->rowCount() > 0;
     }
 
     /**
@@ -108,4 +105,6 @@ class JuradoProfesionalMaper
         $up= new UsuarioMapper();
         return $up->borrarUsuario($juradoProfesional);
     }
+
+
 }

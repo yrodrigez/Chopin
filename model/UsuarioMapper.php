@@ -7,6 +7,7 @@
 
 require_once(__DIR__."/../core/PDOConnection.php");
 require_once(__DIR__."/Usuario.php");
+require_once(__DIR__."../Constantes.php");
 
 class UsuarioMapper {
 
@@ -81,7 +82,6 @@ class UsuarioMapper {
     public function exists ($usuario) {
         $stmt= $this->db->prepare("SELECT (email) from usuario where email= ?");
         $stmt->execute(array($usuario->getEmail()));
-		
         return $stmt->rowCount() > 0;
     }
 
@@ -97,10 +97,7 @@ class UsuarioMapper {
             "SELECT count(email) FROM usuario where email=? and password=?"
         );
         $stmt->execute(array($usuario->getEmail(), $usuario->getPassword()));
-        if($stmt->fetchColumn() > 0){
-            return true;
-        }
-        return false;
+        return $stmt->fetchColumn() > 0;
     }
 
     /**
@@ -122,7 +119,9 @@ class UsuarioMapper {
         }
     }
 	
-	public function fill($usuario) {
+	public function fill(
+        $usuario
+    ) {
 		$stmt= $this->db->prepare(
             "SELECT * FROM usuario where email=?"
         );
@@ -131,9 +130,39 @@ class UsuarioMapper {
 		
         if($fillData != null) {
 			$usuario->setFotoUsuario($fillData["fotoperfil"]);
-			// $usuario->setPassword($fillData["password"]);
+			//$usuario->setPassword($fillData["password"]);
 			$usuario->setTelefono($fillData["telefono"]);
 			$usuario->setTipo($fillData["tipo"]);
+        }
+        switch ($usuario->getTipo()) {
+            case JURADO_PROFESIONAL:
+                $stmt = $this->db->prepare(
+                    "SELECT * FROM juradoprofesional WHERE email= ?"
+                );
+                $fillData = $stmt->fetch(PDO::FETCH_ASSOC);
+                if($fillData != null) {
+                    $usuario->setExperiencia(
+                        $fillData["experiencia"]
+                    );
+                }
+                break;
+            case ESTABLECIMIENTO:
+                $stmt = $this->db->prepare(
+                    "SELECT * FROM establecimiento WHERE email= ?"
+                );
+                $fillData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if($fillData != null) {
+                    $usuario->setDireccion(
+                        $fillData["direccion"]
+                    );
+                    $usuario->setCoordenadas(
+                        $fillData["coordenadas"]
+                    );
+                }
+                break;
+            default:
+                break;
         }
 	}
 
