@@ -25,8 +25,8 @@ class UsuariosController extends BaseController {
 			
 			if ($this->userMapper->isValid($user)) {
 				$_SESSION["user"]=$_POST["username"];
-				$this->userMapper->fill($user);
-				$_SESSION["type"]=$user->getTipo();
+				//$this->userMapper->fill($user);
+				//$_SESSION["type"]=$user->getTipo();
 				$this->view->redirect("concurso", "view");
 			}else{
 				$errors = array();
