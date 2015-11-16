@@ -2,6 +2,7 @@
 // file: model/pinchoMapper.php
 require_once("/../core/PDOConnection.php");
 require_once("/../model/Pincho.php");
+require_once("/../model/ConstantesPincho.php");
 /**
  * Class pinchoMapper
  *
@@ -26,7 +27,7 @@ class pinchoMapper {
    * 
    * @param Pincho $pincho The pincho to be saved
    * @throws PDOException if a database error occurs
-   * @return void
+   * @return True if the pincho was successfully saved in the DB
    */      
   public function save(
         $pincho
@@ -51,6 +52,7 @@ class pinchoMapper {
       $stmt->execute(array($pinchoInsertado,
           $ingrediente));
     }
+    return true;
   }
 
   /**
@@ -119,7 +121,7 @@ class pinchoMapper {
           $idPincho
   ) {
     $stmt = $this->db->prepare("UPDATE Propuesta Set aprobada = ? WHERE idpropuesta = ?;");
-    return $stmt->execute(array(1,$idPincho));
+    return $stmt->execute(array(APROBADO,$idPincho));
   }
 
   /**
@@ -139,9 +141,9 @@ class pinchoMapper {
           $fechaVotacion
   ) {
     $stmt = $this->db->prepare("UPDATE codigo SET utilizado = ?, elegido = ?, fechaVotacion = ? WHERE idcodigo = ?;");
-    $toReturn = $stmt->execute(array(1,1, $fechaVotacion, $idCodigoElegido));
+    $toReturn = $stmt->execute(array(UTILIZADO,ELEGIDO, $fechaVotacion, $idCodigoElegido));
     $stmt = $this->db->prepare("UPDATE codigo SET utilizado = ?, fechaVotacion = ? WHERE idcodigo = ? OR idcodigo = ?;");
-    return $toReturn && $stmt->execute(array(1, $fechaVotacion, $idCodigoUtilizado1, $idCodigoUtilizado2));
+    return $toReturn && $stmt->execute(array(UTILIZADO, $fechaVotacion, $idCodigoUtilizado1, $idCodigoUtilizado2));
   }
 
   /**
