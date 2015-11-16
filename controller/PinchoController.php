@@ -16,7 +16,7 @@ require_once(__DIR__."/../controller/BaseController.php");
  * @author Jose Miguel Meilan Maldonado
  */
 
-class ConcursoController extends BaseController {
+class PinchoController extends BaseController {
 
 
   private $pinchoMapper;
@@ -32,7 +32,7 @@ class ConcursoController extends BaseController {
    * 
    * @return True if the pincho was successfully presented 
    */
-  public function presentarPincho(){
+  public function presentar(){
 
     if ((isset($_SESSION['user'])) && ($_SESSION['type'] == 3)) {
       $pincho = new Pincho (
