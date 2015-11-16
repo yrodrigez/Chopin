@@ -2,6 +2,7 @@
 //file: /controller/CommentsController.php
 
 //require_once(__DIR__."/../model/User.php");
+session_start();
 require_once(__DIR__."/../model/Pincho.php");
 
 require_once(__DIR__."/../model/PinchoMapper.php");
@@ -34,18 +35,24 @@ class PinchoController extends BaseController {
    */
   public function presentar(){
 
-    if ((isset($_SESSION['user'])) && ($_SESSION['type'] == 3)) {
-      $pincho = new Pincho (
+    if ((isset($_SESSION["user"])) && ($_SESSION["type"] == 3)) {
+      if(!$this->pinchoMapper->existePincho($_SESSION["user"])){
+          $pincho = new Pincho (
+          0,
           $_POST['nombrePincho'],
           $_POST['descripcionPincho'],
-          $_POST['ingredientesPincho'],
+          $_POST['ingredientes'],
           $_POST['precioPincho'],
-          $_SESSION['user'],
+          $_SESSION["user"],
           NO_APROBADO,
           $_POST['fotoPincho']
-      );
-      $this->pinchoMapper->save($pincho);
-      return true;
+          );
+           $this->pinchoMapper->save($pincho);
+          return true;
+          } else {
+            echo "Este establecimiento ya propuso un pincho";
+            return false;
+          }
     } else {
       echo "Debe estar logueado como establecimiento para poder presentar un pincho";
       return false;

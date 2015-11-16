@@ -174,5 +174,24 @@ class pinchoMapper {
     $stmt = $this->db->prepare("DELETE FROM Propuesta WHERE idpropuesta= ?;");
     return $stmt->execute(array($idPincho));
   }
+
+  /**
+   * Checks if it exists a Pincho with the specified email (foreign key)
+   * 
+   * @param String $email The email (foreign key) to check
+   * @throws PDOException if a database error occurs
+   * @return True If it exists a Pincho with the specified foreign key, else false
+   */
+  public function existePincho(
+          $email
+  ) {
+    $stmt = $this->db->prepare("SELECT * FROM Propuesta WHERE email=?");
+    $stmt->execute(array($email));
+    if($stmt->rowCount()>0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 ?>
