@@ -7,7 +7,7 @@
 
 require_once(__DIR__."/../core/PDOConnection.php");
 require_once(__DIR__."/Usuario.php");
-require_once(__DIR__."../Constantes.php");
+require_once(__DIR__."/../Constantes.php");
 
 class UsuarioMapper {
 

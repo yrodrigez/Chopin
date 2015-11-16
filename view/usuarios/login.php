@@ -11,8 +11,8 @@
 <?= isset($errors["general"])?$errors["general"]:"" ?>
 
 <form action="index.php?controller=usuarios&amp;action=login" method="POST">
-<?= "Usuario"?>: <input type="text" name="username">
-<?= "Contrase&ntilde;a"?>: <input type="password" name="passwd">
+Email: <input type="text" name="username">
+Contrase&ntilde;a: <input type="password" name="passwd">
 <input type="submit" value="<?= "Iniciar sesi&oacute;n" ?>">
 </form>
 

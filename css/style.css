@@ -1,10 +1,66 @@
-@keyframes backgroundflash {    
-    75% { opacity:1.0}
-    100% {opacity:0.0; display:none}
+
+@font-face {
+    font-family: Alex Brush;
+    src: url(Alex Brush.ttf);
 }
 
-#flash {
-  background-color:green;
-  animation: backgroundflash 5s forwards; 
+body {
+	background-color: #F5F5F5;
+	font-family: Lato;
 }
 
+#banner {
+	background-color: #FFF;
+	border-bottom: 1px solid #96281B;
+	height: 90px;
+	padding-top: 10px;
+	padding-bottom: 100px;
+	margin-bottom: 10px;
+}
+
+#title {
+	font-family: Alex Brush;
+	font-size: 60px;
+	color: #96281B;
+	text-align: center;
+}
+
+#sidebar {	
+	border-radius: 6px;
+}
+
+.nav-pills > li {
+	background-color: #FFF;
+	border-radius: 6px;
+	border: 1px solid #96281B;
+}
+
+.nav-pills > li:hover {
+	background-color: #FDEDED;
+	border-radius: 6px;
+}
+
+.nav-pills > li > a {
+	color: #96281B;
+	font-size: 14px;
+	text-align: center;
+}
+
+.nav-pills > li > a:hover {
+	color: #96281B;
+}
+
+#content {
+	background-color: #FFF;
+	border: 1px solid #96281B;
+	border-radius: 6px;
+	height: 300px;
+}
+
+#footer {
+	background-color: #FFF;
+	border-radius: 6px;
+	border: 1px solid #96281B;
+	padding-top:8px;
+	margin-top: 20px;
+}

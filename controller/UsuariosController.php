@@ -16,7 +16,6 @@ class UsuariosController extends BaseController {
 		parent::__construct();
     
 		$this->userMapper = new UsuarioMapper();
-		$this->view->setLayout("welcome");     
 	}
 
 	public function login() {
