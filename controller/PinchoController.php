@@ -59,4 +59,18 @@ class PinchoController extends BaseController {
     }
 
   }
+
+  public function aprobar(){
+    if (isset($_SESSION["user"]) && $_SESSION["type"] == 0) {
+      $this->pinchoMapper->aceptarPincho($_GET['id']);
+      //$this->view->render('pinchos','index'); cuando exista tendrá que ir a pinchosIndex o como se llame
+    }
+
+  }
+
+  public function view(){
+    $datos = $this->pinchoMapper->getPincho($_GET['id']);
+    $this->view->setVariable('pincho',$datos);
+    $this->view->render('pinchos','view');
+  }
 }
