@@ -37,9 +37,7 @@ class JuradoProfesionalController extends BaseController {
 			$jp = new JuradoProfesional($email, $pwd, "", $tel, $avatar, $exp);
 			$this->juradoProfesionalMapper->resgitrarJuradoProfesional($jp);
 			
-			$jurado = $this->juradoProfesionalMapper->findAll(); 
-			$this->view->setVariable("jurado", $jurado);  
-			$this->view->render("juradoprofesional", "index");
+			$this->view->redirect("juradoprofesional", "index");
 		}
 		
 		$this->view->render("juradoprofesional", "add");
@@ -58,14 +56,10 @@ class JuradoProfesionalController extends BaseController {
 			if(isset($_POST["exp"])) $jp->setExperiencia($_POST["exp"]);
 			
 			$this->juradoProfesionalMapper->modificarJuradoProfesional($_POST["email"], $jp);
-			
-			$jurado = $this->juradoProfesionalMapper->findAll(); 
-			$this->view->setVariable("jurado", $jurado);  
-			$this->view->render("juradoprofesional", "index");
+ 
+			$this->view->redirect("juradoprofesional", "index");
 		} elseif(!isset($_GET["id"])) {
-			$jurado = $this->juradoProfesionalMapper->findAll(); 
-			$this->view->setVariable("jurado", $jurado);  
-			$this->view->render("juradoprofesional", "index");
+			$this->view->redirect("juradoprofesional", "index");
 		} else {
 			$jp = new JuradoProfesional($_GET["id"]);
 			$this->juradoProfesionalMapper->fill($jp);
