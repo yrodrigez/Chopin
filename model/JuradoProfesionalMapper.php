@@ -44,7 +44,7 @@ class JuradoProfesionalMaper
         $juradoProfesional
     ) {
         $up= new UsuarioMapper();
-        if($up->registrarUsuario($juradoProfesional) == false){
+        if($up->save($juradoProfesional) == false){
             return false;
         }
         $stmt= $this->db->prepare(
@@ -80,7 +80,7 @@ class JuradoProfesionalMaper
         ));
 
         $up= new UsuarioMapper();
-        return $up->modificarUsuario(
+        return $up->edit(
             $email,
             $juradoProfesional
         );
@@ -103,7 +103,7 @@ class JuradoProfesionalMaper
                 return false;
         }
         $up= new UsuarioMapper();
-        return $up->borrarUsuario($juradoProfesional);
+        return $up->remove($juradoProfesional);
     }
 
 

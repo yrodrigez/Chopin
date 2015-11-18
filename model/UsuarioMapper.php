@@ -7,7 +7,6 @@
 
 require_once(__DIR__."/../core/PDOConnection.php");
 require_once(__DIR__."/Usuario.php");
-require_once(__DIR__."/../Constantes.php");
 
 class UsuarioMapper {
 
@@ -107,7 +106,7 @@ class UsuarioMapper {
     public function remove (
         $usuario
     ) {
-        if(exists($usuario)) {
+        if($this->exists($usuario)) {
             $stmt = $this->db->prepare(
                 "DELETE FROM usuario WHERE email= ?"
             );
