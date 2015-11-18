@@ -37,22 +37,37 @@ class PinchoController extends BaseController {
 
     if ((isset($_SESSION["user"])) && ($_SESSION["type"] == 3)) {
       if(!$this->pinchoMapper->existePincho($_SESSION["user"])){
-          $pincho = new Pincho (
+        $direccionDestino= __DIR__."/../resources/imagenesPincho/".$_SESSION["user"];
+        if(!file_exists($direccionDestino)){
+          mkdir($direccionDestino, true);
+        }
+        if (file_exists($direccionDestino.$_FILES["fotoPincho"]["name"])) {
+          unlink($direccionDestino.$_FILES["fotoPincho"]["name"]);
+        }
+        if ($_FILES["fotoPincho"]["size"] > 5242880) {
+          return false;
+        }
+        if (move_uploaded_file($_FILES["fotoPincho"]["tmp_name"], $direccionDestino."/".$_FILES["fotoPincho"]["name"])) {
+          echo "Funciono";
+        }
+        $fotoPath = $direccionDestino."/".$_FILES["fotoPincho"]["name"];
+        $ingredientes = explode(",", $_POST['ingredientesPincho']);
+        $pincho = new Pincho (
           0,
           $_POST['nombrePincho'],
           $_POST['descripcionPincho'],
-          $_POST['ingredientes'],
+          $ingredientes,
           $_POST['precioPincho'],
           $_SESSION["user"],
           NO_APROBADO,
-          $_POST['fotoPincho']
+          $fotoPath
           );
-           $this->pinchoMapper->save($pincho);
-          return true;
-          } else {
-            echo "Este establecimiento ya propuso un pincho";
-            return false;
-          }
+        $this->pinchoMapper->save($pincho);
+        return true;
+      } else {
+        echo "Este establecimiento ya propuso un pincho";
+        return false;
+      }
     } else {
       echo "Debe estar logueado como establecimiento para poder presentar un pincho";
       return false;

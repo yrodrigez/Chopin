@@ -1,7 +1,7 @@
 
 @font-face {
-    font-family: Alex Brush;
-    src: url(Alex Brush.ttf);
+	font-family: Alex Brush;
+	src: url(Alex Brush.ttf);
 }
 
 body {
@@ -54,7 +54,11 @@ body {
 	background-color: #FFF;
 	border: 1px solid #96281B;
 	border-radius: 6px;
-	height: 300px;
+	/*height: 300px;*/
+}
+
+#formPresentarPincho{
+	padding: 10px;	
 }
 
 #footer {
