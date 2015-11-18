@@ -135,7 +135,7 @@ class UsuarioMapper {
 			$usuario->setTipo($fillData["tipo"]);
         }
         switch ($usuario->getTipo()) {
-            case JURADO_PROFESIONAL:
+            case USUARIO::JURADO_PROFESIONAL:
                 $stmt = $this->db->prepare(
                     "SELECT * FROM juradoprofesional WHERE email= ?"
                 );
@@ -147,7 +147,7 @@ class UsuarioMapper {
                     );
                 }
                 break;
-            case ESTABLECIMIENTO:
+            case USUARIO::ESTABLECIMIENTO:
                 $stmt = $this->db->prepare(
                     "SELECT * FROM establecimiento WHERE email= ?"
                 );
