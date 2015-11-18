@@ -45,10 +45,14 @@ class pinchoMapper {
                          $pincho->getFotoPincho()));
 
     $pinchoInsertado = $this->db->lastInsertId();
-    $stmt = $this->db->prepare(
-        "INSERT INTO Ingredientes(idpropuesta, nombreCategoria) VALUES (?, ?);"
-    );
     foreach($pincho->getIngredientesPincho() as $ingrediente){
+      $stmt = $this->db->prepare(
+         "INSERT INTO categoria(nombreCategoria) VALUES (?);"
+      );
+      $stmt->execute(array($ingrediente));
+      $stmt = $this->db->prepare(
+        "INSERT INTO Ingredientes(idpropuesta, nombreCategoria) VALUES (?, ?);"
+      );
       $stmt->execute(array($pinchoInsertado,
           $ingrediente));
     }

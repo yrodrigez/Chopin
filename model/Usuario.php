@@ -1,6 +1,11 @@
 <?php
 
 class Usuario {
+    const ORGANIZADOR = 0;
+    const JURADO_POPULAR = 1;
+    const JURADO_PROFESIONAL = 2;
+    const ESTABLECIMIENTO = 3;
+
     private $email;
     private $password;
     private $nombre;

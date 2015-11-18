@@ -45,7 +45,7 @@ class EstablecimientoMapper
         $establecimiento
     ) {
         $up= new UsuarioMapper();
-        if($up->registrarUsuario($establecimiento) == false) {
+        if($up->save($establecimiento) == false) {
             return false;
         }
         $stmt= $this->db->prepare(
@@ -70,7 +70,7 @@ class EstablecimientoMapper
         $establecimiento
     ) {
         $up= new UsuarioMapper();
-        $up->modificarUsuario($email, $establecimiento);
+        $up->edit($email, $establecimiento);
         $stmt= $this->db->prepare(
           "UPDATE establecimiento SET direccion = ?, coordenadas = ?, email = ? WHERE email= ?"
         );
@@ -99,7 +99,7 @@ class EstablecimientoMapper
                 return false;
             }
             $up = new UsuarioMapper();
-            return $up->borrarUsuario($establecimiento);
+            return $up->remove($establecimiento);
         }
         else
         {

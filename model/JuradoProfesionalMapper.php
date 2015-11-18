@@ -104,7 +104,7 @@ class JuradoProfesionalMapper
                 return false;
         }
         $up= new UsuarioMapper();
-        return $up->borrarUsuario($juradoProfesional);
+        return $up->remove($juradoProfesional);
     }
 
 	public function findAll() {   
