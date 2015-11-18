@@ -34,17 +34,14 @@ class UsuarioMapper {
             "UPDATE usuario SET
                         password = ?,
                         fotoperfil = ?,
-                        telefono = ?,
-                        tipo = ?
+                        telefono = ? 
                         WHERE email= ?"
         );
 
         return $stmt->execute(array(
-            $usuario->getEmail(),
             $usuario->getPassword(),
             $usuario->getFotoUsuario(),
             $usuario->getTelefono(),
-            $usuario->getTipo(),
             $email
         ));
     }
@@ -134,7 +131,7 @@ class UsuarioMapper {
 			$usuario->setTelefono($fillData["telefono"]);
 			$usuario->setTipo($fillData["tipo"]);
         }
-        switch ($usuario->getTipo()) {
+        /*switch ($usuario->getTipo()) {
             case JURADO_PROFESIONAL:
                 $stmt = $this->db->prepare(
                     "SELECT * FROM juradoprofesional WHERE email= ?"
@@ -164,7 +161,7 @@ class UsuarioMapper {
                 break;
             default:
                 break;
-        }
+        }*/
 	}
 
 }

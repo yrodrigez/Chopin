@@ -14,18 +14,17 @@ class JuradoProfesional extends Usuario {
 
     public function __construct(
         $email,
-        $password,
-        $nombre,
-        $tipo,
-        $telefono,
-        $fotoUsuario,
-        $experiencia
+        $password=NULL,
+        $nombre=NULL,
+        $telefono=NULL,
+        $fotoUsuario=NULL,
+        $experiencia=NULL
     ) {
         parent::__construct(
             $email,
             $password,
             $nombre,
-            $tipo,
+            2,
             $telefono,
             $fotoUsuario
         );
