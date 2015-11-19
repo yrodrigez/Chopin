@@ -35,33 +35,36 @@ class PinchoController extends BaseController {
    */
   public function presentar(){
 
-    if ((isset($_SESSION["user"])) && ($_SESSION["type"] == 3)) {
-      if(!$this->pinchoMapper->existePincho($_SESSION["user"])){
-        $direccionDestino= __DIR__."/../img/pinchos/".$_SESSION["user"];
-        $subirFoto = PinchoController::subirImagen($direccionDestino);
-        $fotoPath = $direccionDestino."/".$_FILES["fotoPincho"]["name"];
-        $ingredientes = explode(",", $_POST['ingredientesPincho']);
-        $pincho = new Pincho (
-          0,
-          $_POST['nombrePincho'],
-          $_POST['descripcionPincho'],
-          $ingredientes,
-          $_POST['precioPincho'],
-          $_SESSION["user"],
-          NO_APROBADO,
-          $fotoPath
-          );
-        $this->pinchoMapper->save($pincho);
-        if(!$subirFoto) {
-          echo "Hubo un error subiendo la imagen";
+      if ((isset($_SESSION["user"])) && ($_SESSION["type"] == 3)) {
+        if(!$this->pinchoMapper->existePincho($_SESSION["user"])){
+          $direccionDestino= __DIR__."/../img/pinchos/".$_SESSION["user"];
+          $subirFoto = PinchoController::subirImagen($direccionDestino);
+          $fotoPath = $direccionDestino."/".$_FILES["fotoPincho"]["name"];
+          $ingredientes = explode(",", $_POST['ingredientesPincho']);
+          $pincho = new Pincho (
+            0,
+            $_POST['nombrePincho'],
+            $_POST['descripcionPincho'],
+            $ingredientes,
+            $_POST['precioPincho'],
+            $_SESSION["user"],
+            NO_APROBADO,
+            $fotoPath
+            );
+          $this->pinchoMapper->save($pincho);
+          if(!$subirFoto) {
+            echo "Hubo un error subiendo la imagen";
+          }
+          $this->view->redirect("concurso", "view"); //redirigir a los datos introducidos una vista view de propuesta presentada
+        } else {
+          echo "Este establecimiento ya propuso un pincho";
         }
-        $this->view->redirect("concurso", "view");
+
       } else {
-        echo "Este establecimiento ya propuso un pincho";
+        echo "Debe estar logueado como establecimiento para poder presentar un pincho";
       }
-    } else {
-      echo "Debe estar logueado como establecimiento para poder presentar un pincho";
     }
+    $this->view->render("pinchos","view");
   }
 
   /**
@@ -86,7 +89,6 @@ class PinchoController extends BaseController {
     else return false;
   }
 
-<<<<<<< HEAD
   public function aprobar(){
     if (isset($_SESSION["user"]) && $_SESSION["type"] == 0) {
       $this->pinchoMapper->aceptarPincho($_GET['id']);
@@ -100,8 +102,7 @@ class PinchoController extends BaseController {
     $this->view->setVariable('pincho',$datos);
     $this->view->render('pinchos','view');
   }
-}
-=======
+
     /**
      * @return bool|True
      */
@@ -124,42 +125,42 @@ class PinchoController extends BaseController {
             date("Y-m-d H:i:s", time())
             );
       }
-            echo "<br><span style='red'>Error PinchoController::introducirVotacion(), parámetros no validos</span> "; //borrar después
-            return false;
-          }
-        echo "<br><span style='red'>Error PinchoController::introducirVotacion(), sin sesión</span> "; //borrar después
-        return false;
-      }
+echo "<br><span style='red'>Error PinchoController::introducirVotacion(), parámetros no validos</span> "; //borrar después
+return false;
+}
+echo "<br><span style='red'>Error PinchoController::introducirVotacion(), sin sesión</span> "; //borrar después
+return false;
+}
 
-    /**
+/**
      * @return bool|True
      */
-    public function introducirCodigo()
-    {
-      if(
-        isset($_SESSION["user"])
-        && isset($_SESSION["type"])
-        && $_SESSION['type'] == Usuario::JURADO_POPULAR
-        ) {
-        if (
-          isset($_POST["idUsuario"])
-          && isset($_POST["Codigo"])
-          ) {
-          return $this->pinchoMapper->agregarPinchoUsuario(
-            $_POST["Codigo"],
-            $_POST["idUsuario"]
-            );
-      } else {
-                echo "<br><span style='red'>Error PinchoController::introducirCodigo(), sin código o idusuario</span> "; //borrar después
-                return false;
-              }
-            }else{
-            echo "<br><span style='red'>Error PinchoController::introducirCodigo(), sin sesion o no es jurado popular</span> "; //borrar después
-            return false;
-          }
+public function introducirCodigo()
+{
+  if(
+    isset($_SESSION["user"])
+    && isset($_SESSION["type"])
+    && $_SESSION['type'] == Usuario::JURADO_POPULAR
+    ) {
+    if (
+      isset($_POST["idUsuario"])
+      && isset($_POST["Codigo"])
+      ) {
+      return $this->pinchoMapper->agregarPinchoUsuario(
+        $_POST["Codigo"],
+        $_POST["idUsuario"]
+        );
+  } else {
+  echo "<br><span style='red'>Error PinchoController::introducirCodigo(), sin código o idusuario</span> "; //borrar después
+  return false;
+}
+}else{
+  echo "<br><span style='red'>Error PinchoController::introducirCodigo(), sin sesion o no es jurado popular</span> "; //borrar después
+  return false;
+}
 
-        }
+}
 
 
-      }
->>>>>>> origin/master
+}
+
