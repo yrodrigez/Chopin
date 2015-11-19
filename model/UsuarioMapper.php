@@ -127,7 +127,7 @@ class UsuarioMapper {
 		
         if($fillData != null) {
 			$usuario->setFotoUsuario($fillData["fotoperfil"]);
-			//$usuario->setPassword($fillData["password"]);
+			$usuario->setPassword($fillData["password"]);
 			$usuario->setTelefono($fillData["telefono"]);
 			$usuario->setTipo($fillData["tipo"]);
         }
