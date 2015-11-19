@@ -7,7 +7,7 @@
 		</div>
 		<div class="form-group">
 			<label for="descripcionPincho">Descripcion:</label>
-			<input type="text" class="form-control" name="descripcionPincho" required="true">
+			<textarea id ="descripcionPincho" name="descripcionPincho" rows ="10" required="true"></textarea>
 		</div>
 		<div class="form-group">
 			<label for="ingredientes">Ingredientes:</label>

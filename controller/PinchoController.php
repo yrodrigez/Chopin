@@ -55,6 +55,7 @@ class PinchoController extends BaseController {
         if(!$subirFoto) {
           echo "Hubo un error subiendo la imagen";
         }
+        $this->view->redirect("concurso", "view");
       } else {
         echo "Este establecimiento ya propuso un pincho";
       }
