@@ -37,7 +37,7 @@ class PinchoController extends BaseController {
 
     if ((isset($_SESSION["user"])) && ($_SESSION["type"] == 3)) {
       if(!$this->pinchoMapper->existePincho($_SESSION["user"])){
-        $direccionDestino= __DIR__."/../resources/imagenesPincho/".$_SESSION["user"];
+        $direccionDestino= __DIR__."/../img/pinchos/".$_SESSION["user"];
         $subirFoto = PinchoController::subirImagen($direccionDestino);
         $fotoPath = $direccionDestino."/".$_FILES["fotoPincho"]["name"];
         $ingredientes = explode(",", $_POST['ingredientesPincho']);
