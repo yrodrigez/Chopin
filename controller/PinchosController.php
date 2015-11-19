@@ -21,19 +21,19 @@ class PinchosController extends BaseController {
 
 
   private $pinchoMapper;
-  
+
   public function __construct() {
     parent::__construct();
-    
+
     $this->pinchoMapper = new PinchoMapper();
   }
-  
+
   /**
    * An establishment presents a Pincho, the pincho needs to be approved afterwards by the organizer
-   * 
-   * @return Void 
+   *
+   * @return Void
    */
- public function presentar(){
+  public function presentar(){
     if(isset($_POST['nombrePincho'])){
       if ((isset($_SESSION["user"])) && ($_SESSION["type"] == 3)) {
         if(!$this->pinchoMapper->existePincho($_SESSION["user"])){
@@ -42,15 +42,15 @@ class PinchosController extends BaseController {
           $fotoPath = $direccionDestino."/".$_FILES["fotoPincho"]["name"];
           $ingredientes = explode(",", $_POST['ingredientesPincho']);
           $pincho = new Pincho (
-            0,
-            $_POST['nombrePincho'],
-            $_POST['descripcionPincho'],
-            $ingredientes,
-            $_POST['precioPincho'],
-            $_SESSION["user"],
-            NO_APROBADO,
-            $fotoPath
-            );
+              0,
+              $_POST['nombrePincho'],
+              $_POST['descripcionPincho'],
+              $ingredientes,
+              $_POST['precioPincho'],
+              $_SESSION["user"],
+              NO_APROBADO,
+              $fotoPath
+          );
           $this->pinchoMapper->save($pincho);
           if(!$subirFoto) {
             echo "Hubo un error subiendo la imagen";
@@ -71,7 +71,7 @@ class PinchosController extends BaseController {
   /**
    * Checks if everything is okay in order to upload a picture
    * @param String $path The path to check
-   * @return True if the picture was uploaded successfully 
+   * @return True if the picture was uploaded successfully
    */
 
   public function subirImagen($path){
@@ -97,5 +97,51 @@ class PinchosController extends BaseController {
     }
   }
 
-}
+  public function votar(
 
+  ) {
+    if(
+        isset($_SESSION["user"])
+        && isset($_SESSION["type"])
+        && $_SESSION['type'] == Usuario::JURADO_POPULAR
+    ) {
+      if (
+          isset($_POST['idCodigoElegido'])
+          && isset($_POST['$idCodigoUtilizado1'])
+          && isset($_POST['$idCodigoUtilizado2'])
+      ) {
+        return $this->pinchoMapper->agregarVoto(
+            $_POST['idCodigoElegido'],
+            $_POST['$idCodigoUtilizado1'],
+            $_POST['$idCodigoUtilizado2'],
+            date("Y-m-d H:i:s", time())
+        );
+      }
+      echo "<br><span style='red'>Error PinchoController::introducirVotacion(), parámetros no validos</span> "; //borrar después
+      return false;
+    }
+    echo "<br><span style='red'>Error PinchoController::introducirVotacion(), sin sesión</span> "; //borrar después
+    return false;
+  }
+
+  public function listarPinchos(
+
+  ) {
+    return $this->pinchoMapper->getAllPinchos();
+  }
+
+
+  public function listarPinchosUsuario(
+
+  ){
+    if(
+        isset($_SESSION["user"])
+        && isset($_SESSION["type"])
+        && $_SESSION['type'] == Usuario::JURADO_POPULAR
+    ) {
+      return $this->pinchoMapper->listarPinchosUsuario($_SESSION['user']);
+    }
+    echo "<br><span style='color: red;'>Error PinchosController::listar(), usuario incorrecto</span>";
+  }
+
+}

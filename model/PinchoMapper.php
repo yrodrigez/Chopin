@@ -264,5 +264,48 @@ class pinchoMapper {
       return false;
     }
   }
+  /**
+   * @param $idUsuario
+   * @return array de todos los pinchos relacionados con el usuario
+   */
+  public function listarPinchosUsuario(
+      $idUsuario
+  ) {
+    $pinchos = array();
+    $stmt = $this->db->prepare("SELECT idpropuesta FROM codigo WHERE email= ?");
+    if($stmt->execute(array(
+        $idUsuario
+    ))){
+      if($stmt->rowCount() > 0){
+        $i = $stmt->rowCount();
+        while($i>0) {
+          array_push($pinchos, $this->getPincho($stmt->fetchColumn()));
+          $i--;
+        }
+      }
+    }
+    return $pinchos;
+  }
+
+  /**
+   * @return array de pinchos si existen y array vacío si no hay ningun pincho
+   */
+  public function getAllPinchos(
+
+  ){
+    $pinchos= array();
+    $stmt = $this->db->prepare("SELECT idpropuesta FROM propuesta");
+    if($stmt->execute(array())){
+      if($stmt->rowCount() > 0){
+        $i = $stmt->rowCount();
+        while($i>0) {
+          array_push($pinchos, $this->getPincho($stmt->fetchColumn()));
+          $i--;
+        }
+      }
+    }
+    return $pinchos;
+  }
+
+
 }
-?>
