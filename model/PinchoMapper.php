@@ -30,31 +30,41 @@ class pinchoMapper {
    * @return True if the pincho was successfully saved in the DB
    */      
   public function save(
-        $pincho
-  ) {
+    $pincho
+    ) {
     $stmt = $this->db->prepare(
       "INSERT INTO Propuesta(precio, idpropuesta, nombre, descripcion, email, aprobada, fotoPropuesta) 
       VALUES (?, ?, ?, ?, ?, ?, ?);"
-    );
+      );
     $stmt->execute(array($pincho->getPrecioPincho(), 
-                         $pincho->getIdPincho(), 
-                         $pincho->getNombrePincho(), 
-                         $pincho->getDescripcionPincho(), 
-                         $pincho->getEmailPincho(), 
-                         $pincho->getAprobadaPincho(), 
-                         $pincho->getFotoPincho()));
+     $pincho->getIdPincho(), 
+     $pincho->getNombrePincho(), 
+     $pincho->getDescripcionPincho(), 
+     $pincho->getEmailPincho(), 
+     $pincho->getAprobadaPincho(), 
+     $pincho->getFotoPincho()));
 
     $pinchoInsertado = $this->db->lastInsertId();
     foreach($pincho->getIngredientesPincho() as $ingrediente){
-      $stmt = $this->db->prepare(
+      $ingredienteDB = $this->comprobarCategoria($ingrediente);
+      if($ingredienteDB==NULL){
+        $stmt = $this->db->prepare(
          "INSERT INTO categoria(nombreCategoria) VALUES (?);"
-      );
-      $stmt->execute(array($ingrediente));
-      $stmt = $this->db->prepare(
-        "INSERT INTO Ingredientes(idpropuesta, nombreCategoria) VALUES (?, ?);"
-      );
-      $stmt->execute(array($pinchoInsertado,
+         );
+        $stmt->execute(array($ingrediente));
+        $stmt = $this->db->prepare(
+          "INSERT INTO Ingredientes(idpropuesta, nombreCategoria) VALUES (?, ?);"
+          );
+        $stmt->execute(array($pinchoInsertado,
           $ingrediente));
+      } else {
+        $stmt = $this->db->prepare(
+          "INSERT INTO Ingredientes(idpropuesta, nombreCategoria) VALUES (?, ?);"
+          );
+        $stmt->execute(array($pinchoInsertado,
+          $ingredienteDB));
+      }
+      
     }
     return true;
   }
@@ -67,31 +77,51 @@ class pinchoMapper {
    * @return Pincho The pincho with the id, NULL if its not found
    */
   public function getPincho(
-          $idPincho
-  ) {
+    $idPincho
+    ) {
     $stmt = $this->db->prepare("SELECT * FROM Propuesta WHERE idpropuesta=?");
     $stmt->execute(array($idPincho));
     if($stmt->rowCount()>0) {
       foreach (
         $stmt as $pincho
-      ) {
+        ) {
         $ingredientes = $this->getIngredientesPincho($idPincho);
-        return new Pincho(
-          $pincho["idpropuesta"],
-          $pincho["nombre"],
-          $pincho["descripcion"],
-          $ingredientes,
-          $pincho["precio"],
-          $pincho["email"],
-          $pincho["aprobada"],
-          $pincho["fotoPropuesta"]
+      return new Pincho(
+        $pincho["idpropuesta"],
+        $pincho["nombre"],
+        $pincho["descripcion"],
+        $ingredientes,
+        $pincho["precio"],
+        $pincho["email"],
+        $pincho["aprobada"],
+        $pincho["fotoPropuesta"]
         );
-      }
+    }
+  } else {
+    return NULL;
+  }
+}
+
+  /**
+   * Checks if there's an ingredient like the one specified
+   * 
+   * @param String $categoria The ingredient we want to check if its already in the DB
+   * @throws PDOException if a database error occurs
+   * @return String Returns the String if the category is already in the DB, else NULL
+   */
+  public function comprobarCategoria(
+    $categoria 
+    ) {
+    $stmt = $this->db->prepare("SELECT * FROM categoria WHERE nombreCategoria LIKE ?");
+    $stmt->execute(array("%".$categoria."%"));
+    if($stmt->rowCount()>0) {
+      return $stmt->fetchColumn();
+      //return true;
     } else {
-      return NULL;
+      //return false;
+      return null;
     }
   }
-
 
   /**
    * Gets the ingredients of the Pincho specified by the id
@@ -101,8 +131,8 @@ class pinchoMapper {
    * @return Array Array with the ingredients of the specified Pincho, else returns NULL
    */
   public function getIngredientesPincho(
-          $idPincho
-  ) {
+    $idPincho
+    ) {
     $ingredientes = array();
     $stmt = $this->db->prepare("SELECT nombreCategoria FROM ingredientes WHERE idpropuesta=?");
     $stmt->execute(array($idPincho));
@@ -122,8 +152,8 @@ class pinchoMapper {
    * @return True if the SQL query was successful
    */
   public function aceptarPincho(
-          $idPincho
-  ) {
+    $idPincho
+    ) {
     $stmt = $this->db->prepare("UPDATE Propuesta Set aprobada = ? WHERE idpropuesta = ?;");
     return $stmt->execute(array(APROBADO,$idPincho));
   }
@@ -139,11 +169,11 @@ class pinchoMapper {
    * @return True when all the updates were successful
    */
   public function agregarVoto(
-          $idCodigoElegido,
-          $idCodigoUtilizado1,
-          $idCodigoUtilizado2,
-          $fechaVotacion
-  ) {
+    $idCodigoElegido,
+    $idCodigoUtilizado1,
+    $idCodigoUtilizado2,
+    $fechaVotacion
+    ) {
     $stmt = $this->db->prepare("UPDATE codigo SET utilizado = ?, elegido = ?, fechaVotacion = ? WHERE idcodigo = ?;");
     $toReturn = $stmt->execute(array(UTILIZADO,ELEGIDO, $fechaVotacion, $idCodigoElegido));
     $stmt = $this->db->prepare("UPDATE codigo SET utilizado = ?, fechaVotacion = ? WHERE idcodigo = ? OR idcodigo = ?;");
@@ -159,9 +189,9 @@ class pinchoMapper {
    * @return True when all the updates were successful
    */
   public function agregarPinchoUsuario(
-          $idCodigo,
-          $emailUser
-  ) {
+    $idCodigo,
+    $emailUser
+    ) {
     $stmt = $this->db->prepare("UPDATE codigo SET email = ? WHERE idcodigo = ?;");
     return $stmt->execute(array($emailUser, $idCodigo));
   }
@@ -173,8 +203,8 @@ class pinchoMapper {
    * @return True if the pincho was successfully deleted
    */
   public function borrarPincho(
-          $idPincho
-  ) {
+    $idPincho
+    ) {
     $stmt = $this->db->prepare("DELETE FROM Propuesta WHERE idpropuesta= ?;");
     return $stmt->execute(array($idPincho));
   }
@@ -187,8 +217,8 @@ class pinchoMapper {
    * @return True If it exists a Pincho with the specified foreign key, else false
    */
   public function existePincho(
-          $email
-  ) {
+    $email
+    ) {
     $stmt = $this->db->prepare("SELECT * FROM Propuesta WHERE email=?");
     $stmt->execute(array($email));
     if($stmt->rowCount()>0) {
