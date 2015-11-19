@@ -62,7 +62,7 @@
 								<?php if($_SESSION["type"] == 0): ?>
 									<li><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>
 								<?php elseif($_SESSION["type"] == 3): ?>
-									<li><a href="index.php?controller=pincho&amp;action=">Propuesta</a></li>
+									<li><a href="index.php?controller=pincho&amp;action=presentar">Propuesta</a></li>
                                 <?php elseif($concurso->isStarted()): ?>
                                     <li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>
 								<?php endif; ?>

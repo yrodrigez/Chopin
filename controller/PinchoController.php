@@ -33,16 +33,16 @@ class PinchoController extends BaseController {
    * 
    * @return Void 
    */
-  public function presentar()
-  {
+ public function presentar(){
 
-    if ((isset($_SESSION["user"])) && ($_SESSION["type"] == 3)) {
-      if (!$this->pinchoMapper->existePincho($_SESSION["user"])) {
-        $direccionDestino = __DIR__ . "/../img/pinchos/" . $_SESSION["user"];
-        $subirFoto = PinchoController::subirImagen($direccionDestino);
-        $fotoPath = $direccionDestino . "/" . $_FILES["fotoPincho"]["name"];
-        $ingredientes = explode(",", $_POST['ingredientesPincho']);
-        $pincho = new Pincho (
+    if(isset($_POST['nombrePincho'])){
+      if ((isset($_SESSION["user"])) && ($_SESSION["type"] == 3)) {
+        if(!$this->pinchoMapper->existePincho($_SESSION["user"])){
+          $direccionDestino= __DIR__."/../img/pinchos/".$_SESSION["user"];
+          $subirFoto = PinchoController::subirImagen($direccionDestino);
+          $fotoPath = $direccionDestino."/".$_FILES["fotoPincho"]["name"];
+          $ingredientes = explode(",", $_POST['ingredientesPincho']);
+          $pincho = new Pincho (
             0,
             $_POST['nombrePincho'],
             $_POST['descripcionPincho'],
@@ -51,21 +51,21 @@ class PinchoController extends BaseController {
             $_SESSION["user"],
             NO_APROBADO,
             $fotoPath
-        );
-        $this->pinchoMapper->save($pincho);
-        if (!$subirFoto) {
-          echo "Hubo un error subiendo la imagen";
+            );
+          $this->pinchoMapper->save($pincho);
+          if(!$subirFoto) {
+            echo "Hubo un error subiendo la imagen";
+          }
+          $this->view->redirect("concurso", "view"); //redirigir a los datos introducidos una vista view de propuesta presentada
+        } else {
+          echo "Este establecimiento ya propuso un pincho";
         }
-        $this->view->redirect("concurso", "view"); //redirigir a los datos introducidos una vista view de propuesta presentada
+
       } else {
-        echo "Este establecimiento ya propuso un pincho";
+        echo "Debe estar logueado como establecimiento para poder presentar un pincho";
       }
-
-    } else {
-      echo "Debe estar logueado como establecimiento para poder presentar un pincho";
     }
-
-    $this->view->render("pinchos", "view");
+    $this->view->render("pinchos","view");
   }
 
 
