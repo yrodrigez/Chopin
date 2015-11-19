@@ -1,5 +1,7 @@
 <div id="formConfigurarConcurso">
-	<h3>Introduzca los datos del concurso</h3>
+	<div class="headerForm">
+		<span>Introduzca los datos del concurso</span>
+	</div>
 	<form class="form-horizontal" action="../../index.php?controller=concurso&action=add" method="POST">
 		<div class="form-group">
 			<label for="nombre">Nombre:</label>
@@ -17,6 +19,8 @@
 			<label for="fecha">Fecha:</label>
 			<input type="text" class="form-control" name="fecha" required="true" placeholder="Introduzca la fecha con formato AAAA-MM-DD">
 		</div>
-		<button type="submit" class="btn btn-default">Configurar</button>
+		<div id="divBtn" class="form-group">
+			<button type="submit" class="btn btn-default btnForm">Configurar</button>
+		</div>
 	</form>
 </div>

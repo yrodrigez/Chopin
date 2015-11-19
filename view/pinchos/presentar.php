@@ -1,5 +1,7 @@
 <div id="formPresentarPincho">
-	<h3>Introduzca los datos del pincho que desea presentar</h3>
+	<div class="headerForm">
+		<span>Introduzca los datos del pincho que desea presentar</span>
+	</div>
 	<form class="form-horizontal" action="../../index.php?controller=pincho&action=presentar" method="POST" enctype="multipart/form-data">
 		<div class="form-group">
 			<label for="nombrePincho">Nombre:</label>
@@ -21,6 +23,8 @@
 			<label for="fotoPincho">Foto:</label>
 			<input type="file" name="fotoPincho">
 		</div>
-		<button type="submit" class="btn btn-default">Presentar</button>
+		<div id="divBtn" class="form-group">
+			<button type="submit" class="btn btn-default btnForm">Presentar</button>
+		</div>
 	</form>
 </div>
