@@ -17,7 +17,7 @@ require_once(__DIR__."/../controller/BaseController.php");
  * @author Jose Miguel Meilan Maldonado
  */
 
-class PinchoController extends BaseController {
+class PinchosController extends BaseController {
 
 
   private $pinchoMapper;
