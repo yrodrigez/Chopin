@@ -5,6 +5,12 @@ require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../model/Usuario.php");
 require_once(__DIR__."/../model/UsuarioMapper.php");
 
+require_once(__DIR__."/../model/Concurso.php");
+require_once(__DIR__."/../model/ConcursoMapper.php");
+
+require_once(__DIR__."/../model/Establecimiento.php");
+require_once(__DIR__."/../model/EstablecimientoMapper.php");
+
 require_once(__DIR__."/../controller/BaseController.php");
 
 
@@ -14,8 +20,9 @@ class UsuariosController extends BaseController {
   
 	public function __construct() {    
 		parent::__construct();
-    
+
 		$this->userMapper = new UsuarioMapper();
+		$this->estabMapper = new EstablecimientoMapper();
 	}
 
 	public function login() {
@@ -34,45 +41,85 @@ class UsuariosController extends BaseController {
 			}
 		}       
     
-		$this->view->render("usuarios", "login");    
+		$this->view->render("usuarios", "login");
 	}
 
 
 	public function register() {
-    
-		$user = new Usuario();
+
+		$user=NULL;
     
 		if (isset($_POST["username"])){ 
-			$user->setEmail($_POST["username"]);
-			$user->setPassword($_POST["passwd"]);
-			$user->setTipo(1); // TODO: comprobar si debe ser establecimiento o jurado popular según la fecha de inicio
-			
-			try{
-				$user->isValidForRegister(); // if it fails, ValidationException
-	
-				if (!$this->userMapper->exists($user)) {
-					$this->userMapper->save($user);
-	  
-					// message to show in the next view
-					$this->view->setFlash("Usuario ".$user->getEmail()." añadido correctamente. Por favor, identifícate.");
-				  
-					$this->view->redirect("usuarios", "login");	  
-				} else {
-					$errors = array();
-					$errors["username"] = "Username already exists";
+
+
+			$concurso = (new ConcursoMapper())->getInfo();
+
+			if($concurso->isStarted()) {
+				$user = new Usuario($_POST["username"], $_POST["passwd"]);
+
+				try{
+					$user->isValidForRegister(); // if it fails, ValidationException
+
+					if (!$this->userMapper->exists($user)) {
+
+						if($_POST["tel"]) $user->setTelefono($_POST["tel"]);
+						if($_FILES['avatar']) {
+							$path = "img/usuarios/" . basename( $_FILES['avatar']['name']);
+							move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
+							$user->setFotoUsuario(basename($_FILES['avatar']['name']));
+						}
+
+						$user->setTipo(1);
+						$this->userMapper->save($user);
+
+						$this->view->setFlash("Usuario ".$user->getEmail()." añadido correctamente. Por favor, identifícate.");
+						$this->view->redirect("usuarios", "login");
+					} else {
+						$errors = array();
+						$errors["username"] = "Username already exists";
+						$this->view->setVariable("errors", $errors);
+					}
+				} catch(ValidationException $ex) {
+					$errors = $ex->getErrors();
 					$this->view->setVariable("errors", $errors);
 				}
-			} catch(ValidationException $ex) {
-				// Get the errors array inside the exepction...
-				$errors = $ex->getErrors();
-				// And put it to the view as "errors" variable
-				$this->view->setVariable("errors", $errors);
+			} else {
+				$user = new Establecimiento($_POST["username"], $_POST["passwd"]);
+
+				try{
+					$user->isValidForRegister(); // if it fails, ValidationException
+
+					if (!$this->userMapper->exists($user)) {
+
+						if($_POST["tel"]) $user->setTelefono($_POST["tel"]);
+						if($_FILES['avatar']) {
+							$path = "img/usuarios/" . basename( $_FILES['avatar']['name']);
+							move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
+							$user->setFotoUsuario(basename($_FILES['avatar']['name']));
+						}
+
+						if($_POST["dir"]) $user->setDireccion($_POST["dir"]);
+						if($_POST["cord"]) $user->setCoordenadas($_POST["cord"]);
+
+						$user->setTipo(3);
+						$this->estabMapper->registrarEstablecimiento($user);
+
+						$this->view->setFlash("Establecimiento ".$user->getEmail()." añadido correctamente. Por favor, identifícate.");
+						//$this->view->redirect("usuarios", "login");
+					} else {
+						$errors = array();
+						$errors["username"] = "Username already exists";
+						$this->view->setVariable("errors", $errors);
+					}
+				} catch(ValidationException $ex) {
+					$errors = $ex->getErrors();
+					$this->view->setVariable("errors", $errors);
+				}
 			}
+
 		}
-    
-		// Put the User object visible to the view
+
 		$this->view->setVariable("user", $user);
-		 
 		$this->view->render("usuarios", "register");
 	}
 	

@@ -33,7 +33,7 @@ class JuradoProfesionalController extends BaseController {
 			$exp = ($_POST["exp"])?$_POST["exp"]:NULL;
 
 			if($_FILES['avatar']) {
-				$path = "images/usuarios/" . basename( $_FILES['avatar']['name']);
+				$path = "img/usuarios/" . basename( $_FILES['avatar']['name']);
 				move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
 				$avatar = basename($_FILES['avatar']['name']);
 			} else {
@@ -64,7 +64,7 @@ class JuradoProfesionalController extends BaseController {
 			if($_POST["exp"]) $jp->setExperiencia($_POST["exp"]);
 
 			if($_FILES['avatar']) {
-				$path = "images/usuarios/" . basename( $_FILES['avatar']['name']);
+				$path = "img/usuarios/" . basename( $_FILES['avatar']['name']);
 				move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
 				$jp->setFotoUsuario(basename($_FILES['avatar']['name']));
 			}

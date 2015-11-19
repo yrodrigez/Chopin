@@ -13,13 +13,13 @@ class Establecimiento extends Usuario {
 
     public function __construct(
         $email,
-        $password,
-        $nombre,
-        $tipo,
-        $telefono,
-        $fotoUsuario,
-        $coordenadas,
-        $direccion
+        $password=NULL,
+        $nombre=NULL,
+        $tipo=NULL,
+        $telefono=NULL,
+        $fotoUsuario=NULL,
+        $coordenadas=NULL,
+        $direccion=NULL
     ) {
         parent::__construct(
             $email,
@@ -50,7 +50,7 @@ class Establecimiento extends Usuario {
 
     public function setDireccion($direccion)
     {
-        $this->dirección = $direccion;
+        $this->direccion = $direccion;
     }
 
 

@@ -13,7 +13,7 @@
 ?>
 
 <h1>Añadir jurado profesional</h1>
-<form role="form" action="index.php?controller=juradoprofesional&amp;action=edit" method="POST">
+<form role="form" action="index.php?controller=juradoprofesional&amp;action=edit" method="POST" enctype="multipart/form-data">
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" class="form-control" readonly name="email" id="email" placeholder="Introduce un email" value="<?= $miembro->getEmail() ?>">

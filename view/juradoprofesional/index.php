@@ -19,7 +19,7 @@
 	<div class="thumbnail">
 		<div class="row row-height">
 			<div class="col-xs-4 col-sm-3 col-height">
-				<img src="images/usuarios/<?= (($miembro->getFotoUsuario() != NULL)?$miembro->getFotoUsuario():"default.png") ?>" alt="Avatar" class="user-img img-circle">
+				<img src="img/usuarios/<?= (($miembro->getFotoUsuario() != NULL)?$miembro->getFotoUsuario():"default.png") ?>" alt="Avatar" class="user-img img-circle">
 			</div>
 			
 			<div class="col-xs-8 col-sm-6 col-height col-middle">

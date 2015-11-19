@@ -7,16 +7,22 @@
  $errors = $view->getVariable("errors");
 ?>
 
-<h1><?= "Iniciar sesi&oacute;n" ?></h1>
+<h2><?= "Iniciar sesi&oacute;n" ?></h2>
 <?= isset($errors["general"])?$errors["general"]:"" ?>
 
-<form action="index.php?controller=usuarios&amp;action=login" method="POST">
-Email: <input type="text" name="username">
-Contrase&ntilde;a: <input type="password" name="passwd">
-<input type="submit" value="<?= "Iniciar sesi&oacute;n" ?>">
+<form role="form" action="index.php?controller=usuarios&amp;action=login" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="username">Email:</label>
+        <input type="email" class="form-control" name="username" id="username" placeholder="Introduce un email">
+    </div>
+    <div class="form-group">
+        <label for="passwd">Password:</label>
+        <input type="password" class="form-control" name="passwd" id="passwd" placeholder="Introduce una nueva contrase&ntilde;a">
+    </div>
+    <button type="submit" class="btn btn-default">Acceder</button>
 </form>
 
-<p><?= "¿No est&aacute;s registrado? "?> <a href="index.php?controller=usuarios&amp;action=register"><?= "Reg&iacute;strate ahora" ?></a></p>
+<br><p><?= "¿No est&aacute;s registrado? "?> <a href="index.php?controller=usuarios&amp;action=register"><?= "Reg&iacute;strate ahora" ?></a></p>
 <?php $view->moveToFragment("css");?>
     <link rel="stylesheet" type="text/css" src="css/style2.css">
 <?php $view->moveToDefaultFragment(); ?>

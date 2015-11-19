@@ -5,7 +5,7 @@
 	require_once(__DIR__."/../../model/ConcursoMapper.php");
 	$view = ViewManager::getInstance();
 	$currentuser = $view->getVariable("currentusername"); 
-	$concurso = (new ConcursoMapper())->getInfo()
+	$concurso = (new ConcursoMapper())->getInfo();
 ?>
 
 <!DOCTYPE html>
@@ -36,13 +36,18 @@
 					<div id="sidebar">
 						<ul class="nav nav-pills nav-stacked" role="tablist">
 							<li class="nav-pill" class="active"><a href="index.php?controller=concurso&amp;action=view">Concurso</a></li>
-							<?php if($concurso->isStarted()): ?> 
+							<?php if($concurso->isStarted()): ?>
 								<li class="nav-pill"><a href="#">Pinchos</a></li>
+
 							<?php endif; ?> 
-							<?php if (!isset($currentuser)): ?> 
+							<?php if (!isset($currentuser)): ?>
+                                <?php if($concurso->isStarted()): ?>
+                                    <li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>
+                                <?php endif; ?>
+
 								<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=login">Identificarse</a></li>
 								
-								<?php if($concurso->isStarted()): ?> 
+								<?php if($concurso->isStarted()): ?>
 									<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=register">Registrarse</a></li>
 								<?php else: ?> 
 									<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=register">Registrar establecimiento</a></li>
@@ -52,6 +57,8 @@
 									<li><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>
 								<?php elseif($_SESSION["type"] == 3): ?>
 									<li><a href="index.php?controller=pincho&amp;action=">Propuesta</a></li>
+                                <?php elseif($concurso->isStarted()): ?>
+                                    <li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>
 								<?php endif; ?>
 							
 								<li><a href="index.php?controller=usuarios&amp;action=logout">Desconectar <?= $currentuser ?></a></li>
