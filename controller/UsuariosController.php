@@ -67,6 +67,8 @@ class UsuariosController extends BaseController {
 							$path = "img/usuarios/" . basename( $_FILES['avatar']['name']);
 							move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
 							$user->setFotoUsuario(basename($_FILES['avatar']['name']));
+						} else {
+							$user->setFotoUsuario("default.png");
 						}
 
 						$user->setTipo(1);
@@ -92,10 +94,12 @@ class UsuariosController extends BaseController {
 					if (!$this->userMapper->exists($user)) {
 
 						if($_POST["tel"]) $user->setTelefono($_POST["tel"]);
-						if($_FILES['avatar']) {
+						if($_FILES['avatar'] and $_FILES['avatar']['name']) {
 							$path = "img/usuarios/" . basename( $_FILES['avatar']['name']);
 							move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
 							$user->setFotoUsuario(basename($_FILES['avatar']['name']));
+						} else {
+							$user->setFotoUsuario("default.png");
 						}
 
 						if($_POST["dir"]) $user->setDireccion($_POST["dir"]);

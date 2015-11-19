@@ -32,12 +32,12 @@ class JuradoProfesionalController extends BaseController {
 			$tel = ($_POST["tel"])?$_POST["tel"]:NULL;
 			$exp = ($_POST["exp"])?$_POST["exp"]:NULL;
 
-			if($_FILES['avatar']) {
+			if($_FILES['avatar'] and $_FILES['avatar']['name']) {
 				$path = "img/usuarios/" . basename( $_FILES['avatar']['name']);
 				move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
 				$avatar = basename($_FILES['avatar']['name']);
 			} else {
-				$avatar=NULL;
+				$avatar="default.png";
 			}
 			
 			$jp = new JuradoProfesional($email, $pwd, "", $tel, $avatar, $exp);
@@ -60,10 +60,9 @@ class JuradoProfesionalController extends BaseController {
 
 			if($_POST["pwd"]) $jp->setPassword($_POST["pwd"]);
 			if($_POST["tel"]) $jp->setTelefono($_POST["tel"]);
-			if($_POST["avatar"]) $jp->setFotoUsuario($_POST["avatar"]);
 			if($_POST["exp"]) $jp->setExperiencia($_POST["exp"]);
 
-			if($_FILES['avatar']) {
+			if($_FILES['avatar'] and $_FILES['avatar']['name']) {
 				$path = "img/usuarios/" . basename( $_FILES['avatar']['name']);
 				move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
 				$jp->setFotoUsuario(basename($_FILES['avatar']['name']));

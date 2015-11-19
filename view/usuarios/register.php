@@ -26,8 +26,10 @@
     </div>
     <div class="form-group">
         <label for="avatar">Foto de perfil:</label>
-        <input type="file" class="file" name="avatar" id="avatar">
+        <input type="file" class="file file-loading" name="avatar" id="avatar" data-show-upload="false" data-allowed-file-extensions='["jpg", "png", "gif"]'>
     </div>
+
+
     <?php if(!$concurso->isStarted()): ?>
         <div class="form-group">
             <label for="dir">Direcci&oacute;n</label>
@@ -41,3 +43,4 @@
 
     <button type="submit" class="btn btn-default">Registrar</button>
 </form>
+
