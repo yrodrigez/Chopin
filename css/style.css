@@ -58,6 +58,29 @@ body {
 	padding-bottom:20px;
 }
 
+#formPresentarPincho, #formConfigurarConcurso{
+	padding: 10px;	
+}
+
+#descripcionPincho, #descripcionConcurso {
+	width: 100%;
+}
+
+#divBtn {
+	text-align: right;
+}
+
+.headerForm {
+	font-size: 30px;
+	color: #96281B;
+	text-align: center;
+}
+
+.btnForm {
+	width : 25%;
+	color: #96281B;
+}
+
 #footer {
 	background-color: #FFF;
 	border-radius: 6px;

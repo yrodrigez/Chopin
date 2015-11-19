@@ -12,8 +12,8 @@
  $view->setVariable("title", "Editar jurado profesional");
 ?>
 
-<h1>Añadir jurado profesional</h1>
-<form role="form" action="index.php?controller=juradoprofesional&amp;action=edit" method="POST">
+<h2>Añadir jurado profesional</h2>
+<form role="form" action="index.php?controller=juradoprofesional&amp;action=edit" method="POST" enctype="multipart/form-data">
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" class="form-control" readonly name="email" id="email" placeholder="Introduce un email" value="<?= $miembro->getEmail() ?>">
@@ -28,7 +28,7 @@
     </div>
 	<div class="form-group">
       <label for="avatar">Foto de perfil:</label>
-      <input type="file" class="file" name="avatar" id="avatar" value="<?= $miembro->getFotoUsuario() ?>">
+        <input type="file" class="file file-loading" name="avatar" id="avatar" data-show-upload="false" data-allowed-file-extensions='["jpg", "png", "bmp", "gif"]'>
     </div>
 	<div class="form-group">
       <label for="exp">Experiencia:</label>
@@ -36,5 +36,14 @@
     </div>
 
     <button type="submit" class="btn btn-default">Editar</button>
-	<a href="index.php?controller=juradoprofesional&amp;action=index"><button class="btn btn-default">Cancelar</button></a>
+
 </form>
+<a href="index.php?controller=juradoprofesional&amp;action=index"><button class="btn btn-default">Cancelar</button></a>
+
+<?php $view->moveToFragment("script"); ?>
+    <script>
+        $("#avatar").fileinput({
+            defaultPreviewContent: '<img src=img/usuarios/<?= ($miembro->getFotoUsuario())?$miembro->getFotoUsuario():"default.png" ?> alt="Avatar" style="width:160px">',
+        });
+    </script>
+<?php $view->moveToDefaultFragment(); ?>

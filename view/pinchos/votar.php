@@ -1,27 +1,18 @@
 
-/**
- * Created by PhpStorm.
- * User: yago
- * Date: 18/11/15
- * Time: 18:26
- */
+
 <div id= "votar">
     <form class="form-horizontal" action="../../index.php?controller=pincho&action=introducirVotacion" method="POST" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="nombrePincho">Nombre:</label>
+            <label for="nombrePincho">Pincho elegido:</label>
             <input type="text" class="form-control" name="idCodigoElegido" required="true">
         </div>
         <div class="form-group">
-            <label for="nombrePincho">Nombre:</label>
-            <input type="text" class="form-control" name="idCodigoElegido" required="true">
+            <label for="nombrePincho">Pincho pa quemar 1:</label>
+            <input type="text" class="form-control" name="idCodigoUtilizado1" required="true">
         </div>
         <div class="form-group">
-            <label for="nombrePincho">Nombre:</label>
-            <input type="text" class="form-control" name="idCodigoElegido" required="true">
-        </div>
-        <div class="form-group">
-            <label for="descripcionPincho">Descripcion:</label>
-            <input type="text" class="form-control" name="descripcionPincho" required="true">
+            <label for="nombrePincho">Pincho pa quemar 2:</label>
+            <input type="text" class="form-control" name="idCodigoUtilizado2" required="true">
         </div>
         <button type="submit" class="btn btn-default">Presentar</button>
     </form>

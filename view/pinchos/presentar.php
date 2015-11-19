@@ -1,5 +1,7 @@
 <div id="formPresentarPincho">
-	<h3>Introduzca los datos del pincho que desea presentar</h3>
+	<div class="headerForm">
+		<span>Introduzca los datos del pincho que desea presentar</span>
+	</div>
 	<form class="form-horizontal" action="../../index.php?controller=pincho&action=presentar" method="POST" enctype="multipart/form-data">
 		<div class="form-group">
 			<label for="nombrePincho">Nombre:</label>
@@ -7,7 +9,7 @@
 		</div>
 		<div class="form-group">
 			<label for="descripcionPincho">Descripcion:</label>
-			<input type="text" class="form-control" name="descripcionPincho" required="true">
+			<textarea id ="descripcionPincho" name="descripcionPincho" rows ="10" required="true"></textarea>
 		</div>
 		<div class="form-group">
 			<label for="ingredientes">Ingredientes:</label>
@@ -21,6 +23,8 @@
 			<label for="fotoPincho">Foto:</label>
 			<input type="file" name="fotoPincho">
 		</div>
-		<button type="submit" class="btn btn-default">Presentar</button>
+		<div id="divBtn" class="form-group">
+			<button type="submit" class="btn btn-default btnForm">Presentar</button>
+		</div>
 	</form>
 </div>

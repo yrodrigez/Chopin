@@ -9,8 +9,8 @@
  $view->setVariable("title", "Añadir jurado profesional");
 ?>
 
-<h1>Añadir jurado profesional</h1>
-<form role="form" action="index.php?controller=juradoprofesional&amp;action=add" method="POST">
+<h2>Añadir jurado profesional</h2>
+<form role="form" action="index.php?controller=juradoprofesional&amp;action=add" method="POST" enctype="multipart/form-data">
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" class="form-control" name="email" id="email" placeholder="Introduce un email">
@@ -25,7 +25,7 @@
     </div>
 	<div class="form-group">
       <label for="avatar">Foto de perfil:</label>
-      <input type="file" class="file" name="avatar" id="avatar">
+        <input type="file" class="file file-loading" name="avatar" id="avatar" data-show-upload="false" data-allowed-file-extensions='["jpg", "png", "bmp", "gif"]'>
     </div>
 	<div class="form-group">
       <label for="exp">Experiencia:</label>
@@ -34,3 +34,5 @@
 
     <button type="submit" class="btn btn-default">A&ntilde;adir</button>
 </form>
+
+<a href="index.php?controller=juradoprofesional&amp;action=index"><button class="btn btn-default">Volver</button></a>
