@@ -54,7 +54,8 @@ body {
 	background-color: #FFF;
 	border: 1px solid #96281B;
 	border-radius: 6px;
-	height: 300px;
+	min-height: 300px;
+	padding-bottom:20px;
 }
 
 #footer {
@@ -63,4 +64,38 @@ body {
 	border: 1px solid #96281B;
 	padding-top:8px;
 	margin-top: 20px;
+}
+
+/* ------------------------------- */
+
+.user-img {
+	width: 60px;
+	height: 60px;
+}
+
+/* ------------------------------- */
+
+.row-height {
+	display: table;
+	table-layout: fixed;
+	height: 100%;
+	width: 100%;
+}
+
+.col-height {
+	display: table-cell;
+	float: none;
+	height: 100%;
+}
+
+.col-top {
+	vertical-align: top;
+}
+
+.col-middle {
+	vertical-align: middle;
+}
+
+.col-bottom {
+	vertical-align: bottom;
 }

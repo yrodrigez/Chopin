@@ -58,5 +58,7 @@ class Concurso {
     $this->fecha = $fecha;
   }
 
-  
+  public function isStarted() {
+	  return strtotime($this->getFecha()) >= strtotime(date("Y-m-d",time()));
+  }
 }

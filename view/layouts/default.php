@@ -1,8 +1,11 @@
 <?php
 	//file: view/layouts/default.php
 	require_once(__DIR__."/../../core/ViewManager.php");
+	require_once(__DIR__."/../../model/Concurso.php");
+	require_once(__DIR__."/../../model/ConcursoMapper.php");
 	$view = ViewManager::getInstance();
 	$currentuser = $view->getVariable("currentusername"); 
+	$concurso = (new ConcursoMapper())->getInfo()
 ?>
 
 <!DOCTYPE html>
@@ -33,14 +36,27 @@
 					<div id="sidebar">
 						<ul class="nav nav-pills nav-stacked" role="tablist">
 							<li class="nav-pill" class="active"><a href="index.php?controller=concurso&amp;action=view">Concurso</a></li>
-							<li class="nav-pill"><a href="#">Pinchos</a></li>
+							<?php if($concurso->isStarted()): ?> 
+								<li class="nav-pill"><a href="#">Pinchos</a></li>
+							<?php endif; ?> 
 							<?php if (!isset($currentuser)): ?> 
 								<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=login">Identificarse</a></li>
-								<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=register">Registrarse</a></li>
+								
+								<?php if($concurso->isStarted()): ?> 
+									<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=register">Registrarse</a></li>
+								<?php else: ?> 
+									<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=register">Registrar establecimiento</a></li>
+								<?php endif; ?> 
 							<?php else: ?>
+								<?php if($_SESSION["type"] == 0): ?>
+									<li><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>
+								<?php elseif($_SESSION["type"] == 3): ?>
+									<li><a href="index.php?controller=pincho&amp;action=">Propuesta</a></li>
+								<?php endif; ?>
+							
 								<li><a href="index.php?controller=usuarios&amp;action=logout">Desconectar <?= $currentuser ?></a></li>
 							<?php endif ?>
-							<li class="nav-pill"><a href="#">Contacto</a></li>        
+							       
 						</ul>
 					</div>
 				</div>

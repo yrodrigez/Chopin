@@ -5,9 +5,10 @@
  * Date: 11/11/2015
  * Time: 14:15
  */
-include_once("JuradoProfesional.php");
-include_once("UsuarioMapper.php");
-class JuradoProfesionalMaper
+require_once("JuradoProfesional.php");
+require_once("UsuarioMapper.php");
+
+class JuradoProfesionalMapper
 {
     private $db;
 
@@ -44,7 +45,7 @@ class JuradoProfesionalMaper
         $juradoProfesional
     ) {
         $up= new UsuarioMapper();
-        if($up->registrarUsuario($juradoProfesional) == false){
+        if($up->save($juradoProfesional) == false){
             return false;
         }
         $stmt= $this->db->prepare(
@@ -80,7 +81,7 @@ class JuradoProfesionalMaper
         ));
 
         $up= new UsuarioMapper();
-        return $up->modificarUsuario(
+        return $up->edit(
             $email,
             $juradoProfesional
         );
@@ -103,8 +104,31 @@ class JuradoProfesionalMaper
                 return false;
         }
         $up= new UsuarioMapper();
-        return $up->borrarUsuario($juradoProfesional);
+        return $up->remove($juradoProfesional);
     }
 
+	public function findAll() {   
+		$stmt = $this->db->query("SELECT * FROM juradoprofesional, usuario WHERE juradoprofesional.email=usuario.email");    
+		$jp_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	   
+		$jurado = array();
+		
+		foreach ($jp_db as $jp) {
+			array_push($jurado, new JuradoProfesional($jp["email"], $jp["password"], "", $jp["telefono"], $jp["fotoperfil"]));
+		}   
 
+		return $jurado;
+    }
+  
+    public function fill($jurado) {
+		(new UsuarioMapper())->fill($jurado);
+		$stmt = $this->db->prepare(
+			"SELECT * FROM juradoprofesional WHERE email= ?"
+		);
+		$stmt->execute(array($jurado->getEmail()));
+		$fillData = $stmt->fetch(PDO::FETCH_ASSOC);
+		if($fillData != null) {
+			$jurado->setExperiencia($fillData["experiencia"]);
+		}
+	}
 }

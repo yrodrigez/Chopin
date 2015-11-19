@@ -46,14 +46,14 @@ $establecimientoMapper= new EstablecimientoMapper();
 echo"<br>Creados Mapper";
 
 //BORRADO
-if($usuarioMapper->borrarUsuario($organizador)){
+if($usuarioMapper->remove($organizador)){
 	echo "<br><span style='color: green'>Usuario ".$organizador->getNombre()." borrado</span><br>";
 }else{
 	echo "<br><span style='color: red'>Usuario ".$organizador->getNombre()." no encontrado</span><br>";
 }
 
 foreach($populares as $popular){
-	if($usuarioMapper->borrarUsuario($popular)){
+	if($usuarioMapper->remove($popular)){
 		echo "<br><span style='color: green'>Usuario ".$popular->getNombre()." borrado</span><br>";
 	}else{
 		echo "<br><span style='color: red'>Usuario ".$popular->getNombre()." no encontrado</span><br>";
@@ -78,14 +78,14 @@ foreach($profesionales as $profesional)
 }
 
 //INSERTADO
-if($usuarioMapper->registrarUsuario($organizador)){
+if($usuarioMapper->save($organizador)){
 	echo "<br><span style='color: green'>Organizador insertado</span><br>";
 }else{
 	echo "<br><span style='color: red'>Organizador no encontrado</span><br>";
 }
 
 foreach($populares as $popular){
-	if($usuarioMapper->registrarUsuario($popular)){
+	if($usuarioMapper->save($popular)){
 		echo "<br><span style='color: green'>Usuario ".$popular->getNombre()." insertado</span><br>";
 	}else{
 		echo "<br><span style='color: red'>Usuario ".$popular->getNombre()." No insertado</span><br>";
@@ -106,14 +106,14 @@ foreach($establcimientos as $establcimiento){
 	}
 }
 //Re-BORRADO
-if($usuarioMapper->borrarUsuario($organizador)){
+if($usuarioMapper->remove($organizador)){
 	echo "<br><span style='color: green'>Usuario ".$organizador->getNombre()." borrado</span><br>";
 }else{
 	echo "<br><span style='color: red'>Usuario ".$organizador->getNombre()." no encontrado</span><br>";
 }
 
 foreach($populares as $popular){
-	if($usuarioMapper->borrarUsuario($popular)){
+	if($usuarioMapper->remove($popular)){
 		echo "<br><span style='color: green'>Usuario ".$popular->getNombre()." borrado</span><br>";
 	}else{
 		echo "<br><span style='color: red'>Usuario ".$popular->getNombre()." no encontrado</span><br>";
@@ -138,10 +138,10 @@ foreach($profesionales as $profesional)
 }
 
 //REINSERTADO
-$usuarioMapper->registrarUsuario($organizador);
+$usuarioMapper->save($organizador);
 
 foreach($populares as $popular){
-	if($usuarioMapper->registrarUsuario($popular)){
+	if($usuarioMapper->save($popular)){
 		echo "<br><span style='color: green'>Usuario ".$popular->getNombre()." insertado</span><br>";
 	}else{
 		echo "<br><span style='color: red'>Usuario ".$popular->getNombre()." No insertado</span><br>";
