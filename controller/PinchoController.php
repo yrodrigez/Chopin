@@ -33,15 +33,16 @@ class PinchoController extends BaseController {
    * 
    * @return Void 
    */
-  public function presentar(){
+  public function presentar()
+  {
 
-      if ((isset($_SESSION["user"])) && ($_SESSION["type"] == 3)) {
-        if(!$this->pinchoMapper->existePincho($_SESSION["user"])){
-          $direccionDestino= __DIR__."/../img/pinchos/".$_SESSION["user"];
-          $subirFoto = PinchoController::subirImagen($direccionDestino);
-          $fotoPath = $direccionDestino."/".$_FILES["fotoPincho"]["name"];
-          $ingredientes = explode(",", $_POST['ingredientesPincho']);
-          $pincho = new Pincho (
+    if ((isset($_SESSION["user"])) && ($_SESSION["type"] == 3)) {
+      if (!$this->pinchoMapper->existePincho($_SESSION["user"])) {
+        $direccionDestino = __DIR__ . "/../img/pinchos/" . $_SESSION["user"];
+        $subirFoto = PinchoController::subirImagen($direccionDestino);
+        $fotoPath = $direccionDestino . "/" . $_FILES["fotoPincho"]["name"];
+        $ingredientes = explode(",", $_POST['ingredientesPincho']);
+        $pincho = new Pincho (
             0,
             $_POST['nombrePincho'],
             $_POST['descripcionPincho'],
@@ -50,22 +51,23 @@ class PinchoController extends BaseController {
             $_SESSION["user"],
             NO_APROBADO,
             $fotoPath
-            );
-          $this->pinchoMapper->save($pincho);
-          if(!$subirFoto) {
-            echo "Hubo un error subiendo la imagen";
-          }
-          $this->view->redirect("concurso", "view"); //redirigir a los datos introducidos una vista view de propuesta presentada
-        } else {
-          echo "Este establecimiento ya propuso un pincho";
+        );
+        $this->pinchoMapper->save($pincho);
+        if (!$subirFoto) {
+          echo "Hubo un error subiendo la imagen";
         }
-
+        $this->view->redirect("concurso", "view"); //redirigir a los datos introducidos una vista view de propuesta presentada
       } else {
-        echo "Debe estar logueado como establecimiento para poder presentar un pincho";
+        echo "Este establecimiento ya propuso un pincho";
       }
+
+    } else {
+      echo "Debe estar logueado como establecimiento para poder presentar un pincho";
     }
-    $this->view->render("pinchos","view");
+
+    $this->view->render("pinchos", "view");
   }
+
 
   /**
    * Checks if everything is okay in order to upload a picture
@@ -94,72 +96,69 @@ class PinchoController extends BaseController {
       $this->pinchoMapper->aceptarPincho($_GET['id']);
       //$this->view->render('pinchos','index'); cuando exista tendrá que ir a pinchosIndex o como se llame
     }
-
   }
-
-  public function view(){
-    $datos = $this->pinchoMapper->getPincho($_GET['id']);
-    $this->view->setVariable('pincho',$datos);
-    $this->view->render('pinchos','view');
-  }
-
-    /**
-     * @return bool|True
-     */
-    public function introducirVotacion()
-    {
-      if(
-        isset($_SESSION["user"])
-        && isset($_SESSION["type"])
-        && $_SESSION['type'] == Usuario::JURADO_POPULAR
-        ) {
-        if (
-          isset($_POST['idCodigoElegido'])
-          && isset($_POST['$idCodigoUtilizado1'])
-          && isset($_POST['$idCodigoUtilizado2'])
-          ) {
-          return $this->pinchoMapper->agregarVoto(
-            $_POST['idCodigoElegido'],
-            $_POST['$idCodigoUtilizado1'],
-            $_POST['$idCodigoUtilizado2'],
-            date("Y-m-d H:i:s", time())
-            );
-      }
-echo "<br><span style='red'>Error PinchoController::introducirVotacion(), parámetros no validos</span> "; //borrar después
-return false;
-}
-echo "<br><span style='red'>Error PinchoController::introducirVotacion(), sin sesión</span> "; //borrar después
-return false;
-}
 
 /**
-     * @return bool|True
-     */
-public function introducirCodigo()
-{
-  if(
-    isset($_SESSION["user"])
-    && isset($_SESSION["type"])
-    && $_SESSION['type'] == Usuario::JURADO_POPULAR
-    ) {
-    if (
-      isset($_POST["idUsuario"])
-      && isset($_POST["Codigo"])
-      ) {
-      return $this->pinchoMapper->agregarPinchoUsuario(
-        $_POST["Codigo"],
-        $_POST["idUsuario"]
-        );
-  } else {
-  echo "<br><span style='red'>Error PinchoController::introducirCodigo(), sin código o idusuario</span> "; //borrar después
-  return false;
-}
-}else{
-  echo "<br><span style='red'>Error PinchoController::introducirCodigo(), sin sesion o no es jurado popular</span> "; //borrar después
-  return false;
-}
+ * Changes the flags of used and chosen of three codes
+ *
+ * @param Int $idCodigoElegido The id of the code the user wants to vote
+ * @param Int $idCodigoUtilizado1 The id of the pincho we want to mark as used
+ * @param Int $idCodigoUtilizado2 The id of the second pincho we want to mark as used
+ * @param string $fechaVotacion The date when the voting ocurred
+ * @throws PDOException if a database error occurs
+ * @return True when all the updates were successful
+ */
+  public function agregarVoto(
+    $idCodigoElegido,
+    $idCodigoUtilizado1,
+    $idCodigoUtilizado2,
+    $fechaVotacion
+  ) {
 
-}
+    if($this->sonCodigosDistintos(
+      $idCodigoElegido,
+      $idCodigoUtilizado1,
+      $idCodigoUtilizado2
+    )) {
+      $stmt = $this->db->prepare("UPDATE codigo SET utilizado = ?, elegido = ?, fechaVotacion = ? WHERE idcodigo = ?;");
+      $toReturn = $stmt->execute(array(UTILIZADO, ELEGIDO, $fechaVotacion, $idCodigoElegido));
+      $stmt = $this->db->prepare("UPDATE codigo SET utilizado = ?, fechaVotacion = ? WHERE idcodigo = ? OR idcodigo = ?;");
+      return $toReturn && $stmt->execute(array(UTILIZADO, $fechaVotacion, $idCodigoUtilizado1, $idCodigoUtilizado2));
+    } else {
+      return false;
+    }
+    return false;
+  }
+
+  private function sonCodigosDistintos(
+    $idCodigoElegido,
+    $idCodigoUtilizado1,
+    $idCodigoUtilizado2
+  ) {
+    $propuestas= array();
+    $stmt = $this->db->prepare("SELECT idpropuesta FROM codigo WHERE idcodigo= ? OR idcodigo= ? OR idcodigo= ?");
+    $stmt->execute(array(
+      $idCodigoElegido,
+      $idCodigoUtilizado1,
+      $idCodigoUtilizado2
+    ));
+    $i = $stmt->rowCount();
+    while($i>0) {
+      array_push($propuestas, $stmt->fetchColumn());
+      $i--;
+    }
+
+    if(count($propuestas != 3)) return false;
+    $id1= $propuestas[0];
+    $id2= $propuestas[1];
+    $id3= $propuestas[2];
+    if($id1!=$id2 && $id1!=$id3 && $id2!=$id3){
+      return true;
+    }
+    return false;
+  }
+
+
 
 
 }
