@@ -33,13 +33,13 @@ class PinchosController extends BaseController {
    *
    * @return Void
    */
-  public function presentar(){
+ public function presentar(){
     if(isset($_POST['nombrePincho'])){
       if ((isset($_SESSION["user"])) && ($_SESSION["type"] == 3)) {
         if(!$this->pinchoMapper->existePincho($_SESSION["user"])){
           $direccionDestino= __DIR__."/../img/pinchos/".$_SESSION["user"];
           $subirFoto = PinchoController::subirImagen($direccionDestino);
-          $fotoPath = $direccionDestino."/".$_FILES["fotoPincho"]["name"];
+          $fotoPath = "/img/pinchos/".$_SESSION["user"]."/".$_FILES["fotoPincho"]["name"];
           $ingredientes = explode(",", $_POST['ingredientesPincho']);
           $pincho = new Pincho (
               0,
@@ -55,7 +55,7 @@ class PinchosController extends BaseController {
           if(!$subirFoto) {
             echo "Hubo un error subiendo la imagen";
           }
-          $this->view->redirect("concurso", "view"); //redirigir a los datos introducidos una vista view de propuesta presentada
+          $this->view->redirect("pinchos", "view"); //redirigir a los datos introducidos una vista view de propuesta presentada
         } else {
           echo "Este establecimiento ya propuso un pincho";
         }
@@ -64,7 +64,7 @@ class PinchosController extends BaseController {
         echo "Debe estar logueado como establecimiento para poder presentar un pincho";
       }
     }
-    $this->view->render("pinchos","view");
+    $this->view->render("pinchos","presentar");
   }
 
 
@@ -124,11 +124,14 @@ class PinchosController extends BaseController {
     return false;
   }
 
-  public function listarPinchos(
+  public function listar(
 
   ) {
-    return $this->pinchoMapper->getAllPinchos();
+    $pinchos = $this->pinchoMapper->getAllPinchos();
+    $this->view->setVariable("pinchos", $pinchos);
+    $this->view->render("pinchos","listar");
   }
+
 
 
   public function listarPinchosUsuario(

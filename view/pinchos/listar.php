@@ -5,8 +5,6 @@ $view = ViewManager::getInstance();
 
 $pinchos = $view->getVariable("pinchos");
 //$errors = $view->getVariable("errors");
-
-$view->setVariable("title", "View Post"); 
 ?>
 
 
@@ -14,14 +12,16 @@ $view->setVariable("title", "View Post");
 	<div class="headerForm">
 		<span>Pinchos participantes</span>
 	</div>
-	<div class="row">
-		<?php foreach($pinchos as $pincho){ ?>
-		<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 ">
-			<img alt="Foto usuario" class="img-responsive img-circle sizePhotoAnswer" src=<?php $pincho->getFotoPincho();?>/>
+	<?php foreach ($pinchos as $pincho): ?>
+		<div class="thumbnail">
+			<div class="row row-height">
+				<div class="col-xs-4 col-sm-3 col-height">
+					<img src=<?= $pincho->getFotoPincho();?> alt="Foto Pincho" class="user-img img-circle">
+				</div>
+				<div class="col-xs-8 col-sm-6 col-height col-middle">
+					<div class="thumb-username">Nombre: <?=$pincho->getNombrePincho()?>, Precio: <?=$pincho->getPrecioPincho()?></div>
+				</div>
+			</div>
 		</div>
-		<div class="col-lg-10 col-md-10 col-sm-9 col-xs-8 ">
-			<span><a href="#">Nombre: <?= $pincho->getNombrePincho();?></a>,</span> 
-			<span>Precio: <?= $pincho->getPrecioPincho();?></span>
-		</div>
-	</div>
+	<?php endforeach; ?>
 </div>
