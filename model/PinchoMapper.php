@@ -1,8 +1,8 @@
 <?php
 // file: model/pinchoMapper.php
-require_once("/../core/PDOConnection.php");
-require_once("/../model/Pincho.php");
-require_once("/../model/ConstantesPincho.php");
+require_once(__DIR__."/../core/PDOConnection.php");
+require_once(__DIR__."/../model/Pincho.php");
+require_once(__DIR__."/../model/ConstantesPincho.php");
 /**
  * Class pinchoMapper
  *
@@ -79,7 +79,7 @@ class pinchoMapper {
   public function getPincho(
     $idPincho
     ) {
-    $stmt = $this->db->prepare("SELECT * FROM Propuesta WHERE idpropuesta=?");
+    $stmt = $this->db->prepare("SELECT * FROM propuesta WHERE idpropuesta=?");
     $stmt->execute(array($idPincho));
     if($stmt->rowCount()>0) {
       foreach (
@@ -208,7 +208,7 @@ class pinchoMapper {
       $i--;
     }
 
-    if(count($propuestas != 3)) return false;
+    if(count($propuestas) != 3) return false;
     $id1= $propuestas[0];
     $id2= $propuestas[1];
     $id3= $propuestas[2];

@@ -34,7 +34,7 @@ class PinchosController extends BaseController {
    * @return Void
    */
   public function presentar(){
-    if(isset($_SESSION["user"]) && ($_SESSION["type"] == 3)){
+    if(isset($_SESSION["user"]) && ($_SESSION["type"] == Usuario::ESTABLECIMIENTO)){
       if (!$this->pinchoMapper->existePincho($_SESSION["user"])) {
         if(isset($_POST['nombrePincho'])){
           $subirFoto = PinchosController::subirImagen();
