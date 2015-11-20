@@ -5,7 +5,7 @@
     require_once(__DIR__."/../../model/Usuario.php");
 	require_once(__DIR__."/../../model/ConcursoMapper.php");
 	$view = ViewManager::getInstance();
-	//$currentuser = $view->getVariable("currentusername");
+	$currentuser = $view->getVariable("currentusername");
 	$concurso = (new ConcursoMapper())->getInfo();
 ?>
 
@@ -59,10 +59,9 @@
 				<div class="col-xs-3">
 					<div id="sidebar">
 						<ul class="nav nav-pills nav-stacked" role="tablist">
-							<li class="nav-pill active"><a href="index.php?controller=concurso&amp;action=view">Concurso</a></li>
+							<li class="nav-pill"><a href="index.php?controller=concurso&amp;action=view">Concurso</a></li>
 							<?php if($concurso->isStarted()): ?>
 								<li class="nav-pill"><a href="#">Pinchos</a></li>
-
 							<?php endif; ?> 
 							<?php if (!isset($currentuser)): ?>
                                 <?php if($concurso->isStarted()): ?>
@@ -78,7 +77,7 @@
 								<?php endif; ?> 
 							<?php else: ?>
 								<?php if($_SESSION["type"]==Usuario::ORGANIZADOR): ?>
-						            <a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>
+						            <li><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>
                                 <?php endif; ?>
 
                                 <?php if($_SESSION["type"]==Usuario::JURADO_POPULAR): ?>
@@ -86,7 +85,9 @@
                                 <?php endif; ?>
 
                                 <?php if($_SESSION["type"]==Usuario::ESTABLECIMIENTO): ?>
-						            <li><a href="index.php?controller=pinchos&amp;action=presentar">Propuesta</a></li>
+                                    <?php if(!$concurso->isStarted()): ?>
+						                <li><a href="index.php?controller=pinchos&amp;action=presentar">Propuesta</a></li>
+						            <?php endif; ?>
                                 <?php endif; ?>
 
                                 <?php if($concurso->isStarted()): ?>
