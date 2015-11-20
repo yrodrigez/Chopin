@@ -102,6 +102,16 @@ class pinchoMapper {
   }
 }
 
+  public function getCodigoPincho(
+    $idPincho
+  ){
+    $stmt = $this->db->prepare("SELECT idcodigo FROM codigo WHERE idpropuesta= ?");
+    if($stmt->execute(array($idPincho))){
+      return $stmt->fetchColumn();
+    }
+    return null;
+  }
+
   /**
    * Checks if there's an ingredient like the one specified
    * 

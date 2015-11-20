@@ -1,5 +1,5 @@
 <?php
-//file: view/posts/view.php
+//file: view/pinchos/mispinchos.php
 require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $pinchos = $view->getVariable("pinchos");
@@ -9,6 +9,9 @@ $pinchos = $view->getVariable("pinchos");
 <div>
     <div class="headerForm">
         <span>Pinchos participantes</span>
+    </div>
+    <div class="botonVotar" style="text-align: left;">
+        <input type="button" name="votar" value="Votar" onclick="location.href='index.php?controller=pinchos&amp;action=listarPinchosUsuario'" style="margin-bottom: 10px;">
     </div>
     <?php foreach ($pinchos as $pincho): ?>
         <div class="thumbnail">

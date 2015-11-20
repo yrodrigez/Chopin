@@ -21,7 +21,6 @@
 			<div class="col-xs-4 col-sm-3 col-height">
 				<img src="img/usuarios/<?= (($miembro->getFotoUsuario() != NULL)?$miembro->getFotoUsuario():"default.png") ?>" alt="Avatar" class="user-img img-circle">
 			</div>
-			
 			<div class="col-xs-8 col-sm-6 col-height col-middle">
 				<div class="thumb-username"><?=$miembro->getEmail()?></div>
 			</div>
