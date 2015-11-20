@@ -41,9 +41,7 @@
 <a href="index.php?controller=juradoprofesional&amp;action=index"><button class="btn btn-default">Cancelar</button></a>
 
 <?php $view->moveToFragment("script"); ?>
-    <script>
-        $("#avatar").fileinput({
-            defaultPreviewContent: '<img src=img/usuarios/<?= ($miembro->getFotoUsuario())?$miembro->getFotoUsuario():"default.png" ?> alt="Avatar" style="width:160px">',
-        });
-    </script>
+    $("#avatar").fileinput({
+        defaultPreviewContent: '<img src=img/usuarios/<?= ($miembro->getFotoUsuario())?$miembro->getFotoUsuario():"default.png" ?> alt="Avatar" style="width:160px">',
+    });
 <?php $view->moveToDefaultFragment(); ?>

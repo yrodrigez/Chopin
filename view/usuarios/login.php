@@ -4,11 +4,9 @@
  require_once(__DIR__."/../../core/ViewManager.php");
  $view = ViewManager::getInstance();
  $view->setVariable("title", "Login");
- $errors = $view->getVariable("errors");
 ?>
 
 <h2><?= "Iniciar sesi&oacute;n" ?></h2>
-<?= isset($errors["general"])?$errors["general"]:"" ?>
 
 <form role="form" action="index.php?controller=usuarios&amp;action=login" method="POST" enctype="multipart/form-data">
     <div class="form-group">

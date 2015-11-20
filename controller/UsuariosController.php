@@ -34,10 +34,11 @@ class UsuariosController extends BaseController {
 				$this->userMapper->fill($user);
 				$_SESSION["type"]=$user->getTipo();
 				$this->view->redirect("concurso", "view");
-			}else{
+			} else {
 				$errors = array();
-				$errors["general"] = "Username is not valid";
-				$this->view->setVariable("errors", $errors);
+				array_push($errors, "Username is not validasdfasdfsaf ");
+				array_push($errors, "Another msg");
+				$this->view->setVariable("msgErrors", $errors);
 			}
 		}       
     

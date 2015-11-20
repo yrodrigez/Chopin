@@ -31,6 +31,23 @@
 
 	<body>
 
+        <div id="msg-container">
+            <?php
+            $errors = $view->getVariable('msgErrors');
+            $success = $view->getVariable('msgSuccess');
+            if($errors):
+                foreach($errors as $m):
+                    echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&nbsp;×</button>' . $m . '</div>';
+                endforeach;
+            elseif ($success):
+                foreach($success as $m):
+                    echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&nbsp;×</button>' . $m . '</div>';
+                endforeach;
+            endif;
+            ?>
+        </div>
+
+
 		<div class="row" id="banner">
 			<div id="title">Chopin</div>
 		</div>
@@ -41,7 +58,7 @@
 				<div class="col-xs-3">
 					<div id="sidebar">
 						<ul class="nav nav-pills nav-stacked" role="tablist">
-							<li class="nav-pill" class="active"><a href="index.php?controller=concurso&amp;action=view">Concurso</a></li>
+							<li class="nav-pill active"><a href="index.php?controller=concurso&amp;action=view">Concurso</a></li>
 							<?php if($concurso->isStarted()): ?>
 								<li class="nav-pill"><a href="#">Pinchos</a></li>
 
@@ -59,11 +76,16 @@
 									<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=register">Registrar establecimiento</a></li>
 								<?php endif; ?> 
 							<?php else: ?>
-								<?php if($_SESSION["type"] == 0): ?>
-									<li><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>
-								<?php elseif($_SESSION["type"] == 3): ?>
-									<li><a href="index.php?controller=pincho&amp;action=presentar">Propuesta</a></li>
-                                <?php elseif($concurso->isStarted()): ?>
+								<?php switch($_SESSION["type"]): ?>
+                                    <?php case Usuario::ORGANIZADOR: ?>
+									    <li><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>
+                                    <?php case Usuario::JURADO_POPULAR: ?>
+                                        <li><a href="index.php?controller=pinchos&amp;action=listarpinchosusuarios">Mis pinchos</a></li>
+                                    <?php case Usuario::ESTABLECIMIENTO: ?>
+									    <li><a href="index.php?controller=pinchos&amp;action=presentar">Propuesta</a></li>
+                                <?php endswitch; ?>
+
+                                <?php if($concurso->isStarted()): ?>
                                     <li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>
 								<?php endif; ?>
 							
@@ -85,7 +107,13 @@
 					<p class="text-muted">Chopin: <a href="#" data-toggle="tooltip" data-placement="top" title="Hooray!">ABP Project.</a></p>
 				</div>
 			</div>
+
+
 		</div>
 	</body>
-    <?= $view->getFragment("script") ?>
+
+
+    <script>
+        <?= $view->getFragment("script") ?>
+    </script>
 </html>

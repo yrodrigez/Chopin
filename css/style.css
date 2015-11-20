@@ -1,16 +1,17 @@
 
 @font-face {
-    font-family: Alex Brush;
-    src: url(Alex Brush.ttf);
+    font-family: Allura;
+    src: url('Allura-Regular.ttf');
 }
 
 body {
-	background-color: #F5F5F5;
+
 	font-family: Lato;
+	color: #96281B;
 }
 
 #banner {
-	background-color: #FFF;
+
 	border-bottom: 1px solid #96281B;
 	height: 90px;
 	padding-top: 10px;
@@ -19,8 +20,8 @@ body {
 }
 
 #title {
-	font-family: Alex Brush;
-	font-size: 60px;
+	font-family: Allura;
+	font-size: 70px;
 	color: #96281B;
 	text-align: center;
 }
@@ -87,6 +88,12 @@ body {
 	border: 1px solid #96281B;
 	padding-top:8px;
 	margin-top: 20px;
+}
+
+#msg-container {
+    margin-top:5px;
+    position: absolute;
+    top: 0px;
 }
 
 /* ------------------------------- */
