@@ -78,7 +78,7 @@ class PinchosController extends BaseController {
 
   public function subirImagen(){
     if (file_exists("/img/pinchos/".$_FILES["fotoPincho"]["name"])) {
-      unlink($path.$_FILES["fotoPincho"]["name"]);
+      unlink("/img/pinchos/".$_FILES["fotoPincho"]["name"]);
     }
     if ($_FILES["fotoPincho"]["size"] > 5242880) {
       return false;
@@ -135,13 +135,16 @@ class PinchosController extends BaseController {
 
   public function listarPinchosUsuario(){
     if(
-      isset($_SESSION["user"])
-      && isset($_SESSION["type"])
-      && $_SESSION['type'] == Usuario::JURADO_POPULAR
-      ) {
-      return $this->pinchoMapper->listarPinchosUsuario($_SESSION['user']);
-      }
-  echo "<br><span style='color: red;'>Error PinchosController::listar(), usuario incorrecto</span>";
+        isset($_SESSION["user"])
+        && isset($_SESSION["type"])
+        && $_SESSION['type'] == Usuario::JURADO_POPULAR
+    ) {
+      $this->view->setVariable(
+          "pinchos",
+          $this->pinchoMapper->listarPinchosUsuario($_SESSION['user'])
+      );
+      $this->view->render("pinchos", "mispinchos");
+    }
   }
 
  public function view(){
