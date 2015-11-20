@@ -11,7 +11,13 @@ $pinchos = $view->getVariable("pinchos");
         <span>Pinchos participantes</span>
     </div>
     <div class="botonVotar" style="text-align: left;">
-        <input type="button" name="votar" value="Votar" onclick="location.href='index.php?controller=pinchos&amp;action=listarPinchosUsuario'" style="margin-bottom: 10px;">
+        <input
+            type="button"
+            name="votar"
+            value="Votar"
+            onclick="location.href='index.php?controller=pinchos&amp;action=getAllUsuarioCodigosPincho'"
+            style="margin-bottom: 10px;"
+        />
     </div>
     <?php foreach ($pinchos as $pincho): ?>
         <div class="thumbnail">

@@ -97,7 +97,6 @@ class PinchosController extends BaseController {
   }
 
   public function votar(
-
     ) {
     if(
       isset($_SESSION["user"])
@@ -165,6 +164,22 @@ class PinchosController extends BaseController {
         $this->view->redirect("pinchos","listar");
       }
     }
-  }  
+  }
+
+  public function getAllUsuarioCodigosPincho()
+  {
+    if (isset($_SESSION['user'])) {
+      $codigos = array();
+      $pinchos = $this->pinchoMapper->listarPinchosUsuario($_SESSION['user']);
+      foreach ($pinchos as $pincho) {
+        array_push($codigos, $this->pinchoMapper->getCodigoPincho($pincho->getIdPincho()));
+      }
+      $this->view->setVariable("codigos", $codigos);
+      $this->view->setVariable("pinchos", $pinchos);
+      $this->view->render("pinchos", "votar");
+    } else {
+      $this->view->redirect("concurso",  "view");
+    }
+  }
 }
 
