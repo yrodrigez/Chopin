@@ -5,7 +5,7 @@
     require_once(__DIR__."/../../model/Usuario.php");
 	require_once(__DIR__."/../../model/ConcursoMapper.php");
 	$view = ViewManager::getInstance();
-	$currentuser = $view->getVariable("currentusername"); 
+	//$currentuser = $view->getVariable("currentusername");
 	$concurso = (new ConcursoMapper())->getInfo();
 ?>
 
@@ -34,15 +34,15 @@
 
         <div id="msg-container">
             <?php
-            $errors = $view->getVariable('msgErrors');
-            $success = $view->getVariable('msgSuccess');
-            if($errors):
-                foreach($errors as $m):
-                    echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&nbsp;×</button>' . $m . '</div>';
-                endforeach;
-            elseif ($success):
-                foreach($success as $m):
-                    echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&nbsp;×</button>' . $m . '</div>';
+            $msg = $view->popFlash();
+            if($msg):
+                foreach($msg as $m):
+                    if($m[0] == "success"):
+                        echo '<div class="alert alert-success flash"><button type="button" class="close" data-dismiss="alert">&nbsp;×</button>' . $m[1] . '</div>';
+                    endif;
+                    if($m[0] == "error"):
+                        echo '<div class="alert alert-danger flash"><button type="button" class="close" data-dismiss="alert">&nbsp;×</button>' . $m[1] . '</div>';
+                    endif;
                 endforeach;
             endif;
             ?>
@@ -118,6 +118,10 @@
 
 
     <script>
+        $(document).ready(function() {
+            $("#msg-container").delay(3000).fadeOut('slow');
+        });
+
         <?= $view->getFragment("script") ?>
     </script>
 </html>

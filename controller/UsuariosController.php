@@ -35,9 +35,9 @@ class UsuariosController extends BaseController {
 				$_SESSION["type"]=$user->getTipo();
 				$this->view->redirect("concurso", "view");
 			} else {
-				$errors = array();
-				array_push($errors, "Username is not valid");
-				$this->view->setVariable("msgErrors", $errors);
+				$msg = array();
+                array_push($msg, array("error", "Datos de sesión inválidos"));
+				$this->view->setFlash($msg);
 			}
 		}       
     
@@ -74,16 +74,18 @@ class UsuariosController extends BaseController {
 						$user->setTipo(1);
 						$this->userMapper->save($user);
 
-                        $this->view->setVariable("msgSuccess", array("El usuario se ha creado correctamente"));
+                        $msg = array();
+                        array_push($msg, array("success", "El jurado popular se ha creado correctamente"));
+                        $this->view->setFlash($msg);
 						$this->view->redirect("usuarios", "login");
 					} else {
-						$errors = array();
-						array_push($errors, "El usuario ya existe");
-						$this->view->setVariable("msgErrors", $errors);
+                        $msg = array();
+                        array_push($msg, array("error", "El usuario ya existe"));
+                        $this->view->setFlash($msg);
 					}
 				} catch(ValidationException $ex) {
 					$errors = $ex->getErrors();
-					$this->view->setVariable("msgErrors", $errors);
+                    $this->view->setFlash($errors);
 				}
 			} else {
 				$user = new Establecimiento($_POST["username"], $_POST["passwd"]);
@@ -108,16 +110,17 @@ class UsuariosController extends BaseController {
 						$user->setTipo(3);
 						$this->estabMapper->registrarEstablecimiento($user);
 
-						$this->view->setFlash("Establecimiento ".$user->getEmail()." añadido correctamente. Por favor, identifícate.");
-						//$this->view->redirect("usuarios", "login");
+                        array_push($msg, array("success", "El establecimiento se ha creado correctamente"));
+                        $this->view->setFlash($msg);
+						$this->view->redirect("usuarios", "login");
 					} else {
-						$errors = array();
-						array_push($errors, "El usuario ya existe");
-						$this->view->setVariable("msgErrors", $errors);
+                        $msg = array();
+                        array_push($msg, array("error", "El usuario ya existe"));
+                        $this->view->setFlash($msg);
 					}
 				} catch(ValidationException $ex) {
-					$errors = $ex->getErrors();
-					$this->view->setVariable("msgErrors", $errors);
+                    $errors = $ex->getErrors();
+                    $this->view->setFlash($errors);
 				}
 			}
 

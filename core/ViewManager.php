@@ -153,15 +153,16 @@ class ViewManager {
    * in session
    */
   public function setVariable($varname, $value, $flash=false) {
-    $this->variables[$varname] = $value;
+
     if ($flash==true) {
       //a flash variable, will be stored in session_start
       if(!isset($_SESSION["viewmanager__flasharray__"])) {
-	$_SESSION["viewmanager__flasharray__"][ $varname]=$value;
-	print_r($_SESSION["viewmanager__flasharray__"]);	
+	$_SESSION["viewmanager__flasharray__"][$varname]=$value;
       }else{      
 	$_SESSION["viewmanager__flasharray__"][$varname]=$value;	
       }
+    } else {
+        $this->variables[$varname] = $value;
     }
   }
   
@@ -179,10 +180,10 @@ class ViewManager {
   public function getVariable($varname, $default=NULL) {
     if (!isset($this->variables[$varname])) {
       if (isset($_SESSION["viewmanager__flasharray__"])
-      && isset($_SESSION["viewmanager__flasharray__"][$varname])){	
-	$toret=$_SESSION["viewmanager__flasharray__"][$varname];
-	unset($_SESSION["viewmanager__flasharray__"][$varname]);
-	return $toret;
+      && isset($_SESSION["viewmanager__flasharray__"][$varname])){
+        $toret=$_SESSION["viewmanager__flasharray__"][$varname];
+        unset($_SESSION["viewmanager__flasharray__"][$varname]);
+        return $toret;
       }
       return $default;
     } 

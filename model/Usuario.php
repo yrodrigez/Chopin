@@ -93,11 +93,11 @@ class Usuario {
 		$errors = array();
 		
 		if (strlen($this->email) < 5) {
-			array_push($errors, "El usuario debe tener al menos cinco caracteres.");
+            array_push($errors, array("error", "El usuario debe tener al menos cinco caracteres."));
 		}
       
 		if (strlen($this->password) < 5) {  // TODO: implementar verificacion de contraseña segura
-            array_push($errors, "La contraseña debe tener al menos cinco caracteres");
+            array_push($errors, array("error", "La contraseña debe tener al menos cinco caracteres"));
 		}
       
 		if (sizeof($errors)>0){
