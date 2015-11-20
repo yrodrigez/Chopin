@@ -59,6 +59,6 @@ class Concurso {
   }
 
   public function isStarted() {
-	  return strtotime($this->getFecha()) >= strtotime(date("Y-m-d",time()));
+	  return strtotime($this->getFecha()) <= strtotime(date("Y-m-d",time()));
   }
 }

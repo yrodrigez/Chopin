@@ -74,7 +74,7 @@ class UsuariosController extends BaseController {
 						$user->setTipo(1);
 						$this->userMapper->save($user);
 
-						$this->view->setFlash("Usuario ".$user->getEmail()." añadido correctamente. Por favor, identifícate.");
+                        $this->view->setVariable("msgSuccess", array("El usuario se ha creado correctamente"));
 						$this->view->redirect("usuarios", "login");
 					} else {
 						$errors = array();
