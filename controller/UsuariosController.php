@@ -36,8 +36,7 @@ class UsuariosController extends BaseController {
 				$this->view->redirect("concurso", "view");
 			} else {
 				$errors = array();
-				array_push($errors, "Username is not validasdfasdfsaf ");
-				array_push($errors, "Another msg");
+				array_push($errors, "Username is not valid");
 				$this->view->setVariable("msgErrors", $errors);
 			}
 		}       
@@ -79,12 +78,12 @@ class UsuariosController extends BaseController {
 						$this->view->redirect("usuarios", "login");
 					} else {
 						$errors = array();
-						$errors["username"] = "Username already exists";
-						$this->view->setVariable("errors", $errors);
+						array_push($errors, "El usuario ya existe");
+						$this->view->setVariable("msgErrors", $errors);
 					}
 				} catch(ValidationException $ex) {
 					$errors = $ex->getErrors();
-					$this->view->setVariable("errors", $errors);
+					$this->view->setVariable("msgErrors", $errors);
 				}
 			} else {
 				$user = new Establecimiento($_POST["username"], $_POST["passwd"]);
@@ -113,12 +112,12 @@ class UsuariosController extends BaseController {
 						//$this->view->redirect("usuarios", "login");
 					} else {
 						$errors = array();
-						$errors["username"] = "Username already exists";
-						$this->view->setVariable("errors", $errors);
+						array_push($errors, "El usuario ya existe");
+						$this->view->setVariable("msgErrors", $errors);
 					}
 				} catch(ValidationException $ex) {
 					$errors = $ex->getErrors();
-					$this->view->setVariable("errors", $errors);
+					$this->view->setVariable("msgErrors", $errors);
 				}
 			}
 
