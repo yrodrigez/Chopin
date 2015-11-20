@@ -76,7 +76,7 @@
 									<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=register">Registrar establecimiento</a></li>
 								<?php endif; ?> 
 							<?php else: ?>
-								<?php if($_SESSION["type"]==Usuario::ORGANIZADOR): ?>
+								<?php if($_SESSION["type"]==Usuario::ORGANIZADOR and !$concurso->isStarted()): ?>
 						            <li><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>
                                 <?php endif; ?>
 

@@ -10,7 +10,7 @@ $view->setVariable("title", "View Post"); ?>
 
 
 <div>
-	<h1><?= $concurso->getNombre(); ?></h1>
+	<h2><?= $concurso->getNombre(); ?></h2>
 
 	<ul>
 		<li>Descripci&oacute;n: <?= $concurso->getDescripcion(); ?><br></li>
