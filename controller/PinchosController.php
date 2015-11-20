@@ -148,17 +148,23 @@ class PinchosController extends BaseController {
   }
 
  public function view(){
-    if(isset($_SESSION["user"]) && ($_SESSION["type"] == 3)){
-      if ($this->pinchoMapper->existePincho($_SESSION["user"])) {
-        $datos = $this->pinchoMapper->getPinchoEstablecimiento($_SESSION['user']);
-        $this->view->setVariable('pincho',$datos);
-        $this->view->render('pinchos','view');
-      } else {
-        $this->view->redirect("pinchos","presentar");
-      }
+    if(isset($_GET['id'])){
+      $pincho = $this->pinchoMapper->getPincho($_GET['id']);
+      $this->view->setVariable('pincho',$pincho);
+      $this->view->render('pinchos','view');
     } else {
-      $this->view->redirect("pinchos","listar");
+        if(isset($_SESSION["user"]) && ($_SESSION["type"] == Usuario::ESTABLECIMIENTO)){
+          if ($this->pinchoMapper->existePincho($_SESSION["user"])) {
+           $pincho = $this->pinchoMapper->getPinchoEstablecimiento($_SESSION['user']);
+            $this->view->setVariable('pincho',$pincho);
+            $this->view->render('pinchos','view');
+          } else {
+            $this->view->redirect("pinchos","presentar");
+          }
+        } else {
+        $this->view->redirect("pinchos","listar");
+      }
     }
-  }
+  }  
 }
 

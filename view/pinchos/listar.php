@@ -23,7 +23,7 @@ $pinchos = $view->getVariable("pinchos");
 					}?> alt="Foto Pincho" class="user-img img-circle">
 				</div>
 				<div class="col-xs-8 col-sm-6 col-height col-middle">
-					<div class="thumb-username">Nombre: <?=$pincho->getNombrePincho()?>, Precio: <?=$pincho->getPrecioPincho()?></div>
+					<div class="thumb-username">Nombre: <a href="index.php?controller=pinchos&amp;action=view&amp;id=<?= $pincho->getIdPincho()?>"><?=$pincho->getNombrePincho()?></a>, Precio: <?=$pincho->getPrecioPincho()?></div>
 				</div>
 			</div>
 		</div>

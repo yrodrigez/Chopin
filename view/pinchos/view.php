@@ -11,7 +11,6 @@ $view->setVariable("title", "View Post"); ?>
 
 <div>
 	<h1><?= $pincho->getNombrePincho(); ?></h1>
-
 	<ul>
 		<li>Precio: <?= $pincho->getPrecioPincho(); ?><br></li>
 		<li>Id: <?= $pincho->getIdPincho(); ?><br></li>
@@ -19,7 +18,8 @@ $view->setVariable("title", "View Post"); ?>
 		<li>Descripci&oacute;n: <?= $pincho->getDescripcionPincho(); ?><br></li>
 		<li>Email: <?= $pincho->getEmailPincho(); ?><br></li>
 		<li>Aprobado: <?= $pincho->getAprobadaPincho(); ?><br></li>
-		<li>Fotografia: <?= $pincho->getFotoPincho(); ?><br></li>
+		<li>Fotografia:<br></li>
+		<img src="/img/pinchos/<?= $pincho->getFotoPincho(); ?>" alt="Foto de pincho" class="user-img img-circle">
 	</ul>
 
 	<?php if(isset($_SESSION["type"]) && $_SESSION["type"] == 0): ?>
