@@ -33,58 +33,57 @@ class PinchosController extends BaseController {
    *
    * @return Void
    */
- public function presentar(){
-    if(isset($_POST['nombrePincho'])){
-      if ((isset($_SESSION["user"])) && ($_SESSION["type"] == 3)) {
-        if(!$this->pinchoMapper->existePincho($_SESSION["user"])){
-          $direccionDestino= __DIR__."/../img/pinchos/".$_SESSION["user"];
-          $subirFoto = PinchoController::subirImagen($direccionDestino);
-          $fotoPath = "/img/pinchos/".$_SESSION["user"]."/".$_FILES["fotoPincho"]["name"];
+  public function presentar(){
+    if(isset($_SESSION["user"]) && ($_SESSION["type"] == 3)){
+      if (!$this->pinchoMapper->existePincho($_SESSION["user"])) {
+        if(isset($_POST['nombrePincho'])){
+          $subirFoto = PinchosController::subirImagen();
+          $fotoPath = $_FILES["fotoPincho"]["name"];
           $ingredientes = explode(",", $_POST['ingredientesPincho']);
           $pincho = new Pincho (
-              0,
-              $_POST['nombrePincho'],
-              $_POST['descripcionPincho'],
-              $ingredientes,
-              $_POST['precioPincho'],
-              $_SESSION["user"],
-              NO_APROBADO,
-              $fotoPath
-          );
+            0,
+            $_POST['nombrePincho'],
+            $_POST['descripcionPincho'],
+            $ingredientes,
+            $_POST['precioPincho'],
+            $_SESSION["user"],
+            NO_APROBADO,
+            $fotoPath
+            );
           $this->pinchoMapper->save($pincho);
           if(!$subirFoto) {
             echo "Hubo un error subiendo la imagen";
           }
-          $this->view->redirect("pinchos", "view"); //redirigir a los datos introducidos una vista view de propuesta presentada
+          $this->view->setVariable("pincho", $pincho);
+          $this->view->render("pinchos", "view"); //redirigir a los datos introducidos una vista view de propuesta presentada
         } else {
-          echo "Este establecimiento ya propuso un pincho";
+          $this->view->render("pinchos","presentar");
         }
 
       } else {
-        echo "Debe estar logueado como establecimiento para poder presentar un pincho";
+        $this->view->redirect("pinchos","view");
+        echo "Este establecimiento ya propuso un pincho";
       }
+    } else {
+        $this->view->redirect("pinchos","listar");
+        echo "Debe estar logueado como establecimiento para poder presentar un pincho";
     }
-    $this->view->render("pinchos","presentar");
   }
 
 
   /**
    * Checks if everything is okay in order to upload a picture
-   * @param String $path The path to check
    * @return True if the picture was uploaded successfully
    */
 
-  public function subirImagen($path){
-    if(!file_exists($path)){
-      mkdir($path, true);
-    }
-    if (file_exists($path.$_FILES["fotoPincho"]["name"])) {
+  public function subirImagen(){
+    if (file_exists("/img/pinchos/".$_FILES["fotoPincho"]["name"])) {
       unlink($path.$_FILES["fotoPincho"]["name"]);
     }
     if ($_FILES["fotoPincho"]["size"] > 5242880) {
       return false;
     }
-    if (move_uploaded_file($_FILES["fotoPincho"]["tmp_name"], $path."/".$_FILES["fotoPincho"]["name"])) {
+    if (move_uploaded_file($_FILES["fotoPincho"]["tmp_name"], "/img/pinchos/".$_FILES["fotoPincho"]["name"])) {
       return true;
     }
     else return false;
@@ -99,24 +98,24 @@ class PinchosController extends BaseController {
 
   public function votar(
 
-  ) {
-    if(
-        isset($_SESSION["user"])
-        && isset($_SESSION["type"])
-        && $_SESSION['type'] == Usuario::JURADO_POPULAR
     ) {
-      if (
-          isset($_POST['idCodigoElegido'])
-          && isset($_POST['$idCodigoUtilizado1'])
-          && isset($_POST['$idCodigoUtilizado2'])
+    if(
+      isset($_SESSION["user"])
+      && isset($_SESSION["type"])
+      && $_SESSION['type'] == Usuario::JURADO_POPULAR
       ) {
+      if (
+        isset($_POST['idCodigoElegido'])
+        && isset($_POST['$idCodigoUtilizado1'])
+        && isset($_POST['$idCodigoUtilizado2'])
+        ) {
         return $this->pinchoMapper->agregarVoto(
-            $_POST['idCodigoElegido'],
-            $_POST['$idCodigoUtilizado1'],
-            $_POST['$idCodigoUtilizado2'],
-            date("Y-m-d H:i:s", time())
-        );
-      }
+          $_POST['idCodigoElegido'],
+          $_POST['$idCodigoUtilizado1'],
+          $_POST['$idCodigoUtilizado2'],
+          date("Y-m-d H:i:s", time())
+          );
+    }
       echo "<br><span style='red'>Error PinchoController::introducirVotacion(), parámetros no validos</span> "; //borrar después
       return false;
     }
@@ -126,7 +125,7 @@ class PinchosController extends BaseController {
 
   public function listar(
 
-  ) {
+    ) {
     $pinchos = $this->pinchoMapper->getAllPinchos();
     $this->view->setVariable("pinchos", $pinchos);
     $this->view->render("pinchos","listar");
@@ -134,17 +133,29 @@ class PinchosController extends BaseController {
 
 
 
-  public function listarPinchosUsuario(
-
-  ){
+  public function listarPinchosUsuario(){
     if(
-        isset($_SESSION["user"])
-        && isset($_SESSION["type"])
-        && $_SESSION['type'] == Usuario::JURADO_POPULAR
-    ) {
+      isset($_SESSION["user"])
+      && isset($_SESSION["type"])
+      && $_SESSION['type'] == Usuario::JURADO_POPULAR
+      ) {
       return $this->pinchoMapper->listarPinchosUsuario($_SESSION['user']);
-    }
-    echo "<br><span style='color: red;'>Error PinchosController::listar(), usuario incorrecto</span>";
+      }
+  echo "<br><span style='color: red;'>Error PinchosController::listar(), usuario incorrecto</span>";
   }
 
+ public function view(){
+    if(isset($_SESSION["user"]) && ($_SESSION["type"] == 3)){
+      if ($this->pinchoMapper->existePincho($_SESSION["user"])) {
+        $datos = $this->pinchoMapper->getPinchoEstablecimiento($_SESSION['user']);
+        $this->view->setVariable('pincho',$datos);
+        $this->view->render('pinchos','view');
+      } else {
+        $this->view->redirect("pinchos","presentar");
+      }
+    } else {
+      $this->view->redirect("pinchos","listar");
+    }
+  }
 }
+

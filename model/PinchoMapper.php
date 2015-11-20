@@ -112,8 +112,9 @@ class pinchoMapper {
   public function comprobarCategoria(
     $categoria 
     ) {
-    $stmt = $this->db->prepare("SELECT * FROM categoria WHERE nombreCategoria LIKE ?");
-    $stmt->execute(array("%".$categoria."%"));
+    $category = strToUpper(substr($categoria, 0, 1).substr($categoria, 1));
+    $stmt = $this->db->prepare("SELECT * FROM categoria WHERE nombreCategoria = ?");
+    $stmt->execute(array($category));
     if($stmt->rowCount()>0) {
       return $stmt->fetchColumn();
       //return true;
@@ -307,5 +308,37 @@ class pinchoMapper {
     return $pinchos;
   }
 
+  /**
+   * Gets the pincho associated with an establishment
+   * 
+   * @param String $email The email of the establishment
+   * @throws PDOException if a database error occurs
+   * @return Pincho The pincho of the establishment, NULL if its not found
+   */
+  public function getPinchoEstablecimiento(
+    $email
+    ) {
+    $stmt = $this->db->prepare("SELECT * FROM Propuesta WHERE email=?");
+    $stmt->execute(array($email));
+    if($stmt->rowCount()>0) {
+      foreach (
+        $stmt as $pincho
+        ) {
+        $ingredientes = $this->getIngredientesPincho($pincho["idpropuesta"]);
+      return new Pincho(
+        $pincho["idpropuesta"],
+        $pincho["nombre"],
+        $pincho["descripcion"],
+        $ingredientes,
+        $pincho["precio"],
+        $pincho["email"],
+        $pincho["aprobada"],
+        $pincho["fotoPropuesta"]
+        );
+    }
+  } else {
+    return NULL;
+  }
+}
 
 }
