@@ -2,7 +2,7 @@
 // file: model/pinchoMapper.php
 require_once(__DIR__."/../core/PDOConnection.php");
 require_once(__DIR__."/../model/Pincho.php");
-require_once(__DIR__."/../model/ConstantesPincho.php");
+
 /**
  * Class pinchoMapper
  *
@@ -185,16 +185,35 @@ class pinchoMapper {
       $idCodigoUtilizado2,
       $fechaVotacion
   ) {
-
+    echo $idCodigoElegido.$idCodigoUtilizado1.$idCodigoUtilizado2.$fechaVotacion;
     if($this->sonCodigosDistintos(
         $idCodigoElegido,
         $idCodigoUtilizado1,
         $idCodigoUtilizado2
     )) {
-      $stmt = $this->db->prepare("UPDATE codigo SET utilizado = ?, elegido = ?, fechaVotacion = ? WHERE idcodigo = ?;");
-      $toReturn = $stmt->execute(array(UTILIZADO, ELEGIDO, $fechaVotacion, $idCodigoElegido));
-      $stmt = $this->db->prepare("UPDATE codigo SET utilizado = ?, fechaVotacion = ? WHERE idcodigo = ? OR idcodigo = ?;");
-      return $toReturn && $stmt->execute(array(UTILIZADO, $fechaVotacion, $idCodigoUtilizado1, $idCodigoUtilizado2));
+      $stmt = $this->db->prepare("UPDATE codigo
+                                  SET utilizado = ?,
+                                  elegido = ?,
+                                  fechaVotacion = ?
+                                  WHERE idcodigo = ?;
+                                  ");
+
+      $toReturn = $stmt->execute(array(
+          Pincho::UTILIZADO,
+          Pincho::ELEGIDO,
+          $fechaVotacion,
+          $idCodigoElegido));
+      $stmt = $this->db->prepare("UPDATE codigo
+                                  SET utilizado = ?,
+                                  fechaVotacion = ?
+                                  WHERE idcodigo = ?
+                                  OR idcodigo = ?;");
+      return $toReturn && $stmt->execute(array(
+          Pincho::UTILIZADO,
+          $fechaVotacion,
+          $idCodigoUtilizado1,
+          $idCodigoUtilizado2
+      ));
     } else {
       return false;
     }
@@ -283,9 +302,10 @@ class pinchoMapper {
       $idUsuario
   ) {
     $pinchos = array();
-    $stmt = $this->db->prepare("SELECT idpropuesta FROM codigo WHERE email= ?");
+    $stmt = $this->db->prepare("SELECT idpropuesta FROM codigo WHERE email= ? AND utilizado= ?");
     if($stmt->execute(array(
-        $idUsuario
+        $idUsuario,
+        Pincho::NO_ELEGIDO
     ))){
       if($stmt->rowCount() > 0){
         $i = $stmt->rowCount();

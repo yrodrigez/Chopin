@@ -96,30 +96,50 @@ class PinchosController extends BaseController {
     }
   }
 
-  public function votar(
-    ) {
-    if(
-      isset($_SESSION["user"])
+  public function votar() {
+    if(isset($_SESSION["user"])
       && isset($_SESSION["type"])
       && $_SESSION['type'] == Usuario::JURADO_POPULAR
+      && count($_POST["pinchos"]) == 1
       ) {
-      if (
-        isset($_POST['idCodigoElegido'])
-        && isset($_POST['$idCodigoUtilizado1'])
-        && isset($_POST['$idCodigoUtilizado2'])
-        ) {
-        return $this->pinchoMapper->agregarVoto(
-          $_POST['idCodigoElegido'],
-          $_POST['$idCodigoUtilizado1'],
-          $_POST['$idCodigoUtilizado2'],
-          date("Y-m-d H:i:s", time())
-          );
+      $idQuemar = array();
+      $idElegido = $_POST["pinchos"][0];
+      foreach($_POST["idpinchos"] as $pincho){
+        if($pincho != $idElegido){
+          array_push($idQuemar, $pincho);
+        }
+      }
+      if($this->pinchoMapper->agregarVoto(
+          $this->pinchoMapper->getCodigoPincho($idElegido),
+          $this->pinchoMapper->getCodigoPincho($idQuemar[0]),
+          $this->pinchoMapper->getCodigoPincho($idQuemar[1]),
+          date ("Y-m-d H:i:s",time())
+      )){
+        $msg = array();
+        array_push($msg, array("success", "Votación recibida"));
+        $this->view->setFlash($msg);
+        $this->view->redirect("pinchos", "getAllUsuarioCodigosPincho");
+      } else {
+        $msg = array();
+        array_push($msg, array("error", "Error en votación"));
+        $this->view->setFlash($msg);
+        //$this->view->redirect("pinchos", "getAllUsuarioCodigosPincho");
+      }
+    } else {
+      if(count($_POST["pinchos"]) == 1) {
+        $msg = array();
+        array_push($msg, array("error", "Debes seleccionar solamente uno (1) para votar (o es chávez)"));
+        $this->view->setFlash($msg);
+        $this->view->redirect("pinchos", "getAllUsuarioCodigosPincho");
+      } else {
+        $msg = array();
+        array_push($msg, array("error", "Debes ser jurado popular para votar"));
+        $this->view->setFlash($msg);
+        $this->view->redirect("pinchos", "getAllUsuarioCodigosPincho");
+      }
+
     }
-      echo "<br><span style='red'>Error PinchoController::introducirVotacion(), parámetros no validos</span> "; //borrar después
-      return false;
-    }
-    echo "<br><span style='red'>Error PinchoController::introducirVotacion(), sin sesión</span> "; //borrar después
-    return false;
+
   }
 
   public function listar(
@@ -176,10 +196,41 @@ class PinchosController extends BaseController {
       }
       $this->view->setVariable("codigos", $codigos);
       $this->view->setVariable("pinchos", $pinchos);
+      $this->view->setVariable("votar", 0);
       $this->view->render("pinchos", "votar");
     } else {
       $this->view->redirect("concurso",  "view");
     }
   }
-}
+  public function seleccion() {
+    if(
+        isset($_POST["pinchos"])
+        &&isset($_SESSION["user"])
+        &&count($_POST["pinchos"]) == 3
+    ){
+      $idPinchos = $_POST["pinchos"];
+      $codigos = array();
+      $pinchos = array();
+      foreach($idPinchos as $pinchoId){
+        array_push($codigos, $this->pinchoMapper->getCodigoPincho($pinchoId));
+      }
+      foreach($idPinchos as $idPincho){
+        array_push($pinchos, $this->pinchoMapper->getPincho($idPincho));
+      }
+      $this->view->setVariable("codigos", $codigos);
+      $this->view->setVariable("pinchos", $pinchos);
+      $this->view->setVariable("votar", 1);
+      $this->view->render("pinchos", "votar");
+    } else {
+      if(count($_POST["pinchos"]) != 3){
+        $msg = array();
+        array_push($msg, array("error", "Debes seleccionar exactamente tres (3) pinchos, pajúo."));
+        $this->view->setFlash($msg);
+        $this->view->redirect("pinchos", "getAllUsuarioCodigosPincho");
+      } else {
+        $this->view->redirect("concurso", "view");
+      }
+    }
 
+  }
+}

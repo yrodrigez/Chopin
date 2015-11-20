@@ -61,6 +61,12 @@ class pincho {
    * @param int  $aprobadaPincho If the pincho has been approved or not
    * @param string $fotoPincho Path of the picture of the pincho
    */
+  const NO_APROBADO =  0;
+  const APROBADO = 1;
+  const NO_UTILIZADO = 0;
+  const UTILIZADO = 1;
+  const NO_ELEGIDO = 0;
+  const ELEGIDO =1;
   public function __construct(
           $idPincho=NULL, 
           $nombrePincho=NULL, 
