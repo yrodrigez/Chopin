@@ -14,7 +14,6 @@ require_once(__DIR__."/../controller/BaseController.php");
  * 
  * Controller for comments related use cases.
  * 
- * @author lipido <lipido@gmail.com>
  */
 
 class ConcursoController extends BaseController {
@@ -31,17 +30,21 @@ class ConcursoController extends BaseController {
 
 	public function add() {
 		if ((isset($_SESSION["user"])) && ($_SESSION["type"] == 0)){
-  			if($_POST["nombre"] == NULL || $_POST["localizacion"] == NULL || $_POST["fecha"] == NULL) {  // TODO: add isset($_POST["submit"]))
+			if (!$this->concursomapper->existeConcurso()){
+				$this->view->render("concurso","configurar");
+			} else {
+				if($_POST["nombre"] == NULL || $_POST["localizacion"] == NULL || $_POST["fecha"] == NULL) {  // TODO: add isset($_POST["submit"]))
 				echo "Deben especificarse un nombre, una localización y una fecha";
-			}				
-			// TODO: Check if valid
-			//Falta fecha final del concurso??¿?¿?¿?
-			$concurso =  new Concurso($_POST["nombre"], $_POST["descripcion"], $_POST["localizacion"], $_POST["fecha"]);
-			$this->concursomapper->add($concurso);
-			$this->view->redirect("concurso", "view");
+				}				
+				// TODO: Check if valid
+				$concurso =  new Concurso($_POST["nombre"], $_POST["descripcion"], $_POST["localizacion"], $_POST["fecha"]);
+				$this->concursomapper->add($concurso);
+				$this->view->redirect("concurso", "view");
+			}
 		} else {
 			echo "Solo el organizador puede agregar un concurso";
-		}
+			$this->view->redirect("concurso", "view");
+		}		
 	}
 
 	public function view() {
@@ -49,10 +52,10 @@ class ConcursoController extends BaseController {
 		$concurso = $this->concursomapper->getInfo();
 
 		if ($concurso == NULL) {
-			throw new Exception("No existe el concurso");
+			$this->view->render("concurso", "configurar");
+		} else {
+			$this->view->setVariable("concurso", $concurso);
+			$this->view->render("concurso", "view");
 		}
-
-		$this->view->setVariable("concurso", $concurso);
-		$this->view->render("concurso", "view");
-	}  
+	}   
 }

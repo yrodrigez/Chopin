@@ -20,13 +20,23 @@ class ConcursoMapper {
   }
   
   public function getInfo() {
-	$stmt = $this->db->query("SELECT * FROM concurso");
-	$concurso = $stmt->fetch(PDO::FETCH_ASSOC);
+	 $stmt = $this->db->query("SELECT * FROM concurso");
+	 $concurso = $stmt->fetch(PDO::FETCH_ASSOC);
 	
-	if($concurso != null) {
+	 if($concurso != null) {
 		return new Concurso($concurso["nombre"], $concurso["descripcion"], $concurso["localizacion"], $concurso["fecha"]);
-	} else {
+	 } else {
 		return NULL;
-	}
+	 }
   }
+
+  public function existeConcurso() {
+    $stmt = $this->db->prepare("SELECT * FROM concurso");
+    $stmt->execute();
+    if($stmt->rowCount()>0)
+      return true;
+    else
+      return false;   
+  }
+
 }
