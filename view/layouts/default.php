@@ -2,6 +2,7 @@
 	//file: view/layouts/default.php
 	require_once(__DIR__."/../../core/ViewManager.php");
 	require_once(__DIR__."/../../model/Concurso.php");
+    require_once(__DIR__."/../../model/Usuario.php");
 	require_once(__DIR__."/../../model/ConcursoMapper.php");
 	$view = ViewManager::getInstance();
 	$currentuser = $view->getVariable("currentusername"); 
@@ -76,14 +77,17 @@
 									<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=register">Registrar establecimiento</a></li>
 								<?php endif; ?> 
 							<?php else: ?>
-								<?php switch($_SESSION["type"]): ?>
-                                    <?php case Usuario::ORGANIZADOR: ?>
-									    <li><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>
-                                    <?php case Usuario::JURADO_POPULAR: ?>
-                                        <li><a href="index.php?controller=pinchos&amp;action=listarpinchosusuarios">Mis pinchos</a></li>
-                                    <?php case Usuario::ESTABLECIMIENTO: ?>
-									    <li><a href="index.php?controller=pinchos&amp;action=presentar">Propuesta</a></li>
-                                <?php endswitch; ?>
+								<?php if($_SESSION["type"]==Usuario::ORGANIZADOR): ?>
+						            <a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>
+                                <?php endif; ?>
+
+                                <?php if($_SESSION["type"]==Usuario::JURADO_POPULAR): ?>
+						            <li><a href="index.php?controller=pinchos&amp;action=listarpinchosusuarios">Mis pinchos</a></li>
+                                <?php endif; ?>
+
+                                <?php if($_SESSION["type"]==Usuario::ESTABLECIMIENTO): ?>
+						            <li><a href="index.php?controller=pinchos&amp;action=presentar">Propuesta</a></li>
+                                <?php endif; ?>
 
                                 <?php if($concurso->isStarted()): ?>
                                     <li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>
