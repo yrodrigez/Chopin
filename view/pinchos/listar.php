@@ -16,7 +16,11 @@ $pinchos = $view->getVariable("pinchos");
 		<div class="thumbnail">
 			<div class="row row-height">
 				<div class="col-xs-4 col-sm-3 col-height">
-					<img src=<?= $pincho->getFotoPincho();?> alt="Foto Pincho" class="user-img img-circle">
+					<img src=<?php if($pincho->getFotoPincho()!=NULL){
+						echo "img/pinchos/".$pincho->getFotoPincho();
+					} else {
+						echo "img/pinchos/default.png";
+					}?> alt="Foto Pincho" class="user-img img-circle">
 				</div>
 				<div class="col-xs-8 col-sm-6 col-height col-middle">
 					<div class="thumb-username">Nombre: <?=$pincho->getNombrePincho()?>, Precio: <?=$pincho->getPrecioPincho()?></div>

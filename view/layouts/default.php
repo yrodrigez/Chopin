@@ -61,7 +61,7 @@
 						<ul class="nav nav-pills nav-stacked" role="tablist">
 							<li class="nav-pill"><a href="index.php?controller=concurso&amp;action=view">Concurso</a></li>
 							<?php if($concurso->isStarted()): ?>
-								<li class="nav-pill"><a href="#">Pinchos</a></li>
+								<li class="nav-pill"><a href="index.php?controller=pinchos&amp;action=listar">Pinchos</a></li>
 							<?php endif; ?> 
 							<?php if (!isset($currentuser)): ?>
                                 <?php if($concurso->isStarted()): ?>
