@@ -83,7 +83,7 @@
 
                                 <?php if($_SESSION["type"]==Usuario::JURADO_POPULAR): ?>
 						            <li><a href="index.php?controller=pinchos&amp;action=listarPinchosUsuario">Mis pinchos</a></li>
-									<li><a href="index.php?controller=pinchos&amp;action=introducircodigo">Introducir Código</a></li>
+									<li><a href="index.php?controller=codigos&amp;action=introducir">Introducir Código</a></li>
                                 <?php endif; ?>
 
                                 <?php if($_SESSION["type"]==Usuario::ESTABLECIMIENTO): ?>

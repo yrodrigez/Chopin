@@ -1,5 +1,5 @@
 <?php 
- //file: view/posts/index.php
+ //file: view/posts/introducir.php
 
  require_once(__DIR__."/../../core/ViewManager.php");
  $view = ViewManager::getInstance();

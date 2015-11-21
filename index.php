@@ -1,5 +1,5 @@
 <?php
-// file: index.php
+// file: introducir.php
 
 /**
  * Default controller if any controller is passed in the URL
@@ -44,7 +44,7 @@ function run() {
     }
     
     // Here is where the "magic" occurs.
-    // URLs like: index.php?controller=posts&action=add
+    // URLs like: introducir.php?controller=posts&action=add
     // will provoke a call to: new PostsController()->add()
     
     // Instantiate the corresponding controller

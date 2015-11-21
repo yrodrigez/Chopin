@@ -232,12 +232,5 @@ class PinchosController extends BaseController {
       }
     }
   }
-  public function introducircodigo(){
-    if(isset($_POST["codigo"])){
-      $valoresCodigo= explode("_", $_POST["codigo"]);
 
-    } else {
-      $this->view->render("codigo", "index");
-    }
-  }
 }
