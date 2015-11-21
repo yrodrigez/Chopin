@@ -11,9 +11,9 @@ body {
 }
 
 #banner {
-
 	border-bottom: 1px solid #96281B;
 	height: 90px;
+	width: 100%;
 	padding-top: 10px;
 	padding-bottom: 100px;
 	margin-bottom: 10px;
@@ -88,6 +88,7 @@ body {
 	border: 1px solid #96281B;
 	padding-top:8px;
 	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 #msg-container {

@@ -317,10 +317,8 @@ class pinchoMapper {
   ) {
     $pinchos = array();
     $stmt = $this->db->prepare("SELECT idpropuesta FROM codigo WHERE email= ? AND utilizado= ?");
-    if($stmt->execute(array(
-        $idUsuario,
-        Pincho::NO_ELEGIDO
-    ))){
+
+    if($stmt->execute(array($idUsuario, Pincho::NO_UTILIZADO))){
       if($stmt->rowCount() > 0){
         $i = $stmt->rowCount();
         while($i>0) {

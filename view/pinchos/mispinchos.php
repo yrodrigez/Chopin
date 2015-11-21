@@ -2,6 +2,7 @@
 //file: view/pinchos/mispinchos.php
 require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
+$view->setVariable("title", "Mis pinchos");
 $pinchos = $view->getVariable("pinchos");
 ?>
 
@@ -10,15 +11,9 @@ $pinchos = $view->getVariable("pinchos");
     <div class="headerForm">
         <span>Pinchos participantes</span>
     </div>
-    <div class="botonVotar" style="text-align: left;">
-        <input
-            type="button"
-            name="votar"
-            value="Votar"
-            onclick="location.href='index.php?controller=pinchos&amp;action=getAllUsuarioCodigosPincho'"
-            style="margin-bottom: 10px;"
-        />
-    </div>
+
+    <a href="index.php?controller=pinchos&amp;action=getAllUsuarioCodigosPincho" class="btn btn-default">
+
     <?php foreach ($pinchos as $pincho): ?>
         <div class="thumbnail">
             <div class="row row-height">
