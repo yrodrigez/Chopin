@@ -1,5 +1,6 @@
 <?php
 
+
 class Codigo{
     private $idCodigo;
     private $idPropuesta;
@@ -123,5 +124,3 @@ class Codigo{
         $this->fechaVotacion = $fechaVotacion;
     }
 }
-
-?>

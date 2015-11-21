@@ -1,4 +1,5 @@
 <?php
+
 //file: /controller/CommentsController.php
 
 require_once(__DIR__."/../model/Codigo.php");
@@ -23,6 +24,11 @@ class CodigosController extends BaseController {
             $prop = (new PinchoMapper())->getPinchoValidado($_SESSION["user"]);
             $codigo = new Codigo(NULL, $prop);
             $this->codigoMapper->generar($codigo, $_POST['numCodigos']);
+
+            $msg = array();
+            array_push($msg, array("success", "Códigos generados correctamente"));
+            $this->view->setFlash($msg);
+            $this->view->render("codigo", "generar");
         } else {
             $this->view->render("codigo", "generar");
         }
@@ -30,4 +36,3 @@ class CodigosController extends BaseController {
     }
 }
 
-?>
