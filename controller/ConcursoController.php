@@ -49,11 +49,10 @@ class ConcursoController extends BaseController {
 
 	public function view() {
 
-		$concurso = $this->concursomapper->getInfo();
-
-		if ($concurso == NULL) {
+		if (!$this->concursomapper->existeConcurso()) {
 			$this->view->render("concurso", "configurar");
 		} else {
+			$concurso = $this->concursomapper->getInfo();
 			$this->view->setVariable("concurso", $concurso);
 			$this->view->render("concurso", "view");
 		}
