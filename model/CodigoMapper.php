@@ -28,14 +28,15 @@ class CodigoMapper {
         }
     }
 
-    public function retornarCodigosEstablecimiento($id){
-        $stmt = $this->db->query("SELECT * FROM codigo, propuesta WHERE propuesta.email=".$id);
+    public function getCodigosEstablecimiento($email){
+        $stmt = $this->db->prepare("SELECT * FROM codigo, propuesta WHERE codigo.idpropuesta=propuesta.idpropuesta and propuesta.email=?");
+        $stmt->execute(array($email));
         $codigos_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $codigos = array();
 
-        foreach ($codigos_db as $codigos) {
-            $codigo = new Codigo($codigos_db['idpropuesta'],$codigos_db['idcodigo']);
+        foreach ($codigos_db as $codigo) {
+            $codigo = new Codigo($codigo['idcodigo'], $codigo['idpropuesta'], $codigo['email'], $codigo['utilizado'], $codigo['elegido'], $codigo['fechaVotacion']);
             array_push($codigos, $codigo);
         }
 

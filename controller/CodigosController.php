@@ -28,10 +28,10 @@ class CodigosController extends BaseController {
             $msg = array();
             array_push($msg, array("success", "Códigos generados correctamente"));
             $this->view->setFlash($msg);
-            $this->view->render("codigo", "generar");
-        } else {
-            $this->view->render("codigo", "generar");
         }
+
+        $this->view->setVariable("codigos", $this->codigoMapper->getCodigosEstablecimiento($_SESSION["user"]));
+        $this->view->render("codigo", "generar");
 
     }
 }
