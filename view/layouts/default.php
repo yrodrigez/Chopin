@@ -4,6 +4,7 @@
 	require_once(__DIR__."/../../model/Concurso.php");
     require_once(__DIR__."/../../model/Usuario.php");
 	require_once(__DIR__."/../../model/ConcursoMapper.php");
+	require_once(__DIR__."/../../model/PinchoMapper.php");
 	$view = ViewManager::getInstance();
 	$currentuser = $view->getVariable("currentusername");
 	$concurso = (new ConcursoMapper())->getInfo();
@@ -89,6 +90,10 @@
                                     <?php if(!$concurso->isStarted()): ?>
 						                <li><a href="index.php?controller=pinchos&amp;action=presentar">Propuesta</a></li>
 						            <?php endif; ?>
+
+									<?php if((new PinchoMapper())->getPinchoValidado($_SESSION["user"])<>-1): ?>
+										<li><a href="index.php?controller=codigos&amp;action=generar">Generar c&oacute;digos</a></li>
+									<?php endif; ?>
                                 <?php endif; ?>
 
                                 <?php if($concurso->isStarted()): ?>

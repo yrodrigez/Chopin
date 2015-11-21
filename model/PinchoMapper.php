@@ -284,8 +284,8 @@ class pinchoMapper {
    * @return True If it exists a Pincho with the specified foreign key, else false
    */
   public function existePincho(
-    $email
-    ) {
+      $email
+  ) {
     $stmt = $this->db->prepare("SELECT * FROM Propuesta WHERE email=?");
     $stmt->execute(array($email));
     if($stmt->rowCount()>0) {
@@ -294,6 +294,20 @@ class pinchoMapper {
       return false;
     }
   }
+
+  public function getPinchoValidado(
+      $email
+  ) {
+    $stmt = $this->db->prepare("SELECT * FROM propuesta WHERE email=? AND aprobada=1");
+    $stmt->execute(array($email));
+    if($stmt->rowCount()>0) {
+      $prop = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $prop["idpropuesta"];
+    } else {
+      return -1;
+    }
+  }
+
   /**
    * @param $idUsuario
    * @return array de todos los pinchos relacionados con el usuario
