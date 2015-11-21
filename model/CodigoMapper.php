@@ -4,14 +4,21 @@
 require_once(__DIR__."/Codigo.php");
 require_once(__DIR__."/../core/PDOConnection.php");
 
+/**
+ * Propongo la siguiente consulta porque estoy viendo que ninguno de los codigos comprueban si han sido aprobados:
+ *
+ * SELECT count(codigo.idcodigo), codigo.idpropuesta, propuesta.idpropuesta, propuesta.aprobada
+ * FROM codigo
+ * INNER JOIN propuesta ON propuesta.idpropuesta = codigo.idpropuesta AND propuesta.aprobada = 1
+ * WHERE codigo.idcodigo = ?
+ *
+ * está probada y funciona correctamente, lo único que hay que sacar el primer campo que es el que contiene el conteo
+ * de los idcodigo.
+ *
+ */
+
 class CodigoMapper {
 
-    private $idCodigo;
-    private $idPropuesta;
-    private $email;
-    private $utilizado;
-    private $elegido;
-    private $fechaVotacion;
     private $db;
 
     public function __construct() {
@@ -21,10 +28,8 @@ class CodigoMapper {
     public function generar($codigo, $num) {
         $stmt = $this->db->prepare("INSERT INTO codigo(idcodigo, idpropuesta, utilizado, elegido) values (?,?,?,?)");
 
-        $i=0;
-        while($i<$num) {
+        for($i= 0; $i<$num; $i++) {
             $stmt->execute(array(uniqid(), $codigo->getIdPropuesta(), 0, 0));
-            $i=$i+1;
         }
     }
 
@@ -52,7 +57,7 @@ class CodigoMapper {
     }
 
     public function usado($codigo) {  // Asume que existe
-        $stmt = $this->db->prepare("SELECT * FROM codigo where idcodigo=? and utilizado=1");
+        $stmt = $this->db->prepare("SELECT * FROM codigo where idcodigo=? and utilizado=1 ");
         $stmt->execute(array($codigo));
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 

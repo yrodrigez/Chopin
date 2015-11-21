@@ -1,6 +1,6 @@
 <?php
 
-//file: /controller/CommentsController.php
+//file: /controller/CodigosController.php
 
 require_once(__DIR__."/../model/Codigo.php");
 

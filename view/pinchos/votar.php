@@ -6,8 +6,6 @@ $pinchos = $view->getVariable("pinchos");
 $codigos = $view->getVariable("codigos");
 $isVotar = $view->getVariable("votar");
 ?>
-
-
 <div>
     <div class="headerForm">
         <span>Votar</span>
