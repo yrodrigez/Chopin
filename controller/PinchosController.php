@@ -47,33 +47,42 @@ class PinchosController extends BaseController {
             $ingredientes,
             $_POST['precioPincho'],
             $_SESSION["user"],
-            NO_APROBADO,
+            Pincho::NO_APROBADO,
             $fotoPath
             );
           $this->pinchoMapper->save($pincho);
           if(!$subirFoto) {
-            echo "Hubo un error subiendo la imagen";
+          	$msg = array();
+        	array_push($msg, array("error", "Hubo un error subiendo la imagen"));
+        	$this->view->setFlash($msg);
           }
           $this->view->setVariable("pincho", $pincho);
+          $msg = array();
+       	  array_push($msg, array("success", "Pincho presentado correctamente"));
+          $this->view->setFlash($msg);
           $this->view->render("pinchos", "view"); //redirigir a los datos introducidos una vista view de propuesta presentada
         } else {
           $this->view->render("pinchos","presentar");
         }
 
       } else {
+      	$msg = array();
+        array_push($msg, array("error", "Este establecimiento ya propuso un pincho"));
+        $this->view->setFlash($msg);
         $this->view->redirect("pinchos","view");
-        echo "Este establecimiento ya propuso un pincho";
       }
     } else {
+    	$msg = array();
+        array_push($msg, array("error", "Debe estar logueado como establecimiento para poder presentar un pincho"));
+        $this->view->setFlash($msg);
         $this->view->redirect("pinchos","listar");
-        echo "Debe estar logueado como establecimiento para poder presentar un pincho";
     }
   }
 
 
   /**
    * Checks if everything is okay in order to upload a picture
-   * @return True if the picture was uploaded successfully
+   * @return True if the picture was uploaded successfully or no picture was added
    */
 
   public function subirImagen(){
@@ -83,16 +92,18 @@ class PinchosController extends BaseController {
     if ($_FILES["fotoPincho"]["size"] > 5242880) {
       return false;
     }
-    if (move_uploaded_file($_FILES["fotoPincho"]["tmp_name"], "/img/pinchos/".$_FILES["fotoPincho"]["name"])) {
-      return true;
+    if ($_FILES["fotoPincho"]["name"] != NULL){
+    	if (move_uploaded_file($_FILES["fotoPincho"]["tmp_name"], "/img/pinchos/".$_FILES["fotoPincho"]["name"])) {
+      		return true;
+    	}
     }
-    else return false;
+    return true;  
   }
 
   public function aprobar(){
     if (isset($_SESSION["user"]) && $_SESSION["type"] == 0) {
       $this->pinchoMapper->aceptarPincho($_GET['id']);
-      //$this->view->render('pinchos','index'); cuando exista tendrá que ir a pinchosIndex o como se llame
+      $this->view->render('pinchos','listar');
     }
   }
 

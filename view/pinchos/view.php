@@ -19,7 +19,11 @@ $view->setVariable("title", "View Post"); ?>
 		<li>Email: <?= $pincho->getEmailPincho(); ?><br></li>
 		<li>Aprobado: <?= $pincho->getAprobadaPincho(); ?><br></li>
 		<li>Fotografia:<br></li>
-		<img src="/img/pinchos/<?= $pincho->getFotoPincho(); ?>" alt="Foto de pincho" class="user-img img-circle">
+		<img src=<?php if($pincho->getFotoPincho()!=NULL){
+							echo "img/pinchos/".$pincho->getFotoPincho();
+						} else {
+							echo "img/pinchos/default.png";
+						}?> alt="Foto de pincho" class="user-img img-circle">
 	</ul>
 
 	<?php if(isset($_SESSION["type"]) && $_SESSION["type"] == 0): ?>
