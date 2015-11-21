@@ -43,6 +43,27 @@ class CodigoMapper {
         return $codigos;
     }
 
+    public function existe($codigo) {
+        $stmt = $this->db->prepare("SELECT * FROM codigo where idcodigo=?");
+        $stmt->execute(array($codigo));
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row != NULL;
+    }
+
+    public function usado($codigo) {  // Asume que existe
+        $stmt = $this->db->prepare("SELECT * FROM codigo where idcodigo=? and utilizado=1");
+        $stmt->execute(array($codigo));
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row != NULL;
+    }
+
+    public function asociarUsuario($codigo, $email) {
+        $stmt = $this->db->prepare("UPDATE codigo SET utilizado=1, email=? WHERE idcodigo=?");
+        $stmt->execute(array($email, $codigo));
+    }
+
 }
 ?>
 
