@@ -11,9 +11,13 @@ $pinchos = $view->getVariable("pinchos");
     <div class="headerForm">
         <span>Pinchos participantes</span>
     </div>
-
-    <a href="index.php?controller=pinchos&amp;action=getAllUsuarioCodigosPincho" class="btn btn-default">
-
+    
+    <input
+        type="button"
+        onclick="location.href='hindex.php?controller=pinchos&amp;action=getAllUsuarioCodigosPincho'"
+        class="btn btn-default"
+        value="Votar"
+    >
     <?php foreach ($pinchos as $pincho): ?>
         <div class="thumbnail">
             <div class="row row-height">
