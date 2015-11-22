@@ -11,10 +11,10 @@ $pinchos = $view->getVariable("pinchos");
     <div class="headerForm">
         <span>Pinchos participantes</span>
     </div>
-    
+
     <input
         type="button"
-        onclick="location.href='hindex.php?controller=pinchos&amp;action=getAllUsuarioCodigosPincho'"
+        onclick="location.href='index.php?controller=pinchos&amp;action=getAllUsuarioCodigosPincho'"
         class="btn btn-default"
         value="Votar"
     >
