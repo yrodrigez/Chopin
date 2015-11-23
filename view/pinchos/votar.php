@@ -29,7 +29,7 @@ $isVotar = $view->getVariable("votar");
         method="post"
     >
     <div class="row">
-        <div class="botonVotar col-md-12">
+        <div class="col-md-12 botonVotar">
             <input
                 type="submit"
                 class="btn btn-default"

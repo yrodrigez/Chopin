@@ -131,3 +131,10 @@ body {
 .col-bottom {
 	vertical-align: bottom;
 }
+
+
+.botonVotar {
+	float: none !important;
+	text-align: right;
+	margin-bottom: 10px;
+}
