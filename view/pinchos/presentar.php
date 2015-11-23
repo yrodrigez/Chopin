@@ -12,7 +12,7 @@ $view->setVariable("title", "Presentar propuesta");
 	<div class="headerForm">
 		<span>Introduzca los datos del pincho que desea presentar</span>
 	</div>
-	<form class="form-horizontal" action="../../index.php?controller=pinchos&action=presentar" method="POST" enctype="multipart/form-data">
+	<form class="form-horizontal" action="index.php?controller=pinchos&action=presentar" method="POST" enctype="multipart/form-data">
 		<div class="form-group">
 			<label for="nombrePincho">Nombre:</label>
 			<input type="text" class="form-control" name="nombrePincho" required="true">
