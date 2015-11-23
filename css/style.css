@@ -169,3 +169,36 @@ body {
 	text-align: right;
 	margin-bottom: 10px;
 }
+
+.prg {
+	height: 10px;
+	margin-bottom: 10px;
+	overflow: hidden;
+	background-color: #f5f5f5;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+}
+.success-label{
+	position:absolute;
+	height:26px;
+	left: 15px;
+	margin-top:-10px;
+	padding-left: 5px;
+	padding-right: 5px;
+	z-index:1;
+	border-radius:15px;
+	border: 1px solid white;
+	background-color: #881700;
+	color: white;
+	text-align: center;
+}
+.primary-color{
+	background-color: #881700;
+}
+.success-color{
+	background-color:#881700;
+}
+.no-color{
+	background-color:inherit;
+}

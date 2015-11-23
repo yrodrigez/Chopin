@@ -4,6 +4,8 @@ require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $view->setVariable("title", "Mis pinchos");
 $pinchos = $view->getVariable("pinchos");
+$totalPinchos = $view->getVariable("totalPinchos");
+$porcentaje = round(count($pinchos)*100/$totalPinchos);
 ?>
 
 
@@ -11,6 +13,19 @@ $pinchos = $view->getVariable("pinchos");
     <div class="headerForm">
         <span>Mis Pinchos</span>
     </div>
+    <span>Porcentaje de pinchos probados:</span>
+    <div class="row"><br />
+        <div class="col-md-12">
+            <div class="prg">
+                <div class="prg success-color" style="width: <?= $porcentaje ?>%;">
+                    <div class="success-label"><?= $porcentaje ?> %
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="row">
         <?php if(count($pinchos) > 3): ?>
             <div class="botonVotar col-md-12">

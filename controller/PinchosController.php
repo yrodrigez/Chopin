@@ -172,6 +172,10 @@ class PinchosController extends BaseController {
           "pinchos",
           $this->pinchoMapper->listarPinchosUsuario($_SESSION['user'])
       );
+      $this->view->setVariable(
+          "totalPinchos",
+          count($this->pinchoMapper->getAllPinchos())
+      );
       $this->view->render("pinchos", "mispinchos");
     }
   }
