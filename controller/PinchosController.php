@@ -103,7 +103,13 @@ class PinchosController extends BaseController {
   public function aprobar(){
     if (isset($_SESSION["user"]) && $_SESSION["type"] == 0) {
       $this->pinchoMapper->aceptarPincho($_GET['id']);
-      $this->view->redirect('pinchos','listar');
+
+      $msg = array();
+      array_push($msg, array("success", "Propuesta aceptada correctamente"));
+      $this->view->setFlash($msg);
+      $this->view->redirect("pinchos","listar");
+    } else {
+      $this->view->redirect("pinchos","listar");
     }
   }
 

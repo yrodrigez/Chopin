@@ -33,8 +33,8 @@ $codigos = $view->getVariable("codigos");
         <?php foreach($codigos as $codigo): ?>
             <tr>
                 <td><?= $codigo->getIdCodigo(); ?></td>
-                <td><?= (($codigo->getUtilizado()==1)?"Si":"No"); ?></td>
-                <td><?= (($codigo->getUtilizado()==1)?$codigo->getEmail():"-"); ?></td>
+                <td><?= (($codigo->getEmail())?"Si":"No"); ?></td>
+                <td><?= (($codigo->getEmail())?$codigo->getEmail():"-"); ?></td>
             </tr>
         <?php endforeach; ?>
 

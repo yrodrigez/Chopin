@@ -34,7 +34,7 @@ class CodigoMapper {
     }
 
     public function getCodigosEstablecimiento($email){
-        $stmt = $this->db->prepare("SELECT * FROM codigo, propuesta WHERE codigo.idpropuesta=propuesta.idpropuesta and propuesta.email=?");
+        $stmt = $this->db->prepare("SELECT idcodigo,codigo.idpropuesta as idpropuesta,codigo.email as email,utilizado,elegido,fechaVotacion FROM codigo, propuesta WHERE codigo.idpropuesta=propuesta.idpropuesta and propuesta.email=?");
         $stmt->execute(array($email));
         $codigos_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -57,7 +57,7 @@ class CodigoMapper {
     }
 
     public function usado($codigo) {  // Asume que existe
-        $stmt = $this->db->prepare("SELECT * FROM codigo where idcodigo=? and utilizado=1 ");
+        $stmt = $this->db->prepare("SELECT * FROM codigo where idcodigo=? and email is not null");
         $stmt->execute(array($codigo));
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
