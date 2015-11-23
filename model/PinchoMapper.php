@@ -219,7 +219,7 @@ class pinchoMapper {
     }
   }
 
-  private function sonCodigosDistintos(
+  public function sonCodigosDistintos(
       $idCodigoElegido,
       $idCodigoUtilizado1,
       $idCodigoUtilizado2
@@ -243,8 +243,9 @@ class pinchoMapper {
     $id3= $propuestas[2];
     if($id1!=$id2 && $id1!=$id3 && $id2!=$id3){
       return true;
+    }else {
+      return false;
     }
-    return false;
   }
 
   /**
@@ -272,7 +273,7 @@ class pinchoMapper {
   public function borrarPincho(
     $idPincho
     ) {
-    $stmt = $this->db->prepare("DELETE FROM Propuesta WHERE idpropuesta= ?;");
+    $stmt = $this->db->prepare("DELETE FROM propuesta WHERE idpropuesta= ?;");
     return $stmt->execute(array($idPincho));
   }
 
@@ -286,7 +287,7 @@ class pinchoMapper {
   public function existePincho(
       $email
   ) {
-    $stmt = $this->db->prepare("SELECT * FROM Propuesta WHERE email=?");
+    $stmt = $this->db->prepare("SELECT * FROM propuesta WHERE email=?");
     $stmt->execute(array($email));
     if($stmt->rowCount()>0) {
       return true;
@@ -360,7 +361,7 @@ class pinchoMapper {
   public function getPinchoEstablecimiento(
     $email
     ) {
-    $stmt = $this->db->prepare("SELECT * FROM Propuesta WHERE email=?");
+    $stmt = $this->db->prepare("SELECT * FROM propuesta WHERE email=?");
     $stmt->execute(array($email));
     if($stmt->rowCount()>0) {
       foreach (

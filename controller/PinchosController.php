@@ -225,13 +225,25 @@ class PinchosController extends BaseController {
       foreach($idPinchos as $pinchoId){
         array_push($codigos, $this->pinchoMapper->getCodigoPincho($pinchoId));
       }
-      foreach($idPinchos as $idPincho){
-        array_push($pinchos, $this->pinchoMapper->getPincho($idPincho));
-      }
-      $this->view->setVariable("codigos", $codigos);
-      $this->view->setVariable("pinchos", $pinchos);
-      $this->view->setVariable("votar", 1);
-      $this->view->render("pinchos", "votar");
+        if($this->pinchoMapper->sonCodigosDistintos(
+            $codigos[0],
+            $codigos[1],
+            $codigos[2]
+            )) {
+
+            foreach ($idPinchos as $idPincho) {
+                array_push($pinchos, $this->pinchoMapper->getPincho($idPincho));
+            }
+            $this->view->setVariable("codigos", $codigos);
+            $this->view->setVariable("pinchos", $pinchos);
+            $this->view->setVariable("votar", 1);
+            $this->view->render("pinchos", "votar");
+        }else{
+            $msg = array();
+            array_push($msg, array("error", "Debes seleccionar 3 codigos distintos."));
+            $this->view->setFlash($msg);
+            $this->view->redirect("pinchos", "getAllUsuarioCodigosPincho");
+        }
     } else {
       if(count($_POST["pinchos"]) != 3){
         $msg = array();
