@@ -166,7 +166,7 @@ class pinchoMapper {
     $idPincho
     ) {
     $stmt = $this->db->prepare("UPDATE Propuesta Set aprobada = ? WHERE idpropuesta = ?;");
-    return $stmt->execute(array(APROBADO,$idPincho));
+    return $stmt->execute(array(Pincho::APROBADO,$idPincho));
   }
 
   /**

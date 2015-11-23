@@ -14,7 +14,7 @@ $isVotar = $view->getVariable("votar");
             <span>Selecciona los tres pinchos que vas a usar para votar</span>
         <?php endif ?>
         <?php if($isVotar == 1): ?>
-            <span>Vota por el que mas te gusta (por Chavez no, porfiz)</span>
+            <span>Vota por el que mas te gusta</span>
         <?php endif ?>
 
     </div>

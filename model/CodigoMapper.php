@@ -65,7 +65,7 @@ class CodigoMapper {
     }
 
     public function asociarUsuario($codigo, $email) {
-        $stmt = $this->db->prepare("UPDATE codigo SET utilizado=1, email=? WHERE idcodigo=?");
+        $stmt = $this->db->prepare("UPDATE codigo SET email=? WHERE idcodigo=?");
         $stmt->execute(array($email, $codigo));
     }
 

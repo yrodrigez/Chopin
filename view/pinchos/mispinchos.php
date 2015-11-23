@@ -22,7 +22,7 @@ $pinchos = $view->getVariable("pinchos");
         <div class="thumbnail">
             <div class="row row-height">
                 <div class="col-xs-4 col-sm-3 col-height">
-                    <img src='<?= $pincho->getFotoPincho();?>' alt='Foto_Pincho' class='user-img img-circle'/>
+                    <img src='<?= 'img/pinchos/'.$pincho->getFotoPincho();?>' alt='Foto_Pincho' class='user-img img-circle'/>
                 </div>
                 <div class="col-xs-8 col-sm-6 col-height col-middle">
                     <div class="thumb-username">

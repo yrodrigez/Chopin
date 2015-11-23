@@ -9,8 +9,11 @@ $pincho = $view->getVariable("pincho");
 $view->setVariable("title", "View Post"); ?>
 
 
+
+
 <div>
 	<h1><?= $pincho->getNombrePincho(); ?></h1>
+	<img src="">
 	<ul>
 		<li>Precio: <?= $pincho->getPrecioPincho(); ?><br></li>
 		<li>Id: <?= $pincho->getIdPincho(); ?><br></li>
@@ -27,7 +30,7 @@ $view->setVariable("title", "View Post"); ?>
 	</ul>
 
 	<?php if(isset($_SESSION["type"]) && $_SESSION["type"] == 0): ?>
-		<a href="index.php?controller=pincho&action=aprobar&id=<?= $pincho->getIdPincho(); ?>" class="btn btn-default <?= (($pincho->getAprobadaPincho() == 1)?"disabled":"") ?>" role="button"><?= (($pincho->getAprobadaPincho() == 1)?"Aceptada":"Aceptar") ?></a>
+		<a href="index.php?controller=pinchos&action=aprobar&id=<?= $pincho->getIdPincho(); ?>" class="btn btn-default <?= (($pincho->getAprobadaPincho() == 1)?"disabled":"") ?>" role="button"><?= (($pincho->getAprobadaPincho() == 1)?"Aceptada":"Aceptar") ?></a>
 	<?php endif; ?>
 
 </div>

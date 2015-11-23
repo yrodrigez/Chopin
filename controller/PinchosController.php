@@ -103,7 +103,7 @@ class PinchosController extends BaseController {
   public function aprobar(){
     if (isset($_SESSION["user"]) && $_SESSION["type"] == 0) {
       $this->pinchoMapper->aceptarPincho($_GET['id']);
-      $this->view->render('pinchos','listar');
+      $this->view->redirect('pinchos','listar');
     }
   }
 
@@ -164,8 +164,7 @@ class PinchosController extends BaseController {
 
 
   public function listarPinchosUsuario(){
-    if(
-        isset($_SESSION["user"])
+    if(isset($_SESSION["user"])
         && isset($_SESSION["type"])
         && $_SESSION['type'] == Usuario::JURADO_POPULAR
     ) {
@@ -216,8 +215,9 @@ class PinchosController extends BaseController {
   public function seleccion() {
     if(
         isset($_POST["pinchos"])
-        &&isset($_SESSION["user"])
-        &&count($_POST["pinchos"]) == 3
+        && isset($_SESSION["user"])
+        && count($_POST["pinchos"]) == 3
+
     ){
       $idPinchos = $_POST["pinchos"];
       $codigos = array();
