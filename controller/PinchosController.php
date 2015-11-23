@@ -38,7 +38,7 @@ class PinchosController extends BaseController {
       if (!$this->pinchoMapper->existePincho($_SESSION["user"])) {
         if(isset($_POST['nombrePincho'])){
           $subirFoto = PinchosController::subirImagen();
-          $fotoPath = $_FILES["fotoPincho"]["name"];
+          $fotoPath = ((!empty($_FILES["fotoPincho"]["name"]))?$_FILES["fotoPincho"]["name"]:"default.png");
           $ingredientes = explode(",", $_POST['ingredientesPincho']);
           $pincho = new Pincho (
             0,
