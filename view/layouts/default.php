@@ -19,15 +19,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="css/fileinput.min.css" type="text/css">
-        <link rel="stylesheet" href="css/style.css" type="text/css">
+		<link rel="stylesheet" href="css/style.css" type="text/css">
+		<link rel="stylesheet" href="css/jquery.tagsinput.css" type="text/css">
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700" type="text/css">
 		<link rel="stylesheet" href="Alex Brush.ttf">
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="js/fileinput.min.js"></script>
-
+		<script src="js/fileinput.min.js"></script>
+		<script src="js/jquery.tagsinput.js"></script>
 
 	</head>
 
@@ -121,12 +122,14 @@
 
 
 		</div>
+
 	</body>
 
 
     <script>
+
         $(document).ready(function() {
-            $("#msg-container").delay(3000).fadeOut('slow');
+			$("#msg-container").delay(3000).fadeOut('slow');
         });
 
         <?= $view->getFragment("script") ?>

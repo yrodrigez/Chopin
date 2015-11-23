@@ -1,3 +1,13 @@
+<?php
+
+
+require_once(__DIR__."/../../core/ViewManager.php");
+$view = ViewManager::getInstance();
+
+$view->setVariable("title", "Presentar propuesta");
+?>
+
+
 <div id="formPresentarPincho">
 	<div class="headerForm">
 		<span>Introduzca los datos del pincho que desea presentar</span>
@@ -28,3 +38,8 @@
 		</div>
 	</form>
 </div>
+
+
+<?php $view->moveToFragment("script"); ?>
+$('#ingredientesInput').tagsInput({width:'auto'});
+<?php $view->moveToDefaultFragment(); ?>
