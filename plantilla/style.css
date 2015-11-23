@@ -62,3 +62,8 @@ body {
 .success-color{
 	background-color:#5cb85c;
 }
+
+.botonVotar {
+	text-align: right;
+	margin-bottom: 10px;
+}

@@ -9,15 +9,18 @@ $pinchos = $view->getVariable("pinchos");
 
 <div>
     <div class="headerForm">
-        <span>Pinchos participantes</span>
+        <span>Mis Pinchos</span>
     </div>
-
+    <?php if(count($pinchos) > 3): ?>
     <input
         type="button"
         onclick="location.href='index.php?controller=pinchos&amp;action=getAllUsuarioCodigosPincho'"
         class="btn btn-default"
         value="Votar"
     >
+    <?php elseif(count($pinchos) < 3): ?>
+        <span>Debes tener al menos tres (3) pinchos distintos para poder votar</span>
+    <?php endif; ?>
     <?php foreach ($pinchos as $pincho): ?>
         <div class="thumbnail">
             <div class="row row-height">

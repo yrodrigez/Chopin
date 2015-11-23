@@ -18,27 +18,31 @@ $isVotar = $view->getVariable("votar");
         <?php endif ?>
 
     </div>
-    <div class="botonVotar" style="text-align: left;">
-        <form
-            <?php if($isVotar == 0): ?>
+
+    <form
+        <?php if($isVotar == 0): ?>
             action="index.php?controller=pinchos&amp;action=seleccion"
-            <?php endif ?>
-            <?php if($isVotar == 1): ?>
-                action="index.php?controller=pinchos&amp;action=votar"
-            <?php endif ?>
-            method="post"
-        >
-        <input
-            type="submit"
-            <?php if($isVotar == 0): ?>
-                value="Seleccionar"
-                name="Seleccionar"
-            <?php endif ?>
-            <?php if($isVotar == 1): ?>
-                value="Votar"
-                name="Seleccionar"
-            <?php endif ?>
-            style="margin-bottom: 10px;">
+        <?php endif ?>
+        <?php if($isVotar == 1): ?>
+            action="index.php?controller=pinchos&amp;action=votar"
+        <?php endif ?>
+        method="post"
+    >
+    <div class="row">
+        <div class="botonVotar col-md-12">
+            <input
+                type="submit"
+                class="btn btn-default"
+                <?php if($isVotar == 0 && count($pinchos) >= 3): ?>
+                    value="Seleccionar"
+                    name="Seleccionar"
+                <?php endif ?>
+                <?php if($isVotar == 1 && count($pinchos) >= 3): ?>
+                    value="Votar"
+                    name="Seleccionar"
+                <?php endif ?>
+            >
+        </div>
     </div>
     <?php for ($i = 0; $i < count($pinchos); $i++): ?>
         <div class="thumbnail">
