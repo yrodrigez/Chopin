@@ -98,6 +98,37 @@ body {
 	z-index: 1;
 }
 
+.pincho-view-title {
+	text-align: center;
+	text-decoration: underline;
+}
+
+.pincho-view-img {
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.pincho-view-img > img {
+	max-height: 200px;
+	max-width: 250px;
+}
+
+.pincho-view-description {
+	text-align: center;
+	margin: auto;
+	width: 80%;
+}
+
+.pincho-view-description th {
+	min-width: 20%;
+}
+
+.pincho-view-confirm {
+	text-align: right;
+	margin: auto;
+	width: 80%;
+}
+
 /* ------------------------------- */
 
 .user-img {
