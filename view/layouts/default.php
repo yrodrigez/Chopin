@@ -29,6 +29,7 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/fileinput.min.js"></script>
 		<script src="js/jquery.tagsinput.js"></script>
+		<script src="js/validator.js"></script>
 
 	</head>
 

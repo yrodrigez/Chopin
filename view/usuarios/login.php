@@ -8,10 +8,11 @@
 
 <h2><?= "Iniciar sesi&oacute;n" ?></h2>
 
-<form role="form" action="index.php?controller=usuarios&amp;action=login" method="POST" enctype="multipart/form-data">
+<form role="form" action="index.php?controller=usuarios&amp;action=login" method="POST" enctype="multipart/form-data" data-toggle="validator">
     <div class="form-group">
         <label for="username">Email:</label>
-        <input type="email" class="form-control" name="username" id="username" placeholder="Introduce un email">
+        <input type="email" class="form-control" name="username" id="username" placeholder="Introduce un email" data-error="El email introducido no es válido" required>
+        <div class="help-block with-errors"></div>
     </div>
     <div class="form-group">
         <label for="passwd">Password:</label>

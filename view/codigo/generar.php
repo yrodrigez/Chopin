@@ -7,9 +7,9 @@ $codigos = $view->getVariable("codigos");
 
 <h2>Generar c&oacute;digos</h2>
 
-<form action="index.php?controller=codigos&amp;action=generar" method="POST">
+<form action="index.php?controller=codigos&amp;action=generar" method="POST" data-toggle="validator">
     <div class="form-group">
-        <input type="number" class="form-control" name="numCodigos" id="numCodigos" placeholder="Introduce el número de códigos a generar">
+        <input type="text" class="form-control" name="numCodigos" id="numCodigos" placeholder="Introduce el número de códigos a generar" pattern="^[0-9]{1,3}$" required>
     </div>
     <button type="submit" class="btn btn-default">Generar</button>
 </form>

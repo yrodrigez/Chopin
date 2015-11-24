@@ -13,18 +13,20 @@
 ?>
 
 <h2>Añadir jurado profesional</h2>
-<form role="form" action="index.php?controller=juradoprofesional&amp;action=edit" method="POST" enctype="multipart/form-data">
+<form role="form" action="index.php?controller=juradoprofesional&amp;action=edit" method="POST" enctype="multipart/form-data" data-toggle="validator">
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" class="form-control" readonly name="email" id="email" placeholder="Introduce un email" value="<?= $miembro->getEmail() ?>">
     </div>
     <div class="form-group">
       <label for="pwd">Password:</label>
-      <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Introduce una nueva contrase&ntilde;a">
+      <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Introduce una nueva contrase&ntilde;a" data-minlength="6" data-error="La contraseña debe tener al menos 6 caracteres">
+      <div class="help-block with-errors"></div>
     </div>
 	<div class="form-group">
       <label for="tel">Tel&eacute;fono:</label>
-      <input type="text" class="form-control" name="tel" id="tel" placeholder="Introduce un tel&eacute;fono" value="<?= $miembro->getTelefono() ?>">
+      <input type="text" class="form-control" name="tel" id="tel" placeholder="Introduce un tel&eacute;fono" value="<?= $miembro->getTelefono() ?>" pattern="^[0-9]{9}$" data-error="El teléfono introducido no es válido">
+      <div class="help-block with-errors"></div>
     </div>
 	<div class="form-group">
       <label for="avatar">Foto de perfil:</label>
