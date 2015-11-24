@@ -63,10 +63,11 @@ class UsuariosController extends BaseController {
 					if (!$this->userMapper->exists($user)) {
 
 						if($_POST["tel"]) $user->setTelefono($_POST["tel"]);
-						if($_FILES['avatar']) {
-							$path = "img/usuarios/" . basename( $_FILES['avatar']['name']);
+						if($_FILES['avatar'] and $_FILES['avatar']['name']) {
+							$name = $_POST["username"] . "." . substr(strrchr($_FILES['avatar']['name'], '.'), 1);
+							$path = "img/usuarios/" . $name;
 							move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
-							$user->setFotoUsuario(basename($_FILES['avatar']['name']));
+							$user->setFotoUsuario($name);
 						} else {
 							$user->setFotoUsuario("default.png");
 						}
@@ -97,9 +98,10 @@ class UsuariosController extends BaseController {
 
 						if($_POST["tel"]) $user->setTelefono($_POST["tel"]);
 						if($_FILES['avatar'] and $_FILES['avatar']['name']) {
-							$path = "img/usuarios/" . basename( $_FILES['avatar']['name']);
+							$name = $_POST["username"] . "." . substr(strrchr($_FILES['avatar']['name'], '.'), 1);
+							$path = "img/usuarios/" . $name;
 							move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
-							$user->setFotoUsuario(basename($_FILES['avatar']['name']));
+							$user->setFotoUsuario($name);
 						} else {
 							$user->setFotoUsuario("default.png");
 						}
@@ -110,6 +112,7 @@ class UsuariosController extends BaseController {
 						$user->setTipo(3);
 						$this->estabMapper->registrarEstablecimiento($user);
 
+						$msg = array();
                         array_push($msg, array("success", "El establecimiento se ha creado correctamente"));
                         $this->view->setFlash($msg);
 						$this->view->redirect("usuarios", "login");

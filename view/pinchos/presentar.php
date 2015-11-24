@@ -31,7 +31,7 @@ $view->setVariable("title", "Presentar propuesta");
 		</div>
 		<div class="form-group">
 			<label for="fotoPincho">Foto:</label>
-			<input type="file" name="fotoPincho">
+			<input type="file" class="file file-loading" name="fotoPincho" id="avatar" data-show-upload="false" data-allowed-file-extensions='["jpg", "png", "bmp", "gif"]'>
 		</div>
 		<div id="divBtn" class="form-group">
 			<button type="submit" class="btn btn-default btnForm">Presentar</button>

@@ -37,8 +37,8 @@ class PinchosController extends BaseController {
     if(isset($_SESSION["user"]) && ($_SESSION["type"] == Usuario::ESTABLECIMIENTO)){
       if (!$this->pinchoMapper->existePincho($_SESSION["user"])) {
         if(isset($_POST['nombrePincho'])){
-          $subirFoto = PinchosController::subirImagen();
-          $fotoPath = ((!empty($_FILES["fotoPincho"]["name"]))?$_FILES["fotoPincho"]["name"]:"default.png");
+          $subirFoto = $this->subirImagen();
+          $fotoPath = (($subirFoto)?$_SESSION["user"].".".substr(strrchr($_FILES['fotoPincho']['name'], '.'), 1):"default.png");
           $ingredientes = explode(",", $_POST['ingredientesPincho']);
           $pincho = new Pincho (
             0,
@@ -50,6 +50,7 @@ class PinchosController extends BaseController {
             Pincho::NO_APROBADO,
             $fotoPath
             );
+
           $this->pinchoMapper->save($pincho);
           if(!$subirFoto) {
           	$msg = array();
@@ -86,18 +87,14 @@ class PinchosController extends BaseController {
    */
 
   public function subirImagen(){
-    if (file_exists("/img/pinchos/".$_FILES["fotoPincho"]["name"])) {
-      unlink("/img/pinchos/".$_FILES["fotoPincho"]["name"]);
+    if(isset($_FILES['fotoPincho']) and $_FILES['fotoPincho']['name']) {
+      $name = $_SESSION["user"] . "." . substr(strrchr($_FILES['fotoPincho']['name'], '.'), 1);
+      $path = "img/pinchos/" . $name;
+      move_uploaded_file($_FILES['fotoPincho']['tmp_name'], $path);
+      return true;
     }
-    if ($_FILES["fotoPincho"]["size"] > 5242880) {
-      return false;
-    }
-    if ($_FILES["fotoPincho"]["name"] != NULL){
-    	if (move_uploaded_file($_FILES["fotoPincho"]["tmp_name"], "/img/pinchos/".$_FILES["fotoPincho"]["name"])) {
-      		return true;
-    	}
-    }
-    return true;  
+
+    return false;
   }
 
   public function aprobar(){

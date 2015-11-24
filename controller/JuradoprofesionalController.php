@@ -33,9 +33,10 @@ class JuradoProfesionalController extends BaseController {
 			$exp = ($_POST["exp"])?$_POST["exp"]:NULL;
 
 			if($_FILES['avatar'] and $_FILES['avatar']['name']) {
-				$path = "img/usuarios/" . basename( $_FILES['avatar']['name']);
+				$name = $_POST["username"] . "." . substr(strrchr($_FILES['avatar']['name'], '.'), 1);
+				$path = "img/usuarios/" . $name;
 				move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
-				$avatar = basename($_FILES['avatar']['name']);
+				$avatar = $name;
 			} else {
 				$avatar="default.png";
 			}
