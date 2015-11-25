@@ -23,7 +23,7 @@ $view->setVariable("title", "Presentar propuesta");
 		</div>
 		<div class="form-group">
 			<label for="ingredientes">Ingredientes:</label>
-			<input type="text" class="form-control" name="ingredientesPincho" id="ingredientesInput" required="true" placeholder="Inserte sus ingredientes separados por comas">
+			<input type="text" class="form-control" name="ingredientesPincho" id="ingredientesInput" required="true">
 		</div>
 		<div class="form-group">
 			<label for="precioPincho">Precio:</label>

@@ -10,7 +10,7 @@
 ?>
 
 <h2>Añadir jurado profesional</h2>
-<form role="form" action="index.php?controller=juradoprofesional&amp;action=add" method="POST" enctype="multipart/form-data"  data-toggle="validator">
+<form role="form" action="index.php?controller=juradoprofesional&amp;action=add" method="POST" enctype="multipart/form-data" data-toggle="validator">
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" class="form-control" name="email" id="email" placeholder="Introduce un email" data-error="El email introducido no es válido" required>
@@ -37,5 +37,4 @@
 
     <button type="submit" class="btn btn-default">A&ntilde;adir</button>
 </form>
-
 <a href="index.php?controller=juradoprofesional&amp;action=index"><button class="btn btn-default">Volver</button></a>
