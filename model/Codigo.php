@@ -3,7 +3,7 @@
 
 class Codigo{
     private $idCodigo;
-    private $idPropuesta;
+    private $idPincho;
     private $email;
     private $utilizado;
     private $elegido;
@@ -18,10 +18,10 @@ class Codigo{
      * @param $elegido
      * @param $fechaVotacion
      */
-    public function __construct($idCodigo=NULL, $idPropuesta=NULL, $email=NULL, $utilizado=NULL, $elegido=NULL, $fechaVotacion=NULL)
+    public function __construct($idCodigo=NULL, $idPincho=NULL, $email=NULL, $utilizado=NULL, $elegido=NULL, $fechaVotacion=NULL)
     {
         $this->idCodigo = $idCodigo;
-        $this->idPropuesta = $idPropuesta;
+        $this->idPincho = $idPincho;
         $this->email = $email;
         $this->utilizado = $utilizado;
         $this->elegido = $elegido;
@@ -47,17 +47,17 @@ class Codigo{
     /**
      * @return mixed
      */
-    public function getIdPropuesta()
+    public function getIdPincho()
     {
-        return $this->idPropuesta;
+        return $this->idPincho;
     }
 
     /**
-     * @param mixed $idPropuesta
+     * @param mixed $idPincho
      */
-    public function setIdPropuesta($idPropuesta)
+    public function setIdPincho($idPincho)
     {
-        $this->idPropuesta = $idPropuesta;
+        $this->idPincho = $idPincho;
     }
 
     /**

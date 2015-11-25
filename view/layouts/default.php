@@ -9,51 +9,51 @@
 	$currentuser = $view->getVariable("currentusername");
 	$concurso = (new ConcursoMapper())->getInfo();
 
-function getNavItems($phone) {
-	$concurso = (new ConcursoMapper())->getInfo();
-	$started = $concurso->isStarted();
+	function getNavItems($phone) {
+		$concurso = (new ConcursoMapper())->getInfo();
+		$started = $concurso->isStarted();
 
-	$items = '<li class="nav-pill"><a href="index.php?controller=concurso&amp;action=view">Concurso</a></li>';
-	if($started) {
-		$items .= '<li class="nav-pill"><a href="index.php?controller=pinchos&amp;action=listar">Pinchos</a></li>';
-	}
-	if (!isset($_SESSION["user"])) {
-		if($started) {
-			$items .= '<li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
+		$items = '<li class="nav-pill"><a href="index.php?controller=concurso&amp;action=view">Concurso</a></li>';
+		if($started or isset($_SESSION["type"]) and $_SESSION["type"]==Usuario::ORGANIZADOR) {
+			$items .= '<li class="nav-pill"><a href="index.php?controller=pinchos&amp;action=listar">Pinchos</a></li>';
 		}
-
-		$items .= '<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=login">'. (($phone)?'<span class="glyphicon glyphicon-log-in"></span> ':'') . 'Identificarse</a></li>';
-
-		if($started) {
-			$items .= '<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=register">'. (($phone)?'<span class="glyphicon glyphicon-user"></span> ':'') . 'Registrarse</a></li>';
-		} else {
-			$items .= '<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=register">'. (($phone)?'<span class="glyphicon glyphicon-user"></span> ':'') . 'Registrar establecimiento</a></li>';
-		}
-
-	} else {
-		if($_SESSION["type"]==Usuario::ORGANIZADOR and !$started) {
-			$items .= '<li><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
-		} else if($_SESSION["type"]==Usuario::JURADO_POPULAR) {
-			$items .= '<li><a href="index.php?controller=pinchos&amp;action=listarPinchosUsuario">Mis pinchos</a></li><li><a href="index.php?controller=codigos&amp;action=introducir">Introducir Código</a></li>';
-		} else if($_SESSION["type"]==Usuario::ESTABLECIMIENTO) {
+		if (!isset($_SESSION["user"])) {
 			if($started) {
-				$items = '<li><a href="index.php?controller=pinchos&amp;action=presentar">Propuesta</a></li>';
+				$items .= '<li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
 			}
 
-			if((new PinchoMapper())->getPinchoValidado($_SESSION["user"])<>-1) {
-				$items = '<li><a href="index.php?controller=codigos&amp;action=generar">Generar c&oacute;digos</a></li>';
+			$items .= '<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=login">'. (($phone)?'<span class="glyphicon glyphicon-log-in"></span> ':'') . 'Identificarse</a></li>';
+
+			if($started) {
+				$items .= '<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=register">'. (($phone)?'<span class="glyphicon glyphicon-user"></span> ':'') . 'Registrarse</a></li>';
+			} else {
+				$items .= '<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=register">'. (($phone)?'<span class="glyphicon glyphicon-user"></span> ':'') . 'Registrar establecimiento</a></li>';
 			}
+
+		} else {
+			if($_SESSION["type"]==Usuario::ORGANIZADOR and !$started) {
+				$items .= '<li><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
+			} else if($_SESSION["type"]==Usuario::JURADO_POPULAR) {
+				$items .= '<li><a href="index.php?controller=pinchos&amp;action=listarPinchosUsuario">Mis pinchos</a></li><li><a href="index.php?controller=codigos&amp;action=introducir">Introducir Código</a></li>';
+			} else if($_SESSION["type"]==Usuario::ESTABLECIMIENTO) {
+				if(!$started) {
+					$items .= '<li><a href="index.php?controller=pinchos&amp;action=presentar">Propuesta</a></li>';
+				}
+
+				if((new PinchoMapper())->getPinchoValidado($_SESSION["user"])<>-1) {
+					$items .= '<li><a href="index.php?controller=codigos&amp;action=generar">Generar c&oacute;digos</a></li>';
+				}
+			}
+
+			if($started) {
+				$items .= '<li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
+			}
+
+			$items .= '<li><a href="index.php?controller=usuarios&amp;action=logout">Desconectar <?= $currentuser ?></a></li>';
+
 		}
-
-		if($started) {
-			$items .= '<li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
-		}
-
-		$items .= '<li><a href="index.php?controller=usuarios&amp;action=logout">Desconectar <?= $currentuser ?></a></li>';
-
+		return $items;
 	}
-	return $items;
-}
 ?>
 
 <!DOCTYPE html>

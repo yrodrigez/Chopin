@@ -1,13 +1,7 @@
 <?php
 	//file: view/layouts/default.php
 	require_once(__DIR__."/../../core/ViewManager.php");
-	require_once(__DIR__."/../../model/Concurso.php");
-    require_once(__DIR__."/../../model/Usuario.php");
-	require_once(__DIR__."/../../model/ConcursoMapper.php");
-	require_once(__DIR__."/../../model/PinchoMapper.php");
 	$view = ViewManager::getInstance();
-	$currentuser = $view->getVariable("currentusername");
-	$concurso = (new ConcursoMapper())->getInfo();
 ?>
 
 <!DOCTYPE html>

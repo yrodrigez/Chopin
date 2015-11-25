@@ -33,7 +33,7 @@ class pinchoMapper {
     $pincho
     ) {
     $stmt = $this->db->prepare(
-      "INSERT INTO Propuesta(precio, idpropuesta, nombre, descripcion, email, aprobada, fotoPropuesta) 
+      "INSERT INTO pincho(precio, idpincho, nombre, descripcion, email, aprobada, foto)
       VALUES (?, ?, ?, ?, ?, ?, ?);"
       );
     $stmt->execute(array($pincho->getPrecioPincho(), 
@@ -46,27 +46,12 @@ class pinchoMapper {
 
     $pinchoInsertado = $this->db->lastInsertId();
     foreach($pincho->getIngredientesPincho() as $ingrediente){
-      $ingredienteDB = $this->comprobarCategoria($ingrediente);
-      if($ingredienteDB==NULL){
-        $stmt = $this->db->prepare(
-         "INSERT INTO categoria(nombreCategoria) VALUES (?);"
-         );
-        $stmt->execute(array($ingrediente));
-        $stmt = $this->db->prepare(
-          "INSERT INTO Ingredientes(idpropuesta, nombreCategoria) VALUES (?, ?);"
-          );
-        $stmt->execute(array($pinchoInsertado,
-          $ingrediente));
-      } else {
-        $stmt = $this->db->prepare(
-          "INSERT INTO Ingredientes(idpropuesta, nombreCategoria) VALUES (?, ?);"
-          );
-        $stmt->execute(array($pinchoInsertado,
-          $ingredienteDB));
-      }
-      
+
+      $stmt = $this->db->prepare(
+          "INSERT INTO Ingredientes(idpincho, nombreCategoria) VALUES (?, ?);"
+      );
+      $stmt->execute(array($pinchoInsertado, $ingrediente));
     }
-    return true;
   }
 
   /**
@@ -79,7 +64,7 @@ class pinchoMapper {
   public function getPincho(
     $idPincho
     ) {
-    $stmt = $this->db->prepare("SELECT * FROM propuesta WHERE idpropuesta=?");
+    $stmt = $this->db->prepare("SELECT * FROM pincho WHERE idpincho=?");
     $stmt->execute(array($idPincho));
     if($stmt->rowCount()>0) {
       foreach (
@@ -87,14 +72,14 @@ class pinchoMapper {
         ) {
         $ingredientes = $this->getIngredientesPincho($idPincho);
       return new Pincho(
-        $pincho["idpropuesta"],
+        $pincho["idpincho"],
         $pincho["nombre"],
         $pincho["descripcion"],
         $ingredientes,
         $pincho["precio"],
         $pincho["email"],
         $pincho["aprobada"],
-        $pincho["fotoPropuesta"]
+        $pincho["foto"]
         );
     }
   } else {
@@ -105,7 +90,7 @@ class pinchoMapper {
   public function getCodigoPincho(
     $idPincho
   ){
-    $stmt = $this->db->prepare("SELECT idcodigo FROM codigo WHERE idpropuesta= ?");
+    $stmt = $this->db->prepare("SELECT idcodigo FROM codigo WHERE idpincho= ?");
     if($stmt->execute(array($idPincho))){
       return $stmt->fetchColumn();
     }
@@ -145,7 +130,7 @@ class pinchoMapper {
     $idPincho
     ) {
     $ingredientes = array();
-    $stmt = $this->db->prepare("SELECT nombreCategoria FROM ingredientes WHERE idpropuesta=?");
+    $stmt = $this->db->prepare("SELECT nombreCategoria FROM ingredientes WHERE idpincho=?");
     $stmt->execute(array($idPincho));
     $i = $stmt->rowCount();
     while($i>0) {
@@ -165,7 +150,7 @@ class pinchoMapper {
   public function aceptarPincho(
     $idPincho
     ) {
-    $stmt = $this->db->prepare("UPDATE Propuesta Set aprobada = ? WHERE idpropuesta = ?;");
+    $stmt = $this->db->prepare("UPDATE pincho Set aprobada = ? WHERE idpincho = ?;");
     return $stmt->execute(array(Pincho::APROBADO,$idPincho));
   }
 
@@ -225,7 +210,7 @@ class pinchoMapper {
       $idCodigoUtilizado2
   ) {
     $propuestas= array();
-    $stmt = $this->db->prepare("SELECT idpropuesta FROM codigo WHERE idcodigo= ? OR idcodigo= ? OR idcodigo= ?");
+    $stmt = $this->db->prepare("SELECT idpincho FROM codigo WHERE idcodigo= ? OR idcodigo= ? OR idcodigo= ?");
     $stmt->execute(array(
         $idCodigoElegido,
         $idCodigoUtilizado1,
@@ -273,7 +258,7 @@ class pinchoMapper {
   public function borrarPincho(
     $idPincho
     ) {
-    $stmt = $this->db->prepare("DELETE FROM propuesta WHERE idpropuesta= ?;");
+    $stmt = $this->db->prepare("DELETE FROM pincho WHERE idpincho= ?;");
     return $stmt->execute(array($idPincho));
   }
 
@@ -287,7 +272,7 @@ class pinchoMapper {
   public function existePincho(
       $email
   ) {
-    $stmt = $this->db->prepare("SELECT * FROM propuesta WHERE email=?");
+    $stmt = $this->db->prepare("SELECT * FROM pincho WHERE email=?");
     $stmt->execute(array($email));
     if($stmt->rowCount()>0) {
       return true;
@@ -299,11 +284,11 @@ class pinchoMapper {
   public function getPinchoValidado(
       $email
   ) {
-    $stmt = $this->db->prepare("SELECT * FROM propuesta WHERE email=? AND aprobada=1");
+    $stmt = $this->db->prepare("SELECT * FROM pincho WHERE email=? AND aprobada=1");
     $stmt->execute(array($email));
     if($stmt->rowCount()>0) {
       $prop = $stmt->fetch(PDO::FETCH_ASSOC);
-      return $prop["idpropuesta"];
+      return $prop["idpincho"];
     } else {
       return -1;
     }
@@ -317,7 +302,7 @@ class pinchoMapper {
       $idUsuario
   ) {
     $pinchos = array();
-    $stmt = $this->db->prepare("SELECT idpropuesta FROM codigo WHERE email= ? AND utilizado= ?");
+    $stmt = $this->db->prepare("SELECT idpincho FROM codigo WHERE email= ? AND utilizado= ?");
 
     if($stmt->execute(array($idUsuario, Pincho::NO_UTILIZADO))){
       if($stmt->rowCount() > 0){
@@ -338,7 +323,7 @@ class pinchoMapper {
 
   ){
     $pinchos= array();
-    $stmt = $this->db->prepare("SELECT idpropuesta FROM propuesta");
+    $stmt = $this->db->prepare("SELECT idpincho FROM pincho");
     if($stmt->execute(array())){
       if($stmt->rowCount() > 0){
         $i = $stmt->rowCount();
@@ -361,22 +346,22 @@ class pinchoMapper {
   public function getPinchoEstablecimiento(
     $email
     ) {
-    $stmt = $this->db->prepare("SELECT * FROM propuesta WHERE email=?");
+    $stmt = $this->db->prepare("SELECT * FROM pincho WHERE email=?");
     $stmt->execute(array($email));
     if($stmt->rowCount()>0) {
       foreach (
         $stmt as $pincho
         ) {
-        $ingredientes = $this->getIngredientesPincho($pincho["idpropuesta"]);
+        $ingredientes = $this->getIngredientesPincho($pincho["idpincho"]);
       return new Pincho(
-        $pincho["idpropuesta"],
+        $pincho["idpincho"],
         $pincho["nombre"],
         $pincho["descripcion"],
         $ingredientes,
         $pincho["precio"],
         $pincho["email"],
         $pincho["aprobada"],
-        $pincho["fotoPropuesta"]
+        $pincho["foto"]
         );
     }
   } else {

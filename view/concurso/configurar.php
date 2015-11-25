@@ -46,10 +46,12 @@ $view->setVariable("title", "Configurar concurso");
 		<div class="form-group">
 			<label for="username">Email del administrador:</label>
 			<input type="email" class="form-control" name="username" data-error="El email introducido no es válido" required>
+			<div class="help-block with-errors"></div>
 		</div>
 		<div class="form-group">
 			<label for="password">Contraseña del administrador:</label>
 			<input type="password" class="form-control" name="password" data-minlength="6" data-error="La contraseña debe tener al menos 6 caracteres" required>
+			<div class="help-block with-errors"></div>
 		</div>
 		<div class="form-group">
 			<label for="imagenOrganizador">Foto de perfil:</label>

@@ -26,22 +26,22 @@ class CodigoMapper {
     }
 
     public function generar($codigo, $num) {
-        $stmt = $this->db->prepare("INSERT INTO codigo(idcodigo, idpropuesta, utilizado, elegido) values (?,?,?,?)");
+        $stmt = $this->db->prepare("INSERT INTO codigo(idcodigo, idpincho, utilizado, elegido) values (?,?,?,?)");
 
         for($i= 0; $i<$num; $i++) {
-            $stmt->execute(array(uniqid(), $codigo->getIdPropuesta(), 0, 0));
+            $stmt->execute(array(uniqid(), $codigo->getIdPincho(), 0, 0));
         }
     }
 
     public function getCodigosEstablecimiento($email){
-        $stmt = $this->db->prepare("SELECT idcodigo,codigo.idpropuesta as idpropuesta,codigo.email as email,utilizado,elegido,fechaVotacion FROM codigo, propuesta WHERE codigo.idpropuesta=propuesta.idpropuesta and propuesta.email=?");
+        $stmt = $this->db->prepare("SELECT idcodigo,codigo.idpincho as idpincho,codigo.email as email,utilizado,elegido,fechaVotacion FROM codigo, pincho WHERE codigo.idpincho=pincho.idpincho and pincho.email=?");
         $stmt->execute(array($email));
         $codigos_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $codigos = array();
 
         foreach ($codigos_db as $codigo) {
-            $codigo = new Codigo($codigo['idcodigo'], $codigo['idpropuesta'], $codigo['email'], $codigo['utilizado'], $codigo['elegido'], $codigo['fechaVotacion']);
+            $codigo = new Codigo($codigo['idcodigo'], $codigo['idpincho'], $codigo['email'], $codigo['utilizado'], $codigo['elegido'], $codigo['fechaVotacion']);
             array_push($codigos, $codigo);
         }
 

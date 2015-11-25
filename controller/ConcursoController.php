@@ -1,13 +1,11 @@
 <?php
 //file: /controller/CommentsController.php
 
-//require_once(__DIR__."/../model/User.php");
 session_start();
 require_once(__DIR__ . "/../model/Concurso.php");
 require_once(__DIR__ . "/../model/Usuario.php");
 
-require_once(__DIR__ . "/../model/ConcursoMapper.php");
-require_once(__DIR__ . "/../model/UsuarioMapper.php");
+
 
 require_once(__DIR__ . "/../controller/BaseController.php");
 
@@ -19,26 +17,24 @@ require_once(__DIR__ . "/../controller/BaseController.php");
  */
 class ConcursoController extends BaseController
 {
-
-
-    private $concursomapper;
-
     public function __construct()
     {
         parent::__construct();
-
-        $this->concursomapper = new ConcursoMapper();
     }
 
 
-    public function add()
+    /*public function add()
     {
+        require_once(__DIR__ . "/../model/ConcursoMapper.php");
+
+        $this->concursomapper = new ConcursoMapper();
+
         if ((isset($_SESSION["user"])) && ($_SESSION["type"] == Usuario::ORGANIZADOR)) {
             if (!$this->concursomapper->existeConcurso()) {
                 $this->view->render("concurso", "configurar");
             } else {
                 $msg = array();
-                if ($_POST["nombre"] == NULL || $_POST["localizacion"] == NULL || $_POST["fecha"] == NULL) {  // TODO: add isset($_POST["submit"]))
+                if ($_POST["nombre"] == NULL || $_POST["localizacion"] == NULL || $_POST["fecha"] == NULL) {
                     array_push($msg, array("error", "Deben especificarse un nombre, una localización y una fecha"));
                 }
                 // TODO: Check if valid
@@ -52,15 +48,17 @@ class ConcursoController extends BaseController
             $this->view->setFlash($msg);
             $this->view->redirect("concurso", "view");
         }
-    }
+    }*/
 
     public function view()
     {
+        require_once(__DIR__ . "/../model/ConcursoMapper.php");
+        $concursomapper = new ConcursoMapper();
 
-        if (!$this->concursomapper->existeConcurso()) {
+        if (!$concursomapper->existeConcurso()) {
             $this->view->render("concurso", "configurar");
         } else {
-            $concurso = $this->concursomapper->getInfo();
+            $concurso = $concursomapper->getInfo();
             $this->view->setVariable("concurso", $concurso);
             $this->view->render("concurso", "view");
         }
@@ -74,8 +72,11 @@ class ConcursoController extends BaseController
 
             if (isset($_POST["nombre"])) {
                 if($this->importSQL("sql/db.sql", "127.0.0.1", "root", "")) {
+                    require_once(__DIR__ . "/../model/ConcursoMapper.php");
+                    require_once(__DIR__ . "/../model/UsuarioMapper.php");
+                    $concursomapper = new ConcursoMapper();
                     $concurso = new Concurso($_POST["nombre"], $_POST["descripcion"], $_POST["localizacion"], $_POST["fecha"]);
-                    $this->concursomapper->add($concurso);
+                    $concursomapper->add($concurso);
 
                     $user = new Usuario($_POST["username"], $_POST["password"]);
                     $user->setTipo(0);
@@ -100,7 +101,7 @@ class ConcursoController extends BaseController
         //}
     }
 
-    public function importSQL($sqlFile, $host, $user, $password)
+    private function importSQL($sqlFile, $host, $user, $password)
     {
         $link = mysqli_connect($host, $user, $password);
         if (mysqli_connect_errno()) return false;

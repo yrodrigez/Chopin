@@ -1,7 +1,7 @@
 
-DROP DATABASE IF EXISTS chopin_p; -- Nombre mientras está en versión de pruebas (para que no de conflicto con la anterior)
-CREATE DATABASE chopin_p;
-USE chopin_p;
+DROP DATABASE IF EXISTS chopin; 
+CREATE DATABASE chopin;
+USE chopin;
 
 DROP TABLE IF EXISTS codigo;
 DROP TABLE IF EXISTS comentario;
@@ -19,7 +19,7 @@ CREATE TABLE concurso (nombre varchar(50) NOT NULL, localizacion varchar(50) NOT
 CREATE TABLE establecimiento (direccion varchar(100), coordenadas varchar(50), email varchar(40) NOT NULL);
 CREATE TABLE ingredientes (idpincho int(10) NOT NULL, nombreCategoria varchar(30) NOT NULL, PRIMARY KEY (idpincho, nombreCategoria));
 CREATE TABLE juradoprofesional (experiencia varchar(255), email varchar(40) NOT NULL);
-CREATE TABLE pincho (precio decimal(3, 2) NOT NULL, idpincho int(10) NOT NULL AUTO_INCREMENT, nombre varchar(50) NOT NULL, descripcion varchar(255) NOT NULL, email varchar(40) NOT NULL, aprobada int(1), fotoPropuesta varchar(255), PRIMARY KEY (idpincho));
+CREATE TABLE pincho (precio decimal(3, 2) NOT NULL, idpincho int(10) NOT NULL AUTO_INCREMENT, nombre varchar(50) NOT NULL, descripcion varchar(255) NOT NULL, email varchar(40) NOT NULL, aprobada int(1), foto varchar(255), PRIMARY KEY (idpincho));
 CREATE TABLE usuario (email varchar(40) NOT NULL, password varchar(30) NOT NULL, fotoperfil varchar(255), telefono varchar(14), tipo int(1) NOT NULL, preferencias varchar(255), PRIMARY KEY (email));
 CREATE TABLE valoracion (idpincho int(10) NOT NULL, email varchar(40) NOT NULL, puntuacion decimal(1, 1), fecha date, PRIMARY KEY (idpincho, email));
 ALTER TABLE juradoprofesional ADD INDEX FKjuradoprof655776 (email), ADD CONSTRAINT FKjuradoprof655776 FOREIGN KEY (email) REFERENCES usuario (email);
