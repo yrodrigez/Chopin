@@ -25,7 +25,8 @@ $view->setVariable("title", "Configurar concurso");
 		</div>
 		<div class="form-group">
 			<label for="fecha">Fecha:</label>
-			<input type="text" class="form-control" name="fecha" required="true" placeholder="Indique la fecha de inicio del concurso">
+			<input type="text" class="form-control" name="fecha" required="true" placeholder="DD/MM/AAAA" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" data-error="La fecha introducida no es válida">
+			<div class="help-block with-errors"></div>
 		</div>
 		<div class="form-group">
 			<label for="imagenConcurso">Foto de perfil:</label>

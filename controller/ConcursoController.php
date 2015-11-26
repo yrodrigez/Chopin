@@ -78,11 +78,11 @@ class ConcursoController extends BaseController
                         move_uploaded_file($_FILES['imagenConcurso']['tmp_name'], $path);
                         $imgConcurso = $name;
                     } else {
-                        $imgConcurso="default.png";
+                        $imgConcurso = "default.png";
                     }
 
                     $concursomapper = new ConcursoMapper();
-                    $concurso = new Concurso($_POST["nombre"], $_POST["descripcion"], $_POST["localizacion"], $_POST["fecha"], $imgConcurso);
+                    $concurso = new Concurso($_POST["nombre"], $_POST["descripcion"], $_POST["localizacion"], date("Y-m-d", strtotime($_POST["fecha"])), $imgConcurso);
                     $concursomapper->add($concurso);
 
 

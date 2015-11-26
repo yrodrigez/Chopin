@@ -8,7 +8,7 @@
  $view = ViewManager::getInstance();
  $errors = $view->getVariable("errors");
  $user = $view->getVariable("user");
- $view->setVariable("title", "Register");
+ $view->setVariable("title", "Registro");
 ?>
 <h2>Registro</h2>
 <form role="form" action="index.php?controller=usuarios&amp;action=register" method="POST" enctype="multipart/form-data" data-toggle="validator">
