@@ -48,7 +48,7 @@ class pinchoMapper {
     foreach($pincho->getIngredientesPincho() as $ingrediente){
 
       $stmt = $this->db->prepare(
-          "INSERT INTO Ingredientes(idpincho, nombreCategoria) VALUES (?, ?);"
+          "INSERT INTO ingredientes(idpincho, nombreCategoria) VALUES (?, ?);"
       );
       $stmt->execute(array($pinchoInsertado, $ingrediente));
     }
