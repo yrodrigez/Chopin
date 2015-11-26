@@ -104,7 +104,7 @@ class pinchoMapper {
    * @throws PDOException if a database error occurs
    * @return String Returns the String if the category is already in the DB, else NULL
    */
-  public function comprobarCategoria(
+  /*public function comprobarCategoria(
     $categoria 
     ) {
     $category = strToUpper(substr($categoria, 0, 1).substr($categoria, 1));
@@ -117,7 +117,7 @@ class pinchoMapper {
       //return false;
       return null;
     }
-  }
+  }*/
 
   /**
    * Gets the ingredients of the Pincho specified by the id
@@ -310,6 +310,28 @@ class pinchoMapper {
         while($i>0) {
           array_push($pinchos, $this->getPincho($stmt->fetchColumn()));
           $i--;
+        }
+      }
+    }
+    return $pinchos;
+  }
+
+  /**
+   * @param $idUsuario
+   * @return array de todos los pinchos relacionados con el usuario que han sido votados
+   */
+  public function misVotaciones(
+      $idUsuario
+  ) {
+    $pinchos = array();
+    $stmt = $this->db->prepare("SELECT idpincho, count(idpincho) FROM codigo WHERE email= ? AND elegido= ? GROUP BY idpincho");
+    if($stmt->execute(array($idUsuario, Pincho::ELEGIDO))){
+      if($stmt->rowCount() > 0){
+        foreach (
+        $stmt as $pincho
+        ) {
+          array_push($pinchos, array($this->getPincho($pincho["idpincho"]), 
+                               $pincho["count(idpincho)"]));
         }
       }
     }

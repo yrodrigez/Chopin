@@ -187,6 +187,19 @@ class PinchosController extends BaseController {
     }
   }
 
+  public function misVotos(){
+    if(isset($_SESSION["user"])
+        && isset($_SESSION["type"])
+        && $_SESSION['type'] == Usuario::JURADO_POPULAR
+    ) {
+      $this->view->setVariable(
+          "votados",
+          $this->pinchoMapper->misVotaciones($_SESSION['user'])
+      );
+      $this->view->render("pinchos", "misVotos");
+    }
+  }
+
  public function view(){
     if(isset($_GET['id'])){
       $pincho = $this->pinchoMapper->getPincho($_GET['id']);
