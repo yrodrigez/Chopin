@@ -29,6 +29,14 @@ $view->setVariable("title", "View Post"); ?>
 				<th>Fecha de inicio</th>
 				<td><?= $concurso->getFecha(); ?></td>
 			</tr>
+			<tr>
+				<th>Estado</th>
+				<?php if($pincho->getAprobadaPincho() == Pincho::APROBADO): ?>
+					<td><div class="pinchoAprobado">Aprobado</div></td>
+				<?php else: ?>
+					<td><div class="pinchoPendiente">Pendiente</div></td>
+				<?php endif ?>
+			</tr>
 		</table>
 	</div>
 	<?php if(isset($_SESSION["type"]) && $_SESSION["type"] == 0): ?>
