@@ -8,7 +8,6 @@ class Usuario {
 
     private $email;
     private $password;
-    private $nombre;
     private $tipo;
     private $telefono;
     private $fotoUsuario;
@@ -17,7 +16,6 @@ class Usuario {
     public function __construct(
         $email=NULL,
         $password=NULL,
-        $nombre=NULL,
         $tipo=NULL,
         $telefono=NULL,
         $fotoUsuario=NULL,
@@ -25,7 +23,6 @@ class Usuario {
     ) {
         $this->setEmail($email);
         $this->setFotoUsuario($fotoUsuario);
-        $this->setNombre($nombre);
         $this->setPassword($password);
         $this->setTelefono($telefono);
         $this->setTipo($tipo);
@@ -40,11 +37,6 @@ class Usuario {
     public function getFotoUsuario()
     {
         return $this->fotoUsuario;
-    }
-
-    public function getNombre()
-    {
-        return $this->nombre;
     }
 
     public function getPassword()
@@ -75,11 +67,6 @@ class Usuario {
     public function setFotoUsuario($fotoUsuario)
     {
         $this->fotoUsuario = $fotoUsuario;
-    }
-
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
     }
 
     public function setPassword($password)
