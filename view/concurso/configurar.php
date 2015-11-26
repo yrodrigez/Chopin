@@ -6,7 +6,7 @@ $view->setVariable("title", "Configurar concurso");
 
 <div id="formConfigurarConcurso">
 
-	<form class="form-horizontal" action="index.php?controller=concurso&action=configurar" method="POST" data-toggle="validator">
+	<form class="form-horizontal" action="index.php?controller=concurso&action=configurar" method="POST" data-toggle="validator" enctype="multipart/form-data">
 		<div class="headerForm">
 			<h2>Datos del concurso</h2>
 		</div>
@@ -29,7 +29,7 @@ $view->setVariable("title", "Configurar concurso");
 		</div>
 		<div class="form-group">
 			<label for="imagenConcurso">Foto de perfil:</label>
-			<input type="file" class="file file-loading" name="imagen" id="imagen" data-show-upload="false" data-allowed-file-extensions='["jpg", "png", "bmp", "gif"]'>
+			<input type="file" class="file file-loading" name="imagenConcurso" id="imagenConcurso" data-show-upload="false" data-allowed-file-extensions='["jpg", "png", "bmp", "gif"]'>
 		</div>
 		<div class="form-group">
 			<div class="checkbox">
@@ -55,7 +55,22 @@ $view->setVariable("title", "Configurar concurso");
 		</div>
 		<div class="form-group">
 			<label for="imagenOrganizador">Foto de perfil:</label>
-			<input type="file" class="file file-loading" name="imagen" id="imagen" data-show-upload="false" data-allowed-file-extensions='["jpg", "png", "bmp", "gif"]'>
+			<input type="file" class="file file-loading" name="imagenOrganizador" id="imagenOrganizador" data-show-upload="false" data-allowed-file-extensions='["jpg", "png", "bmp", "gif"]'>
+		</div>
+
+		<hr>
+
+		<div class="headerForm">
+			<h2>Datos de la base de datos</h2>
+		</div>
+
+		<div class="form-group">
+			<label for="db_username">Usuario:</label>
+			<input type="text" class="form-control" name="db_username" placeholder="root" value="root" required>
+		</div>
+		<div class="form-group">
+			<label for="db_password">Contraseña:</label>
+			<input type="password" class="form-control" name="db_password">
 		</div>
 
 		<div id="divBtn" class="form-group">

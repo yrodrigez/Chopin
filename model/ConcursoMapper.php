@@ -15,8 +15,8 @@ class ConcursoMapper {
   }
   
   public function add(Concurso $concurso) {
-    $stmt = $this->db->prepare("INSERT INTO concurso(nombre, descripcion, localizacion, fecha) values (?,?,?,?)");
-    $stmt->execute(array($concurso->getNombre(), $concurso->getDescripcion(), $concurso->getLocalizacion(), $concurso->getFecha()));    
+    $stmt = $this->db->prepare("INSERT INTO concurso(nombre, descripcion, localizacion, fecha, foto) values (?,?,?,?,?)");
+    $stmt->execute(array($concurso->getNombre(), $concurso->getDescripcion(), $concurso->getLocalizacion(), $concurso->getFecha(), $concurso->getImagen()));
   }
   
   public function getInfo() {

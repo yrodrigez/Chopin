@@ -17,13 +17,15 @@ class Concurso {
   private $descripcion;
   private $localizacion;
   private $fecha;
+  private $imagen;
   
   
-  public function __construct($nombre=NULL, $descripcion=NULL, $localizacion=NULL, $fecha=NULL) {
+  public function __construct($nombre=NULL, $descripcion=NULL, $localizacion=NULL, $fecha=NULL, $imagen=NULL) {
     $this->nombre = $nombre;
 	$this->descripcion = $descripcion;
     $this->localizacion = $localizacion;    
     $this->fecha = $fecha;
+    $this->imagen = $imagen;
   }
   
   public function getNombre() {
@@ -61,4 +63,16 @@ class Concurso {
   public function isStarted() {
 	  return strtotime($this->getFecha()) <= strtotime(date("Y-m-d",time()));
   }
+
+  public function getImagen()
+  {
+    return $this->imagen;
+  }
+
+  public function setImagen($imagen)
+  {
+    $this->imagen = $imagen;
+  }
+
+
 }
