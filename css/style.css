@@ -212,3 +212,17 @@ body {
 .no-color{
 	background-color:inherit;
 }
+
+.pinchoAprobado {
+	color: green;
+	font-weight: bold;
+}
+.pinchoPendiente {
+	color: #881700;
+	font-weight: bold;
+	animation: blinker 1.5s linear infinite;
+}
+
+@keyframes blinker {
+	50% { opacity: 0.0; }
+}
