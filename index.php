@@ -1,6 +1,8 @@
 <?php
 // file: introducir.php
 
+require_once(__DIR__."/core/PDOConnection.php");
+
 /**
  * Default controller if any controller is passed in the URL
  */
@@ -35,6 +37,14 @@ define("DEFAULT_ACTION", "view");
 function run() {
   // invoke action!
   try {
+
+    try {
+      PDOConnection::getInstance();
+    } catch(Exception $ex) {
+      require_once(__DIR__."/controller/ConcursoController.php");
+      (new ConcursoController())->configurar();
+    }
+
     if (!isset($_GET["controller"])) {
       $_GET["controller"] = DEFAULT_CONTROLLER; 
     }
