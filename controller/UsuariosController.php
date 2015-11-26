@@ -63,6 +63,7 @@ class UsuariosController extends BaseController {
 					if (!$this->userMapper->exists($user)) {
 
 						if($_POST["tel"]) $user->setTelefono($_POST["tel"]);
+						if($_POST["prefs"]) $user->setPreferencias($_POST["prefs"]);
 						if($_FILES['avatar'] and $_FILES['avatar']['name']) {
 							$name = $_POST["username"] . "." . substr(strrchr($_FILES['avatar']['name'], '.'), 1);
 							$path = "img/usuarios/" . $name;
@@ -97,6 +98,7 @@ class UsuariosController extends BaseController {
 					if (!$this->userMapper->exists($user)) {
 
 						if($_POST["tel"]) $user->setTelefono($_POST["tel"]);
+						if($_POST["prefs"]) $user->setPreferencias($_POST["prefs"]);
 						if($_FILES['avatar'] and $_FILES['avatar']['name']) {
 							$name = $_POST["username"] . "." . substr(strrchr($_FILES['avatar']['name'], '.'), 1);
 							$path = "img/usuarios/" . $name;

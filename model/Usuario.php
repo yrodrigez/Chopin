@@ -12,6 +12,7 @@ class Usuario {
     private $tipo;
     private $telefono;
     private $fotoUsuario;
+    private $preferencias;
 	
     public function __construct(
         $email=NULL,
@@ -19,7 +20,8 @@ class Usuario {
         $nombre=NULL,
         $tipo=NULL,
         $telefono=NULL,
-        $fotoUsuario=NULL
+        $fotoUsuario=NULL,
+        $preferencias=NULL
     ) {
         $this->setEmail($email);
         $this->setFotoUsuario($fotoUsuario);
@@ -27,6 +29,7 @@ class Usuario {
         $this->setPassword($password);
         $this->setTelefono($telefono);
         $this->setTipo($tipo);
+        $this->setPreferencias($preferencias);
     }
 
     public function getEmail()
@@ -59,6 +62,11 @@ class Usuario {
         return $this->tipo;
     }
 
+    public function getPreferencias()
+    {
+        return $this->preferencias;
+    }
+
     public function setEmail($email)
     {
         $this->email = $email;
@@ -87,6 +95,11 @@ class Usuario {
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
+    }
+
+    public function setPreferencias($preferencias)
+    {
+        $this->preferencias = $preferencias;
     }
 
 	public function isValidForRegister() {

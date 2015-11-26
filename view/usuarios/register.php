@@ -32,6 +32,10 @@
         <input type="file" class="file file-loading" name="avatar" id="avatar" data-show-upload="false" data-allowed-file-extensions='["jpg", "png", "gif"]'>
     </div>
 
+    <div class="form-group">
+        <label for="preferences">Preferencias</label>
+        <input type="text" class="form-control" name="prefs" id="prefs" placeholder="Introduzca sus preferencias culinarias">
+    </div>
 
     <?php if(!$concurso->isStarted()): ?>
         <div class="form-group">

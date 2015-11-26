@@ -33,7 +33,8 @@ class UsuarioMapper {
             "UPDATE usuario SET
                         password = ?,
                         fotoperfil = ?,
-                        telefono = ? 
+                        telefono = ?,
+                        preferencias = ?,
                         WHERE email= ?"
         );
 
@@ -41,6 +42,7 @@ class UsuarioMapper {
             $usuario->getPassword(),
             $usuario->getFotoUsuario(),
             $usuario->getTelefono(),
+            $usuario->getPreferencias(),
             $email
         ));
     }
@@ -54,7 +56,7 @@ class UsuarioMapper {
     ) {
         if($this->exists($usuario) == false) {
             $stmt = $this->db->prepare(
-                "INSERT INTO usuario(email, password, fotoperfil, telefono, tipo) VALUES (?,?,?,?,?)"
+                "INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES (?,?,?,?,?,?)"
             );
 
             return $stmt->execute(array(
@@ -62,7 +64,8 @@ class UsuarioMapper {
                 $usuario->getPassword(),
                 $usuario->getFotoUsuario(),
                 $usuario->getTelefono(),
-                $usuario->getTipo()
+                $usuario->getTipo(),
+                $usuario->getPreferencias()
             ));
         }
         else
@@ -129,6 +132,7 @@ class UsuarioMapper {
 			$usuario->setPassword($fillData["password"]);
 			$usuario->setTelefono($fillData["telefono"]);
 			$usuario->setTipo($fillData["tipo"]);
+            $usuario->setPreferencias($fillData["preferencias"]);
         }
         /*switch ($usuario->getTipo()) {
             case JURADO_PROFESIONAL:
