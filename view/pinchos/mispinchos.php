@@ -5,7 +5,8 @@ $view = ViewManager::getInstance();
 $view->setVariable("title", "Mis pinchos");
 $pinchos = $view->getVariable("pinchos");
 $totalPinchos = $view->getVariable("totalPinchos");
-$porcentaje = round(count($pinchos)*100/$totalPinchos);
+$mispinchosSinRepetir= $view->getVariable("totalSinRepetir");
+$porcentaje = round($mispinchosSinRepetir*100/$totalPinchos);
 ?>
 
 

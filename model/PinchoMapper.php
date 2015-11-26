@@ -368,5 +368,17 @@ class pinchoMapper {
     return NULL;
   }
 }
+  public function getPinchosUsuarioGroupBy(
+    $email
+  ){
+    $stmt = $this->db->prepare(
+        "SELECT COUNT(*) FROM codigo WHERE email=? GROUP BY idpincho"
+    );
+    if(
+      $stmt->execute(array($email))
+    ) {
+      return $stmt->rowCount();
+    }
+  }
 
 }

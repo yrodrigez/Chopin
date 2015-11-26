@@ -137,12 +137,12 @@ class PinchosController extends BaseController {
         $msg = array();
         array_push($msg, array("error", "Error en votación"));
         $this->view->setFlash($msg);
-        //$this->view->redirect("pinchos", "getAllUsuarioCodigosPincho");
+        $this->view->redirect("pinchos", "getAllUsuarioCodigosPincho");
       }
     } else {
-      if(count($_POST["pinchos"]) == 1) {
+      if(count($_POST["pinchos"]) != 1) {
         $msg = array();
-        array_push($msg, array("error", "Debes seleccionar solamente uno (1) para votar (o es chávez)"));
+        array_push($msg, array("error", "Debes seleccionar solamente uno (1) para votar"));
         $this->view->setFlash($msg);
         $this->view->redirect("pinchos", "getAllUsuarioCodigosPincho");
       } else {
@@ -174,6 +174,10 @@ class PinchosController extends BaseController {
       $this->view->setVariable(
           "pinchos",
           $this->pinchoMapper->listarPinchosUsuario($_SESSION['user'])
+      );
+      $this->view->setVariable(
+          "totalSinRepetir",
+          $this->pinchoMapper->getPinchosUsuarioGroupBy($_SESSION['user'])
       );
       $this->view->setVariable(
           "totalPinchos",
