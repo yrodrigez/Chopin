@@ -2,7 +2,7 @@
 //file: view/posts/view.php
 require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
-
+$view->setVariable("title", "Lista de pinchos");
 $pinchos = $view->getVariable("pinchos");
 //$errors = $view->getVariable("errors");
 ?>

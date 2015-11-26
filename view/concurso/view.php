@@ -8,9 +8,7 @@ $concurso = $view->getVariable("concurso");
 $pincho = $view->getVariable("pincho");
 //$errors = $view->getVariable("errors");
 
-$view->setVariable("title", "View Post"); ?>
-
-
+$view->setVariable("title", "Datos del concurso"); ?>
 
 
 <div>
