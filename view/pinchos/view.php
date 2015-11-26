@@ -6,7 +6,7 @@ $view = ViewManager::getInstance();
 $pincho = $view->getVariable("pincho");
 //$errors = $view->getVariable("errors");
  
-$view->setVariable("title", "View Post"); ?>
+$view->setVariable("title", "Datos del pincho"); ?>
 
 
 
@@ -26,8 +26,8 @@ $view->setVariable("title", "View Post"); ?>
 				<td><?= $pincho->getPrecioPincho(); ?></td>
 			</tr>
 			<tr>
-				<th>Fecha de inicio</th>
-				<td><?= $concurso->getFecha(); ?></td>
+				<th>Contacto</th>
+				<td><?= $pincho->getEmailPincho(); ?></td>
 			</tr>
 		</table>
 	</div>
