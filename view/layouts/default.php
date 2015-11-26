@@ -136,7 +136,7 @@
 
 			<div class="row" id="footer">
 				<div class="container text-center">
-					<p class="text-muted">Chopin: <a href="#" data-toggle="tooltip" data-placement="top" title="Hooray!">ABP Project.</a></p>
+					<p class="text-muted">Chopin: <a href="#">ABP Project.</a></p>
 				</div>
 			</div>
 

@@ -69,6 +69,7 @@ class ConcursoController extends BaseController
         if (isset($_POST["nombre"])) {
 
                 if ($this->importSQL("sql/db.sql", "127.0.0.1", $_POST["db_username"], $_POST["db_password"])) {
+
                     require_once(__DIR__ . "/../model/ConcursoMapper.php");
                     require_once(__DIR__ . "/../model/UsuarioMapper.php");
 
@@ -100,10 +101,14 @@ class ConcursoController extends BaseController
                     $user->setFotoUsuario($imgOrganizador);
                     (new UsuarioMapper())->save($user);
 
+                    //if(isset($_POST["sampleData"]))
+                    //$this->importSQL("sql/data.sql", "127.0.0.1", $_POST["db_username"], $_POST["db_password"]);
+
+
                     $msg = array();
                     array_push($msg, array("success", "El concurso se ha creado correctamente"));
                     $this->view->setFlash($msg);
-                    $this->view->redirect("concurso", "view");
+                    //$this->view->redirect("concurso", "view");
                 } else {
                     $msg = array();
                     array_push($msg, array("error", "No se ha podido conectar a la base de datos. Compruebe los datos de acceso."));
@@ -128,10 +133,13 @@ class ConcursoController extends BaseController
         $sqlArray = explode(';', $sqlFile);
         foreach ($sqlArray as $stmt) {
             if (strlen($stmt) > 3 && substr(ltrim($stmt), 0, 2) != '/*') {
+                echo $stmt."<br>";
                 $result = mysqli_query($link, $stmt);
                 if (!$result) break;
             }
         }
+
         return true;
     }
+
 }

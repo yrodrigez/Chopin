@@ -34,7 +34,7 @@ $view->setVariable("title", "Configurar concurso");
 		</div>
 		<div class="form-group">
 			<div class="checkbox">
-				<label><input type="checkbox"> Insertar datos de prueba</label>
+				<label><input type="checkbox" name="sampleData"> Insertar datos de prueba</label>
 			</div>
 		</div>
 
