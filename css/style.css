@@ -228,3 +228,20 @@ body {
 @keyframes blinker {
 	50% { opacity: 0.0; }
 }
+.navbar {
+	background-color:#96281B;
+}
+.glyphicon{
+	color: white !important;
+	margin-right: 5px;
+}
+.navbar-brand {
+	color: white !important;
+	font-style: italic;
+}
+.navbar-nav * a ,.navbar-nav * a:active,.navbar-nav * a:hover,.navbar-brand {
+	color: white !important;
+}
+.navbar-toggle,.navbar-toggle:hover,.navbar-toggle:active {
+	background-color: #96281B !important;
+}
