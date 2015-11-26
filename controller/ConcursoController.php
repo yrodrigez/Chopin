@@ -133,7 +133,6 @@ class ConcursoController extends BaseController
         $sqlArray = explode(';', $sqlFile);
         foreach ($sqlArray as $stmt) {
             if (strlen($stmt) > 3 && substr(ltrim($stmt), 0, 2) != '/*') {
-                echo $stmt."<br>";
                 $result = mysqli_query($link, $stmt);
                 if (!$result) break;
             }
