@@ -98,32 +98,42 @@ body {
 	z-index: 1;
 }
 
-.pincho-view-title {
+.view-title {
 	text-align: center;
 	text-decoration: underline;
 }
 
-.pincho-view-img {
+.view-img {
 	text-align: center;
 	margin-bottom: 15px;
 }
 
-.pincho-view-img > img {
+.view-img > img {
 	max-height: 200px;
 	max-width: 250px;
 }
 
-.pincho-view-description {
+.view-img-lg {
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.view-img-lg > img {
+	max-height: 400px;
+	max-width: 450px;
+}
+
+.view-description {
 	text-align: center;
 	margin: auto;
 	width: 80%;
 }
 
-.pincho-view-description th {
+.view-description th {
 	min-width: 20%;
 }
 
-.pincho-view-confirm {
+.view-confirm {
 	text-align: right;
 	margin: auto;
 	width: 80%;

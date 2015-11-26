@@ -24,7 +24,7 @@ class ConcursoMapper {
 	 $concurso = $stmt->fetch(PDO::FETCH_ASSOC);
 	
 	 if($concurso != null) {
-		return new Concurso($concurso["nombre"], $concurso["descripcion"], $concurso["localizacion"], $concurso["fecha"]);
+		return new Concurso($concurso["nombre"], $concurso["descripcion"], $concurso["localizacion"], $concurso["fecha"], $concurso["foto"]);
 	 } else {
 		return NULL;
 	 }

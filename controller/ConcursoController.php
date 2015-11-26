@@ -81,7 +81,6 @@ class ConcursoController extends BaseController
                         $imgConcurso="default.png";
                     }
 
-
                     $concursomapper = new ConcursoMapper();
                     $concurso = new Concurso($_POST["nombre"], $_POST["descripcion"], $_POST["localizacion"], $_POST["fecha"], $imgConcurso);
                     $concursomapper->add($concurso);
