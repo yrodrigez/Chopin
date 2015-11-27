@@ -28,7 +28,7 @@ $porcentaje = round($mispinchosSinRepetir*100/$totalPinchos);
 
 
     <div class="row">
-        <?php if(count($pinchos) > 3): ?>
+        <?php if(count($pinchos) >= 3): ?>
             <div class="botonVotar col-md-12">
                 <input
                     type="button"

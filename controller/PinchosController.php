@@ -132,7 +132,7 @@ class PinchosController extends BaseController {
         $msg = array();
         array_push($msg, array("success", "Votación recibida"));
         $this->view->setFlash($msg);
-        $this->view->redirect("pinchos", "getAllUsuarioCodigosPincho");
+        $this->view->redirect("pinchos", "misVotos");
       } else {
         $msg = array();
         array_push($msg, array("error", "Error en votación"));
