@@ -108,7 +108,7 @@ class ConcursoController extends BaseController
                     $msg = array();
                     array_push($msg, array("success", "El concurso se ha creado correctamente"));
                     $this->view->setFlash($msg);
-                    //$this->view->redirect("concurso", "view");
+                    $this->view->redirect("concurso", "view");
                 } else {
                     $msg = array();
                     array_push($msg, array("error", "No se ha podido conectar a la base de datos. Compruebe los datos de acceso."));
