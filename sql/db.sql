@@ -35,7 +35,7 @@ ALTER TABLE codigo ADD INDEX FKcodigo533532 (idpincho), ADD CONSTRAINT FKcodigo5
 GRANT USAGE ON *.* TO 'chopin_user'@'127.0.0.1';
 DROP USER 'chopin_user'@'127.0.0.1'; 
 CREATE USER 'chopin_user'@'127.0.0.1' IDENTIFIED BY 'chopin_pass.';
-GRANT ALL ON chopin_p.* TO 'chopin_user'@'127.0.0.1';
+GRANT ALL ON chopin.* TO 'chopin_user'@'127.0.0.1';
 GRANT USAGE ON *.* TO 'chopin_user'@'127.0.0.1';
 
 INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("jpop@gmail.com", "123456", "default.png", "999999999", 1, "Prefiero el sushi!");

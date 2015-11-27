@@ -3,8 +3,8 @@
 class PDOConnection {
   private static $dbhost = "127.0.0.1";
   private static $dbname = "chopin";
-  private static $dbuser = "root";
-  private static $dbpass = "";
+  private static $dbuser = "chopin_user";
+  private static $dbpass = "chopin_pass.";
   private static $db_singleton = null;
   
   public static function getInstance() {
