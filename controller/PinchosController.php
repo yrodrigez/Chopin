@@ -271,7 +271,7 @@ class PinchosController extends BaseController {
     } else {
       if(count($_POST["pinchos"]) != 3){
         $msg = array();
-        array_push($msg, array("error", "Debes seleccionar exactamente tres (3) pinchos, pajúo."));
+        array_push($msg, array("error", "Debes seleccionar exactamente tres pinchos"));
         $this->view->setFlash($msg);
         $this->view->redirect("pinchos", "getAllUsuarioCodigosPincho");
       } else {
