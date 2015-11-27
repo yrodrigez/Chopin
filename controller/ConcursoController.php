@@ -101,8 +101,8 @@ class ConcursoController extends BaseController
                     $user->setFotoUsuario($imgOrganizador);
                     (new UsuarioMapper())->save($user);
 
-                    //if(isset($_POST["sampleData"]))
-                    //$this->importSQL("sql/data.sql", "127.0.0.1", $_POST["db_username"], $_POST["db_password"]);
+                    if(isset($_POST["sampleData"]))
+                        $this->importSQL("sql/data.sql", "127.0.0.1", $_POST["db_username"], $_POST["db_password"]);
 
 
                     $msg = array();
