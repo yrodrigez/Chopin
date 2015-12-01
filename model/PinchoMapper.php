@@ -2,6 +2,8 @@
 // file: model/pinchoMapper.php
 require_once(__DIR__."/../core/PDOConnection.php");
 require_once(__DIR__."/../model/Pincho.php");
+require_once(__DIR__."/../model/IngredienteMapper.php");
+require_once(__DIR__."/../model/CodigoMapper.php");
 
 /**
  * Class pinchoMapper
@@ -11,7 +13,7 @@ require_once(__DIR__."/../model/Pincho.php");
  * @author José Miguel Meilán Maldonado 
  */
 
-class pinchoMapper {
+class PinchoMapper {
   /**
    * Reference to the PDO connection
    * @var PDO
@@ -258,8 +260,12 @@ class pinchoMapper {
   public function borrarPincho(
     $idPincho
     ) {
-    $stmt = $this->db->prepare("DELETE FROM pincho WHERE idpincho= ?;");
-    return $stmt->execute(array($idPincho));
+
+    if((new CodigoMapper())->borrar($idPincho) and (new IngredienteMapper())->borrar($idPincho)) {
+      $stmt = $this->db->prepare("DELETE FROM pincho WHERE idpincho= ?;");
+      return $stmt->execute(array($idPincho));
+    }
+    return false;
   }
 
   /**
