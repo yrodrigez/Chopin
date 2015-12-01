@@ -114,8 +114,8 @@ class JuradoProfesionalMapper
 		$jurado = array();
 		
 		foreach ($jp_db as $jp) {
-			array_push($jurado, new JuradoProfesional($jp["email"], $jp["password"], "", $jp["telefono"], $jp["fotoperfil"]));
-		}   
+			array_push($jurado, new JuradoProfesional($jp["email"], $jp["password"], "", $jp["telefono"], $jp["fotoperfil"], ""));
+		}
 
 		return $jurado;
     }

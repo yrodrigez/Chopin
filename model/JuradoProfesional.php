@@ -23,7 +23,6 @@ class JuradoProfesional extends Usuario {
         parent::__construct(
             $email,
             $password,
-            $nombre,
             2,
             $telefono,
             $fotoUsuario
