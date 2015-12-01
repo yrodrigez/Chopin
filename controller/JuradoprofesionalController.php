@@ -2,6 +2,9 @@
 
 require_once(__DIR__."/../core/ViewManager.php");
 
+require_once(__DIR__."/../model/Concurso.php");
+require_once(__DIR__."/../model/ConcursoMapper.php");
+
 require_once(__DIR__."/../model/JuradoProfesional.php");
 require_once(__DIR__."/../model/JuradoProfesionalMapper.php");
 
@@ -85,8 +88,11 @@ class JuradoProfesionalController extends BaseController {
 		} else {
 			$jp = new JuradoProfesional($_GET["id"]);
 			$this->juradoProfesionalMapper->fill($jp);
-			
+
+			$concurso = (new ConcursoMapper())->getInfo();
+
 			$this->view->setVariable("miembro", $jp);
+			$this->view->setVariable("concurso", $concurso);
 			
 			$this->view->render("juradoprofesional", "edit");
 		}
