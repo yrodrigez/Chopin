@@ -280,11 +280,8 @@ class PinchoMapper {
   ) {
     $stmt = $this->db->prepare("SELECT * FROM pincho WHERE email=?");
     $stmt->execute(array($email));
-    if($stmt->rowCount()>0) {
-      return true;
-    } else {
-      return false;
-    }
+
+    return $stmt->rowCount()>0;
   }
 
   public function getPinchoValidado(
