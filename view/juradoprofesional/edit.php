@@ -40,6 +40,11 @@
     <button type="submit" class="btn btn-default">Editar</button>
 
 </form>
+<form role="form" action="index.php?controller=juradoprofesional&amp;action=delete" method="POST">
+    <input type="hidden" name="email" value="<?= $miembro->getEmail() ?>">
+    <button type="submit" class="btn btn-default">Borrar</button>
+</form>
+
 <a href="index.php?controller=juradoprofesional&amp;action=index"><button class="btn btn-default">Cancelar</button></a>
 
 <?php $view->moveToFragment("script"); ?>

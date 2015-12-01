@@ -106,7 +106,8 @@ class UsuarioMapper {
     public function remove (
         $usuario
     ) {
-        if(exists($usuario)) {
+
+        if($this->exists($usuario)) {
             $stmt = $this->db->prepare(
                 "DELETE FROM usuario WHERE email= ?"
             );

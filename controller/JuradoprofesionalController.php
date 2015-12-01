@@ -43,6 +43,10 @@ class JuradoProfesionalController extends BaseController {
 			
 			$jp = new JuradoProfesional($email, $pwd, "", $tel, $avatar, $exp);
 			$this->juradoProfesionalMapper->resgitrarJuradoProfesional($jp);
+
+			$msg = array();
+			array_push($msg, array("success", "El miembro del jurado se ha añadido correctamente"));
+			$this->view->setFlash($msg);
 			
 			$this->view->redirect("juradoprofesional", "index");
 		}
@@ -70,6 +74,10 @@ class JuradoProfesionalController extends BaseController {
 			}
 			
 			$this->juradoProfesionalMapper->modificarJuradoProfesional($_POST["email"], $jp);
+
+			$msg = array();
+			array_push($msg, array("success", "El miembro del jurado se ha modificado correctamente"));
+			$this->view->setFlash($msg);
  
 			$this->view->redirect("juradoprofesional", "index");
 		} elseif(!isset($_GET["id"])) {
@@ -83,5 +91,19 @@ class JuradoProfesionalController extends BaseController {
 			$this->view->render("juradoprofesional", "edit");
 		}
 
+	}
+
+	public function delete() {
+
+		if(isset($_POST["email"])) {
+			$jp = new JuradoProfesional($_POST["email"]);
+			$this->juradoProfesionalMapper->borrarJuradoProfesional($jp);
+
+			$msg = array();
+			array_push($msg, array("success", "El miembro del jurado se ha borrado correctamente"));
+			$this->view->setFlash($msg);
+		}
+
+		$this->view->redirect("juradoprofesional", "index");
 	}
 }
