@@ -72,11 +72,10 @@ class JuradoProfesionalMapper
     ) {
 
         $stmt = $this->db->prepare(
-            "UPDATE juradoProfesional SET experiencia = ?, email = ? WHERE  email= ?"
+            "UPDATE juradoProfesional SET experiencia = ? WHERE email= ?"
         );
         $stmt->execute(array(
             $juradoProfesional->getExperiencia(),
-            $juradoProfesional->getEmail(),
             $email
         ));
 

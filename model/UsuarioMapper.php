@@ -34,7 +34,7 @@ class UsuarioMapper {
                         password = ?,
                         fotoperfil = ?,
                         telefono = ?,
-                        preferencias = ?,
+                        preferencias = ? 
                         WHERE email= ?"
         );
 
