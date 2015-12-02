@@ -34,8 +34,8 @@ class UsuarioMapper {
                         password = ?,
                         fotoperfil = ?,
                         telefono = ?,
-                        preferencias = ?,
-                        WHERE email= ?"
+                        preferencias = ?
+                        WHERE email= ?;"
         );
 
         return $stmt->execute(array(
@@ -75,7 +75,7 @@ class UsuarioMapper {
     }
 
     /**
-     * @param $email
+     * @param $usuario
      * @return bool
      */
     public function exists ($usuario) {
@@ -106,13 +106,9 @@ class UsuarioMapper {
     public function remove (
         $usuario
     ) {
-        if(exists($usuario)) {
-            $stmt = $this->db->prepare(
-                "DELETE FROM usuario WHERE email= ?"
-            );
-            return $stmt->execute(array(
-                $usuario->getEmail()
-            ));
+        if($this->exists($usuario)) {
+            $stmt = $this->db->prepare("DELETE FROM usuario WHERE email= ?;");
+            return $stmt->execute(array($usuario->getEmail()));
         }else{
             return false;
         }

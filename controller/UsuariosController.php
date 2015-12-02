@@ -134,7 +134,81 @@ class UsuariosController extends BaseController {
 		$this->view->setVariable("user", $user);
 		$this->view->render("usuarios", "register");
 	}
-	
+
+	public function modificar() {
+		if(isset($_SESSION["user"]) && ($_SESSION["type"] == Usuario::JURADO_POPULAR)){
+			if(isset($_POST["email"])) {
+			
+				$jpop = new Usuario($_POST["email"]);
+				$this->userMapper->fill($jpop);
+
+				if($_POST["telefono"]) $jpop->setTelefono($_POST["telefono"]);
+				if($_POST["preferencias"]) $jpop->setPreferencias($_POST["preferencias"]);
+				if($_POST["password"]) $jpop->setPassword($_POST["password"]);
+
+				if($_FILES['avatar'] and $_FILES['avatar']['name']) {
+					$path = "img/usuarios/" . basename( $_FILES['avatar']['name']);
+					move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
+					$jpop->setFotoUsuario(basename($_FILES['avatar']['name']));
+				}
+				$this->userMapper->edit($_POST["email"], $jpop);
+	 			$msg = array();
+		       	array_push($msg, array("success", "Usuario modificado correctamente"));
+		        $this->view->setFlash($msg);
+				$this->view->redirect("concurso", "view");
+			} else {
+				$jpop = new Usuario($_GET["id"]);
+				$this->userMapper->fill($jpop);
+				$this->view->setVariable("jpop", $jpop);
+				$this->view->render("usuarios", "modificar");
+			}
+		} else {
+			$msg = array();
+		    array_push($msg, array("error", "Debe estar logueado para modificar su Usuario"));
+		    $this->view->setFlash($msg);
+		    $this->view->redirect("usuarios", "login");
+		}
+
+
+	}
+
+	public function view(){
+	    if(isset($_GET['id'])){
+	      $usuario = new Usuario($_GET["id"]);
+	      $this->userMapper->fill($usuario);
+	      $this->view->setVariable('usuario',$usuario);
+	      $this->view->render('usuarios','view');
+	    } /*else {
+	        if(isset($_SESSION["user"]) && ($_SESSION["type"] == Usuario::ESTABLECIMIENTO)){
+	          if ($this->pinchoMapper->existePincho($_SESSION["user"])) {
+	           $pincho = $this->pinchoMapper->getPinchoEstablecimiento($_SESSION['user']);
+	            $this->view->setVariable('pincho',$pincho);
+	            $this->view->render('pinchos','view');
+	          } else {
+	            $this->view->redirect("pinchos","presentar");
+	          }
+	        } else {
+	        $this->view->redirect("pinchos","listar");
+	      	}
+	    }*/
+    }
+		
+	public function eliminar(){
+	    if(isset($_GET['id'])){
+	      $usuario = new Usuario($_GET["id"]);
+	      $this->userMapper->fill($usuario); //PUEDE SOBRAR
+	      $this->userMapper->remove($usuario);
+	      $msg = array();
+		  array_push($msg, array("success", "El usuario ha sido eliminado exitosamente"));
+		  $this->view->setFlash($msg);
+	      $this->logout();
+	    }/* else {
+	      $msg = array();
+		  array_push($msg, array("error", "Debe indicar el usuario que desea eliminar"));
+		  $this->view->setFlash($msg);
+	    } */
+    }
+
 	public function logout() {
 		session_destroy();
 		$this->view->redirect("concurso", "view");
