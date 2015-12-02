@@ -6,7 +6,8 @@
  
  require_once(__DIR__."/../../model/JuradoProfesional.php");
  $miembro = $view->getVariable("miembro");
- 
+
+ $concurso = $view->getVariable("concurso");
  $currentuser = $view->getVariable("currentusername");
  
  $view->setVariable("title", "Editar jurado profesional");
@@ -40,6 +41,14 @@
     <button type="submit" class="btn btn-default">Editar</button>
 
 </form>
+
+<?php if(!$concurso->isStarted()): ?>
+    <form role="form" action="index.php?controller=juradoprofesional&amp;action=delete" method="POST">
+        <input type="hidden" name="email" value="<?= $miembro->getEmail() ?>">
+        <button type="submit" class="btn btn-default">Borrar</button>
+    </form>
+<?php endif; ?>
+
 <a href="index.php?controller=juradoprofesional&amp;action=index"><button class="btn btn-default">Cancelar</button></a>
 
 <?php $view->moveToFragment("script"); ?>

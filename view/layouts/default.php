@@ -7,7 +7,6 @@
 	require_once(__DIR__."/../../model/PinchoMapper.php");
 	$view = ViewManager::getInstance();
 	$currentuser = $view->getVariable("currentusername");
-	$concurso = (new ConcursoMapper())->getInfo();
 
 	function getNavItems($phone) {
 		$concurso = (new ConcursoMapper())->getInfo();
@@ -36,8 +35,11 @@
 			} else if($_SESSION["type"]==Usuario::JURADO_POPULAR) {
 				$items .= '<li><a href="index.php?controller=pinchos&amp;action=listarPinchosUsuario">Mis pinchos</a></li><li><a href="index.php?controller=codigos&amp;action=introducir">Introducir Código</a></li><li><a href="index.php?controller=pinchos&amp;action=misVotos">Mis Votaciones</a></li><li><a href="index.php?controller=usuarios&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
 			} else if($_SESSION["type"]==Usuario::ESTABLECIMIENTO) {
-				if(!$started) {
+
+				if(!$started and !(new PinchoMapper())->existePincho($_SESSION["user"])) {
 					$items .= '<li><a href="index.php?controller=pinchos&amp;action=presentar">Propuesta</a></li>';
+				} else {
+					$items .= '<li><a href="index.php?controller=pinchos&amp;action=view">Propuesta</a></li>';
 				}
 
 				if((new PinchoMapper())->getPinchoValidado($_SESSION["user"])<>-1) {

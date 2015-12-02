@@ -7,6 +7,9 @@ require_once(__DIR__."/../model/Pincho.php");
 
 require_once(__DIR__."/../model/PinchoMapper.php");
 
+require_once(__DIR__."/../model/Concurso.php");
+require_once(__DIR__."/../model/ConcursoMapper.php");
+
 require_once(__DIR__."/../controller/BaseController.php");
 
 /**
@@ -203,7 +206,9 @@ class PinchosController extends BaseController {
  public function view(){
     if(isset($_GET['id'])){
       $pincho = $this->pinchoMapper->getPincho($_GET['id']);
+      $concurso = (new ConcursoMapper())->getInfo();
       $this->view->setVariable('pincho',$pincho);
+      $this->view->setVariable('concurso',$concurso);
       $this->view->render('pinchos','view');
     } else {
         if(isset($_SESSION["user"]) && ($_SESSION["type"] == Usuario::ESTABLECIMIENTO)){
@@ -278,6 +283,18 @@ class PinchosController extends BaseController {
         $this->view->redirect("concurso", "view");
       }
     }
+  }
+
+  public function borrar() {
+    if(isset($_GET['id'])){
+      $this->pinchoMapper->borrarPincho($_GET['id']);
+
+      $msg = array();
+      array_push($msg, array("error", "Pincho borrado correctamente"));
+      $this->view->setFlash($msg);
+    }
+
+    $this->view->redirect("pinchos", "listar");
   }
 
 }

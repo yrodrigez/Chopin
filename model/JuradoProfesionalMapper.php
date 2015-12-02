@@ -72,11 +72,10 @@ class JuradoProfesionalMapper
     ) {
 
         $stmt = $this->db->prepare(
-            "UPDATE juradoProfesional SET experiencia = ?, email = ? WHERE  email= ?"
+            "UPDATE juradoProfesional SET experiencia = ? WHERE email= ?"
         );
         $stmt->execute(array(
             $juradoProfesional->getExperiencia(),
-            $juradoProfesional->getEmail(),
             $email
         ));
 
@@ -114,8 +113,8 @@ class JuradoProfesionalMapper
 		$jurado = array();
 		
 		foreach ($jp_db as $jp) {
-			array_push($jurado, new JuradoProfesional($jp["email"], $jp["password"], "", $jp["telefono"], $jp["fotoperfil"]));
-		}   
+			array_push($jurado, new JuradoProfesional($jp["email"], $jp["password"], "", $jp["telefono"], $jp["fotoperfil"], ""));
+		}
 
 		return $jurado;
     }

@@ -5,7 +5,8 @@ $view = ViewManager::getInstance();
 
 $pincho = $view->getVariable("pincho");
 //$errors = $view->getVariable("errors");
- 
+$concurso = $view->getVariable("concurso");
+
 $view->setVariable("title", "Datos del pincho"); ?>
 
 
@@ -23,7 +24,7 @@ $view->setVariable("title", "Datos del pincho"); ?>
 			</tr>
 			<tr>
 				<th>Precio</th>
-				<td><?= $pincho->getPrecioPincho(); ?></td>
+				<td><?= $pincho->getPrecioPincho(); ?> €</td>
 			</tr>
 			<tr>
 				<th>Contacto</th>
@@ -39,9 +40,14 @@ $view->setVariable("title", "Datos del pincho"); ?>
 			</tr>
 		</table>
 	</div>
-	<?php if(isset($_SESSION["type"]) && $_SESSION["type"] == 0): ?>
+	<?php if(isset($_SESSION["type"]) && $_SESSION["type"] == 0 and $pincho->getAprobadaPincho() == 0 and !$concurso->isStarted()): ?>
 		<div class="view-confirm">
-			<a href="index.php?controller=pinchos&action=aprobar&id=<?= $pincho->getIdPincho(); ?>" class="btn btn-default <?= (($pincho->getAprobadaPincho() == 1)?"disabled":"") ?>" role="button"><?= (($pincho->getAprobadaPincho() == 1)?"Aceptada":"Aceptar") ?></a>
+			<a href="index.php?controller=pinchos&action=aprobar&id=<?= $pincho->getIdPincho(); ?>" class="btn btn-default" role="button">Aceptar</a>
+		</div>
+	<?php endif; ?>
+	<?php if(isset($_SESSION["type"]) && $_SESSION["type"] == 0 and $pincho->getAprobadaPincho() == 1 and !$concurso->isStarted()): ?>
+		<div class="view-confirm">
+			<a href="index.php?controller=pinchos&action=borrar&id=<?= $pincho->getIdPincho(); ?>" class="btn btn-default" role="button">Borrar</a>
 		</div>
 	<?php endif; ?>
 </div>
