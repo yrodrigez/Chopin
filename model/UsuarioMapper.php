@@ -163,4 +163,31 @@ class UsuarioMapper {
         }*/
 	}
 
+    /**
+     *
+     * Lista todos los jurados popular de la BD
+     *
+     * @return Array of Jpops, else NULL
+     */
+    public function listarJuradoPopular(){
+        $stmt = $this->db->prepare(
+            "SELECT * FROM usuario where tipo = 1;"
+        );
+        if($stmt->execute()){
+            $jpops= array();
+            foreach($stmt as $row){
+                array_push($jpops, new Usuario($row["email"],
+                                               $row["password"],
+                                               $row["tipo"],
+                                               $row["telefono"],
+                                               $row["fotoperfil"],
+                                               $row["preferencias"]));
+            }
+            return $jpops;
+        }else{
+            return NULL;
+        }
+
+    }
+
 }
