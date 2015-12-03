@@ -38,6 +38,7 @@ $view->setVariable("title", "Datos del usuario"); ?>
             <a href="index.php?controller=establecimiento&action=modificar&id=<?= $establecimiento->getEmail(); ?>"
                class="btn btn-default"
                role="button">Modificar mi cuenta</a>
+
         </div>
         <?php if($_SESSION["type"] == Usuario::ORGANIZADOR): ?>
             <div class="view-confirm">
