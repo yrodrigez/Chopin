@@ -135,8 +135,13 @@ class UsuariosController extends BaseController {
 		$this->view->render("usuarios", "register");
 	}
 
+	public function index(){
+        $this->view->setVariable("jpops", $this->userMapper->listarJuradoPopular());
+        $this->view->render("usuarios","index");
+    }
+
 	public function modificar() {
-		if(isset($_SESSION["user"]) && ($_SESSION["type"] == Usuario::JURADO_POPULAR)){
+		if(isset($_SESSION["user"]) && $_SESSION["type"] == Usuario::JURADO_POPULAR || $_SESSION["type"] == Usuario::ORGANIZADOR){
 			if(isset($_POST["email"])) {
 			
 				$jpop = new Usuario($_POST["email"]);
@@ -201,7 +206,7 @@ class UsuariosController extends BaseController {
 	      $msg = array();
 		  array_push($msg, array("success", "El usuario ha sido eliminado exitosamente"));
 		  $this->view->setFlash($msg);
-	      $this->logout();
+	      $this->view->redirect("usuarios","index");
 	    }/* else {
 	      $msg = array();
 		  array_push($msg, array("error", "Debe indicar el usuario que desea eliminar"));

@@ -31,12 +31,14 @@ $view->setVariable("title", "Datos del usuario"); ?>
 			</tr>
 		</table>
 	</div>
-	<?php if(isset($_SESSION["user"]) && $_SESSION["user"] == $usuario->getEmail()): ?>
+	<?php if(isset($_SESSION["user"]) && $_SESSION["user"] == $usuario->getEmail() || $_SESSION["type"] == Usuario::ORGANIZADOR): ?>
 		<div class="view-confirm">
-			<a href="index.php?controller=usuarios&action=modificar&id=<?= $usuario->getEmail(); ?>" class="btn btn-default" role="button">Modificar mi cuenta</a>
+			<a href="index.php?controller=usuarios&action=modificar&id=<?= $usuario->getEmail(); ?>" class="btn btn-default" role="button">Modificar cuenta</a>
 		</div>
+		<?php if($_SESSION["type"] == Usuario::ORGANIZADOR): ?>
 		<div class="view-confirm">
-			<a href="index.php?controller=usuarios&action=eliminar&id=<?= $usuario->getEmail(); ?>" onclick="return confirm('¿Esta seguro que desea eliminar su cuenta?')" class="btn btn-default" role="button">Eliminar mi cuenta</a>
+			<a href="index.php?controller=usuarios&action=eliminar&id=<?= $usuario->getEmail(); ?>" onclick="return confirm('¿Esta seguro que desea eliminar esta cuenta?')" class="btn btn-default" role="button">Eliminar</a>
 		</div>
+		<?php endif; ?>
 	<?php endif; ?>
 </div>
