@@ -51,7 +51,11 @@
 				}
 
 				$items .= '<li><a href="index.php?controller=establecimiento&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
+			} else if($_SESSION["type"]==Usuario::JURADO_PROFESIONAL) {
+				$items .= '<li><a href="index.php?controller=juradoprofesional&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
 			}
+
+
 
 			if($started) {
 				$items .= '<li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';

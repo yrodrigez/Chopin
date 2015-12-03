@@ -1,37 +1,40 @@
-<?php 
- //file: view/posts/introducir.php
+<?php
+require_once(__DIR__."/../../core/ViewManager.php");
+$view = ViewManager::getInstance();
 
- require_once(__DIR__."/../../core/ViewManager.php");
- $view = ViewManager::getInstance();
- 
- $jurado = $view->getVariable("jurado");
- $currentuser = $view->getVariable("currentusername");
- 
- $view->setVariable("title", "Jurado Profesional"); 
+$jurado = $view->getVariable("jurado");
+//$errors = $view->getVariable("errors");
+
+$view->setVariable("title", "Jurados profesional");
+/**
+ * @var $establecimiento Establecimiento
+ */
 ?>
 
-<h2 class="text-center">Jurado Profesional</h2><br>
-<?php foreach ($jurado as $miembro): ?>
-	<?php if(isset($_SESSION["type"]) && $_SESSION["type"]==0): ?>
-		<a href="index.php?controller=juradoprofesional&amp;action=edit&amp;id=<?=$miembro->getEmail()?>">
-	<?php endif; ?>
-	
-	<div class="thumbnail">
-		<div class="row row-height">
-			<div class="col-xs-4 col-sm-3 col-height">
-				<img src="img/usuarios/<?= (($miembro->getFotoUsuario() != NULL)?$miembro->getFotoUsuario():"default.png") ?>" alt="Avatar" class="user-img img-circle">
-			</div>
-			<div class="col-xs-8 col-sm-6 col-height col-middle">
-				<div class="thumb-username"><?=$miembro->getEmail()?></div>
-			</div>
-		</div>
-	</div>
-	
-	<?php if(isset($_SESSION["type"]) && $_SESSION["type"]==0): ?>
-		</a>
-	<?php endif; ?>
-<?php endforeach; ?>
+<div>
+    <div class="headerForm">
+        <span>Jurados Popular</span>
+    </div>
+    <?php foreach ($jurado as $jp): ?>
+        <a href="index.php?controller=juradoprofesional&amp;action=view&amp;id=<?= $jp->getEmail()?>">
+            <div class="thumbnail">
+                <div class="row row-height">
+                    <div class="col-xs-3 col-sm-3 col-sm-offset-2 col-height">
+                        <img src=<?php if($jp->getFotoUsuario()!=NULL){
+                            echo "img/usuarios/".$jp->getFotoUsuario();
+                        } else {
+                            echo "img/usuarios/default.png";
+                        }?> alt="Foto Usuario" class="user-img img-circle">
+                    </div>
+                    <div class="col-xs-5 col-sm-5 col-height col-middle">
+                        <div class=""><?=$jp->getEmail()?></div>
+                    </div>
 
-<?php if(isset($_SESSION["type"]) && $_SESSION["type"]==0): ?>
-	<a href="index.php?controller=juradoprofesional&amp;action=add" class="btn btn-default">A&ntilde;adir</a><br><br>
-<?php endif; ?>
+                    <div class="col-xs-4 col-sm-2 col-height col-middle">
+                        <div class=""><?=$jp->getPreferencias()?></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    <?php endforeach; ?>
+</div>

@@ -196,6 +196,7 @@ class UsuariosController extends BaseController {
 	        $this->view->redirect("pinchos","listar");
 	      	}
 	    }*/
+		$this->view->redirect('concurso','view');
     }
 		
 	public function eliminar(){

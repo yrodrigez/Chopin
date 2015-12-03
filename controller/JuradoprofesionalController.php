@@ -22,7 +22,8 @@ class JuradoProfesionalController extends BaseController {
 	}
 
 	public function index() {
-		$jurado = $this->juradoProfesionalMapper->findAll(); 
+		$jurado = $this->juradoProfesionalMapper->findAll();
+
 		$this->view->setVariable("jurado", $jurado);    
 		$this->view->render("juradoprofesional", "index");
 	}
@@ -111,5 +112,15 @@ class JuradoProfesionalController extends BaseController {
 		}
 
 		$this->view->redirect("juradoprofesional", "index");
+	}
+
+	public function view() {
+		if(isset($_GET['id'])){
+			$usuario = new JuradoProfesional($_GET["id"]);
+			$this->juradoProfesionalMapper->fill($usuario);
+			$this->view->setVariable('usuario',$usuario);
+			$this->view->render('juradoprofesional','view');
+		}
+		$this->view->redirect('concurso','view');
 	}
 }
