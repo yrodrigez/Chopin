@@ -24,10 +24,10 @@ class Establecimiento extends Usuario {
         parent::__construct(
             $email,
             $password,
-            $nombre,
             $tipo,
             $telefono,
-            $fotoUsuario
+            $fotoUsuario,
+            ""
         );
         self::setCoordenadas($coordenadas);
         self::setDireccion($direccion);

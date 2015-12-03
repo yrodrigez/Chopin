@@ -62,7 +62,7 @@ class EstablecimientoMapper
 
     /**
      * @param $email
-     * @param $establecimiento
+     * @param $establecimiento Establecimiento
      * @return bool
      */
     public function modificarEstablecimiento(
@@ -72,13 +72,22 @@ class EstablecimientoMapper
         $up= new UsuarioMapper();
         $up->edit($email, $establecimiento);
         $stmt= $this->db->prepare(
-          "UPDATE establecimiento SET direccion = ?, coordenadas = ?, email = ? WHERE email= ?"
+          "UPDATE usuario, establecimiento
+           SET establecimiento.direccion = ?,
+           establecimiento.coordenadas = ?,
+           usuario.telefono= ?,
+           usuario.fotoperfil= ?,
+           usuario.password=?
+           WHERE usuario.email= establecimiento.email AND establecimiento.email =?"
         );
-        return $stmt->execute(
+        return $stmt->execute(array(
             $establecimiento->getDireccion(),
             $establecimiento->getCoordenadas(),
-            $establecimiento->getEmail(),
+            $establecimiento->getTelefono(),
+            $establecimiento->getFotoUsuario(),
+            $establecimiento->getPassword(),
             $email
+            )
         );
     }
 
