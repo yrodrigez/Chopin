@@ -260,12 +260,19 @@ class PinchoMapper {
   public function borrarPincho(
     $idPincho
     ) {
-
     if((new CodigoMapper())->borrar($idPincho) and (new IngredienteMapper())->borrar($idPincho)) {
       $stmt = $this->db->prepare("DELETE FROM pincho WHERE idpincho= ?;");
       return $stmt->execute(array($idPincho));
     }
     return false;
+  }
+
+
+  public function borrarPinchoEstablecimiento(
+      $estab
+  ) {
+    $id = $this->getPinchoEstablecimiento($estab)->getIdPincho();
+    return $this->borrarPincho($id);
   }
 
   /**
@@ -371,13 +378,13 @@ class PinchoMapper {
   public function getPinchoEstablecimiento(
     $email
     ) {
+
     $stmt = $this->db->prepare("SELECT * FROM pincho WHERE email=?");
     $stmt->execute(array($email));
     if($stmt->rowCount()>0) {
-      foreach (
-        $stmt as $pincho
-        ) {
-        $ingredientes = $this->getIngredientesPincho($pincho["idpincho"]);
+      $pincho = $stmt->fetch(PDO::FETCH_ASSOC);
+      $ingredientes = $this->getIngredientesPincho($pincho["idpincho"]);
+
       return new Pincho(
         $pincho["idpincho"],
         $pincho["nombre"],
@@ -389,9 +396,9 @@ class PinchoMapper {
         $pincho["foto"]
         );
     }
-  } else {
+
     return NULL;
-  }
+
 }
   public function getPinchosUsuarioGroupBy(
     $email
@@ -405,5 +412,6 @@ class PinchoMapper {
       return $stmt->rowCount();
     }
   }
+
 
 }

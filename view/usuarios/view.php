@@ -12,7 +12,7 @@ $view->setVariable("title", "Datos del usuario"); ?>
 
 
 <div>
-	<div class="view-title"><h1><?= $usuario->getEmail(); ?></h1></div>
+	<div class="view-title"><h2><?= $usuario->getEmail(); ?></h2></div>
 	<div class="view-img"><img src="<?= 'img/usuarios/'.$usuario->getFotoUsuario(); ?>"></div>
 	<div class="view-description">
 

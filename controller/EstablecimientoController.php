@@ -6,6 +6,7 @@ session_start();
 require_once(__DIR__."/../model/Establecimiento.php");
 require_once(__DIR__."/../model/Usuario.php");
 require_once(__DIR__."/../model/UsuarioMapper.php");
+require_once(__DIR__."/../model/PinchoMapper.php");
 require_once(__DIR__."/../model/EstablecimientoMapper.php");
 require_once(__DIR__."/../controller/BaseController.php");
 /**
@@ -74,6 +75,25 @@ class EstablecimientoController extends BaseController{
 
         $this->view->setVariable("establecimiento", $this->establecimientoMapper->fill($_GET["id"]));
         $this->view->render("establecimientos", "modificar");
+    }
+
+    public function eliminar(){
+        if(isset($_GET["id"])) {
+            $email = $_GET["id"];
+            $estab = new Establecimiento($email);
+
+            if((new PinchoMapper())->borrarPinchoEstablecimiento($email)) {
+                $this->establecimientoMapper->borrarEstablecimiento($estab);
+
+                $msg = array();
+                array_push($msg, array("success", "El establecimiento se ha borrado correctamente"));
+                $this->view->setFlash($msg);
+
+                $this->view->redirect("establecimiento", "index");
+            }
+        }
+
+        $this->view->redirect("concurso", "view");
     }
 
 

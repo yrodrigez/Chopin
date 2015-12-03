@@ -71,7 +71,8 @@ class CodigoMapper {
 
     public function borrar($idpincho) {
         $stmt = $this->db->prepare("DELETE FROM codigo WHERE idpincho = ?");
-        return $stmt->execute(array($idpincho));
+        $stmt->execute(array($idpincho));
+        return true;
     }
 
 }

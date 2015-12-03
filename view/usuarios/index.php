@@ -13,7 +13,7 @@ $view->setVariable("title", "Jurados populares registrados");
 
 <div>
     <div class="headerForm">
-        <span>Jurados populares Registrados</span>
+        <span>Jurados Popular</span>
     </div>
     <?php foreach ($jpops as $jpop): ?>
         <a href="index.php?controller=usuarios&amp;action=view&amp;id=<?= $jpop->getEmail()?>">

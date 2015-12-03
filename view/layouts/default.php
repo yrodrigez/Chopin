@@ -32,6 +32,7 @@
 		} else {
 			if($_SESSION["type"]==Usuario::ORGANIZADOR and !$started) {
 				$items .= '<li><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
+				$items.= '<li><a href="index.php?controller=usuarios&amp;action=index">Jurado Popular</a></li>';
 				$items.= '<li><a href="index.php?controller=establecimiento&amp;action=index">Establecimientos</a></li>';
 			} else if($_SESSION["type"]==Usuario::JURADO_POPULAR) {
 				$items .= '<li><a href="index.php?controller=pinchos&amp;action=listarPinchosUsuario">Mis pinchos</a></li><li><a href="index.php?controller=codigos&amp;action=introducir">Introducir Código</a></li><li><a href="index.php?controller=pinchos&amp;action=misVotos">Mis Votaciones</a></li><li><a href="index.php?controller=usuarios&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
@@ -54,6 +55,7 @@
 
 			if($started) {
 				$items .= '<li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
+				$items.= '<li><a href="index.php?controller=establecimiento&amp;action=index">Establecimientos</a></li>';
 			}
 
 			$items .= '<li><a href="index.php?controller=usuarios&amp;action=logout">Desconectar <?= $currentuser ?></a></li>';

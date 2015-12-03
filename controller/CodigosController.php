@@ -61,5 +61,10 @@ class CodigosController extends BaseController {
 
         $this->view->render("codigo", "introducir");
     }
+
+    public function eliminarPorIdProp(){
+
+    }
+
 }
 

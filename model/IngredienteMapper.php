@@ -16,7 +16,8 @@ class IngredienteMapper
 
     public function borrar($idpincho) {
         $stmt = $this->db->prepare("DELETE FROM ingredientes WHERE idpincho = ?");
-        return $stmt->execute(array($idpincho));
+        $stmt->execute(array($idpincho));
+        return true;
     }
 }
 ?>
