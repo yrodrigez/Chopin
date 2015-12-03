@@ -117,10 +117,14 @@ class JuradoProfesionalController extends BaseController {
 	public function view() {
 		if(isset($_GET['id'])){
 			$usuario = new JuradoProfesional($_GET["id"]);
+
 			$this->juradoProfesionalMapper->fill($usuario);
+
 			$this->view->setVariable('usuario',$usuario);
 			$this->view->render('juradoprofesional','view');
+		} else {
+			$this->view->redirect('concurso','view');
 		}
-		$this->view->redirect('concurso','view');
+
 	}
 }
