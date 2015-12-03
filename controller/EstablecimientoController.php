@@ -37,42 +37,44 @@ class EstablecimientoController extends BaseController{
     }
 
     public function modificar(){
+
+        if(isset($_POST["email"])) {
+            if($_FILES['avatar'] and $_FILES['avatar']['name']) {
+                $name =  $_POST["email"] . "." . substr(strrchr($_FILES['avatar']['name'], '.'), 1);
+                $path = "img/usuarios/" . $name;
+                move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
+                $foto= $name;
+            }
+
+            $establecimiento = (new EstablecimientoMapper())->fill($_POST["email"]);
+
+            if(isset($_POST["password"]) and !empty($_POST["password"])) $establecimiento->setPassword($_POST["password"]);
+            if(isset($_FILES['avatar']['name']) and !empty($_FILES['avatar']['name'])) $establecimiento->setFotoUsuario($foto);
+
+            $establecimiento->setTelefono($_POST["telefono"]);
+            $establecimiento->setCoordenadas($_POST["coordenadas"]);
+            $establecimiento->setDireccion($_POST["direccion"]);
+
+
+            if($this->establecimientoMapper->modificarEstablecimiento($_POST["email"],$establecimiento)){
+                $msg = array();
+                array_push($msg, array("success", "Establecimiento modificado correctamente"));
+                $this->view->setFlash($msg);
+
+                $this->view->setVariable("establecimiento", $this->establecimientoMapper->fill($_POST["email"]));
+                $this->view->redirect("concurso", "view");
+            }else{
+                $msg = array();
+                array_push($msg, array("error", "Ocurrió un error al guardar los datos"));
+                $this->view->setFlash($msg);
+                $this->view->redirect("concurso", "view");
+            }
+        }
+
+
         $this->view->setVariable("establecimiento", $this->establecimientoMapper->fill($_GET["id"]));
         $this->view->render("establecimientos", "modificar");
     }
 
-    public function guardarModificacion(){
-        $email= $_POST["email"];
-        $password= $_POST["password"];
-        $preferencias="";
-        $tipo= Usuario::ESTABLECIMIENTO;
-        $foto="img/usuarios/default.png";
-        if($_FILES['avatar'] and $_FILES['avatar']['name']) {
-            $path = "img/usuarios/" . basename( $_FILES['avatar']['name']);
-            move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
-            $foto= basename($_FILES['avatar']['name']);
-        }
-        $coordenadas= $_POST["coordenadas"];
-        $direccion= $_POST["direccion"];
-        $telefono= $_POST["telefono"];
-        $establecimiento= new Establecimiento(
-            $email,
-            $password,
-            "",
-            $tipo,
-            $telefono,
-            $foto,
-            $coordenadas,
-            $direccion
-        );
-        if(
-            $this->establecimientoMapper->modificarEstablecimiento($email,$establecimiento)
-        ){
-            $this->view->setVariable("establecimiento", $this->establecimientoMapper->fill($email));
-            $this->view->render("establecimientos", "modificar");
-        }else{
 
-        }
-
-    }
 }

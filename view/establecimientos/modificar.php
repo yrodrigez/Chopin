@@ -19,7 +19,7 @@ $establecimiento = $view->getVariable("establecimiento");
         <span>Introduzca los datos que desea modificar</span>
     </div>
     <form class="form-horizontal"
-          action="index.php?controller=establecimiento&action=guardarModificacion"
+          action="index.php?controller=establecimiento&action=modificar"
           method="POST"
           enctype="multipart/form-data"
           data-toggle="validator">
@@ -39,9 +39,10 @@ $establecimiento = $view->getVariable("establecimiento");
                    class="form-control"
                    name="password"
                    id="password"
-                   value="<?= $establecimiento->getPassword();?>"
+                   placeholder="Escribe aqui tu nueva contraseña..."
                    data-minlength="6"
-                   data-error="La contraseña debe tener al menos 6 caracteres" required>
+                   data-error="La contraseña debe tener al menos 6 caracteres">
+            <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
             <label for="tel">Tel&eacute;fono:</label>
@@ -51,14 +52,11 @@ $establecimiento = $view->getVariable("establecimiento");
                    value="<?= $establecimiento->getTelefono();?>"
                    pattern="^[0-9]{9}$"
                    data-error="El teléfono introducido no es válido">
+            <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
             <label for="avatar">Foto de perfil:</label>
-            <input type="file"
-                   class="file file-loading"
-                   name="avatar" id="avatar"
-                   data-show-upload="false"
-                   data-allowed-file-extensions="['jpg', 'png', 'gif']"/>
+            <input type="file" class="file file-loading" name="avatar" id="avatar" data-show-upload="false" data-allowed-file-extensions='["jpg", "png", "bmp", "gif"]'>
         </div>
         <div class="form-group">
             <label for="preferencias">Dirección</label>
@@ -81,3 +79,10 @@ $establecimiento = $view->getVariable("establecimiento");
         </div>
     </form>
 </div>
+
+
+<?php $view->moveToFragment("script"); ?>
+    $("#avatar").fileinput({
+    defaultPreviewContent: '<img src=img/usuarios/<?= ($establecimiento->getFotoUsuario())?$establecimiento->getFotoUsuario():"default.png" ?> alt="Avatar">',
+    });
+<?php $view->moveToDefaultFragment(); ?>

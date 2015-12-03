@@ -71,6 +71,7 @@ class EstablecimientoMapper
     ) {
         $up= new UsuarioMapper();
         $up->edit($email, $establecimiento);
+
         $stmt= $this->db->prepare(
           "UPDATE usuario, establecimiento
            SET establecimiento.direccion = ?,
@@ -80,6 +81,7 @@ class EstablecimientoMapper
            usuario.password=?
            WHERE usuario.email= establecimiento.email AND establecimiento.email =?"
         );
+
         return $stmt->execute(array(
             $establecimiento->getDireccion(),
             $establecimiento->getCoordenadas(),
@@ -120,12 +122,12 @@ class EstablecimientoMapper
         $stmt = $this->db->prepare(
             "SELECT * FROM usuario, establecimiento
               where establecimiento.email = usuario.email
-              and establecimiento.email=?
-              and usuario.email= ?"
+              and establecimiento.email=?"
         );
-        if($stmt->execute(array($email,$email))){
+        if($stmt->execute(array($email))){
             $row= $stmt->fetch(PDO::FETCH_ASSOC);
-            return new Establecimiento(
+
+            return (new Establecimiento(
                 $row["email"],
                 $row["password"],
                 "",
@@ -133,7 +135,7 @@ class EstablecimientoMapper
                 $row["telefono"],
                 $row["fotoperfil"],
                 $row["coordenadas"],
-                $row["direccion"]);
+                $row["direccion"]));
         }else{
             return false;
         }

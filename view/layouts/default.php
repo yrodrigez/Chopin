@@ -48,6 +48,8 @@
 				if((new PinchoMapper())->getPinchoValidado($_SESSION["user"])<>-1) {
 					$items .= '<li><a href="index.php?controller=codigos&amp;action=generar">Generar c&oacute;digos</a></li>';
 				}
+
+				$items .= '<li><a href="index.php?controller=establecimiento&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
 			}
 
 			if($started) {
