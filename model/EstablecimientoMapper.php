@@ -107,4 +107,49 @@ class EstablecimientoMapper
         }
     }
 
+    public function fill($email){
+        $stmt = $this->db->prepare(
+            "SELECT * FROM usuario, establecimiento
+              where establecimiento.email = usuario.email
+              and establecimiento.email=?
+              and usuario.email= ?"
+        );
+        if($stmt->execute(array($email,$email))){
+            $row= $stmt->fetch(PDO::FETCH_ASSOC);
+            return new Establecimiento(
+                $row["email"],
+                $row["password"],
+                "",
+                Usuario::ESTABLECIMIENTO,
+                $row["telefono"],
+                $row["fotoperfil"],
+                $row["coordenadas"],
+                $row["direccion"]);
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     *
+     * lista todos los establecmientos en la base de datos
+     *
+     * @return bool | Establecimiento array
+     */
+    public function listarEstablecimientos(){
+        $stmt = $this->db->prepare(
+            "SELECT usuario.email FROM usuario, establecimiento where establecimiento.email = usuario.email"
+        );
+        if($stmt->execute()){
+            $establecimientos= array();
+            foreach($stmt as $row){
+                array_push($establecimientos, $this->fill($row["email"]));
+            }
+            return $establecimientos;
+        }else{
+            return false;
+        }
+
+    }
+
 }
