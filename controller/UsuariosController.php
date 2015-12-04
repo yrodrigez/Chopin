@@ -161,7 +161,8 @@ class UsuariosController extends BaseController {
 	 			$msg = array();
 		       	array_push($msg, array("success", "Usuario modificado correctamente"));
 		        $this->view->setFlash($msg);
-				$this->view->redirect("concurso", "view");
+		        $this->view->setVariable("usuario", $jpop);
+				$this->view->render("usuarios", "view");
 			} else {
 				$jpop = new Usuario($_GET["id"]);
 				$this->userMapper->fill($jpop);
