@@ -277,6 +277,10 @@ body {
 	color: white !important;
 	font-style: italic;
 }
+
+.navbar-nav {
+	margin-bottom: 0px;
+}
 .navbar-nav * a ,.navbar-nav * a:active{
 	color: #461111 !important;
 }

@@ -31,38 +31,38 @@
 
 		} else {
 			if($_SESSION["type"]==Usuario::ORGANIZADOR and !$started) {
-				$items .= '<li><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
-				$items.= '<li><a href="index.php?controller=usuarios&amp;action=index">Jurado Popular</a></li>';
-				$items.= '<li><a href="index.php?controller=establecimiento&amp;action=index">Establecimientos</a></li>';
+				$items .= '<li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
+				$items.= '<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=index">Jurado Popular</a></li>';
+				$items.= '<li class="nav-pill"><a href="index.php?controller=establecimiento&amp;action=index">Establecimientos</a></li>';
 			} else if($_SESSION["type"]==Usuario::JURADO_POPULAR) {
-				$items .= '<li><a href="index.php?controller=pinchos&amp;action=listarPinchosUsuario">Mis pinchos</a></li><li><a href="index.php?controller=codigos&amp;action=introducir">Introducir Código</a></li><li><a href="index.php?controller=pinchos&amp;action=misVotos">Mis Votaciones</a></li><li><a href="index.php?controller=usuarios&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
+				$items .= '<li class="nav-pill"><a href="index.php?controller=pinchos&amp;action=listarPinchosUsuario">Mis pinchos</a></li><li><a href="index.php?controller=codigos&amp;action=introducir">Introducir Código</a></li><li><a href="index.php?controller=pinchos&amp;action=misVotos">Mis Votaciones</a></li><li><a href="index.php?controller=usuarios&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
 			} else if($_SESSION["type"]==Usuario::ORGANIZADOR and $started) {
-				$items.= '<li><a href="index.php?controller=usuarios&amp;action=index">Jurado Popular</a></li>';
+				$items.= '<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=index">Jurado Popular</a></li>';
 			} else if($_SESSION["type"]==Usuario::ESTABLECIMIENTO) {
 
 				if(!$started and !(new PinchoMapper())->existePincho($_SESSION["user"])) {
-					$items .= '<li><a href="index.php?controller=pinchos&amp;action=presentar">Propuesta</a></li>';
+					$items .= '<li class="nav-pill"><a href="index.php?controller=pinchos&amp;action=presentar">Propuesta</a></li>';
 				} else {
-					$items .= '<li><a href="index.php?controller=pinchos&amp;action=view">Propuesta</a></li>';
+					$items .= '<li class="nav-pill"><a href="index.php?controller=pinchos&amp;action=view">Propuesta</a></li>';
 				}
 
 				if((new PinchoMapper())->getPinchoValidado($_SESSION["user"])<>-1) {
-					$items .= '<li><a href="index.php?controller=codigos&amp;action=generar">Generar c&oacute;digos</a></li>';
+					$items .= '<li class="nav-pill"><a href="index.php?controller=codigos&amp;action=generar">Generar c&oacute;digos</a></li>';
 				}
 
-				$items .= '<li><a href="index.php?controller=establecimiento&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
+				$items .= '<li class="nav-pill"><a href="index.php?controller=establecimiento&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
 			} else if($_SESSION["type"]==Usuario::JURADO_PROFESIONAL) {
-				$items .= '<li><a href="index.php?controller=juradoprofesional&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
+				$items .= '<li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
 			}
 
 
 
 			if($started) {
 				$items .= '<li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
-				$items.= '<li><a href="index.php?controller=establecimiento&amp;action=index">Establecimientos</a></li>';
+				$items.= '<li class="nav-pill"><a href="index.php?controller=establecimiento&amp;action=index">Establecimientos</a></li>';
 			}
 
-			$items .= '<li><a href="index.php?controller=usuarios&amp;action=logout">Desconectar <?= $currentuser ?></a></li>';
+			$items .= '<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=logout">Desconectar <?= $currentuser ?></a></li>';
 
 		}
 		return $items;
@@ -112,7 +112,7 @@
 
 		<nav class="navbar navbar-inverse visible-xs">
 			<div class="container-fluid">
-				<div class="navbar-header">
+				<div class="navbar-header" id="logonav">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
