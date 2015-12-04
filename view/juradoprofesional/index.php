@@ -1,8 +1,11 @@
 <?php
 require_once(__DIR__."/../../core/ViewManager.php");
+require_once(__DIR__."/../../model/Concurso.php");
 $view = ViewManager::getInstance();
 
 $jurado = $view->getVariable("jurado");
+$concurso = $view->getVariable("concurso");
+
 //$errors = $view->getVariable("errors");
 
 $view->setVariable("title", "Jurados profesional");
@@ -13,7 +16,7 @@ $view->setVariable("title", "Jurados profesional");
 
 <div>
     <div class="view-title">
-        <h2>Jurados Popular</h2>
+        <h2>Jurados Profesional</h2>
     </div>
     <?php foreach ($jurado as $jp): ?>
         <a href="index.php?controller=juradoprofesional&amp;action=view&amp;id=<?= $jp->getEmail()?>">
@@ -37,4 +40,8 @@ $view->setVariable("title", "Jurados profesional");
             </div>
         </a>
     <?php endforeach; ?>
+
+    <?php if(isset($_SESSION["type"]) && $_SESSION["type"] == Usuario::ORGANIZADOR && !$concurso->isStarted()): ?>
+        <a class="btn btn-default" href="index.php?controller=juradoprofesional&amp;action=add">A&ntilde;adir</a>
+    <?php endif; ?>
 </div>
