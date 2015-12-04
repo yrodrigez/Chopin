@@ -152,14 +152,13 @@
 			<div class="col-sm-1 hidden-xs"></div>
 			</div>
 		</div>
+	</body>
 
-		<div class="row" id="footer">
+	<div class="row" id="footer">
 				<div class="container text-center">
 					<p class="text-muted">Chopin: <a href="#" data-toggle="tooltip" data-placement="top" title="Hooray!">ABP Project.</a></p>
 				</div>
-		</div>
-	</body>
-
+	</div>
 
     <script>
 

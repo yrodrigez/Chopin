@@ -128,7 +128,7 @@ body {
 #footer {
 	background-image: url("banner.jpg");
 	background-size: 100%;
-	float: bottom;
+	position: relative;
 	bottom: 0px;
 	width: 100%;
 	border: 1px solid #461111;
