@@ -53,10 +53,14 @@ body {
 
 #sidebar {	
 	width: 100%;
-    position: absolute;
     margin-top: 0px;
     margin-right: 0px;
     border-left: 1px solid #461111;
+}
+
+.col-sm-2 {
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 .nav-pills > li {
@@ -124,7 +128,8 @@ body {
 #footer {
 	background-image: url("banner.jpg");
 	background-size: 100%;
-	position: relative;
+	float: bottom;
+	bottom: 0px;
 	width: 100%;
 	border: 1px solid #461111;
 	padding-top:8px;
