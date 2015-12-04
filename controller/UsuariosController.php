@@ -8,6 +8,12 @@ require_once(__DIR__."/../model/UsuarioMapper.php");
 require_once(__DIR__."/../model/Concurso.php");
 require_once(__DIR__."/../model/ConcursoMapper.php");
 
+require_once(__DIR__."/../model/Pincho.php");
+require_once(__DIR__."/../model/PinchoMapper.php");
+
+require_once(__DIR__."/../model/Codigo.php");
+require_once(__DIR__."/../model/CodigoMapper.php");
+
 require_once(__DIR__."/../model/Establecimiento.php");
 require_once(__DIR__."/../model/EstablecimientoMapper.php");
 
@@ -15,14 +21,18 @@ require_once(__DIR__."/../controller/BaseController.php");
 
 
 class UsuariosController extends BaseController {
-  
-	private $userMapper;    
-  
+
+	private $userMapper;   
+	private $pinchoMapper;
+	private $codigoMapper; 
+
 	public function __construct() {    
 		parent::__construct();
 
 		$this->userMapper = new UsuarioMapper();
 		$this->estabMapper = new EstablecimientoMapper();
+		$this->pinchoMapper = new PinchoMapper();
+		$this->codigoMapper = new CodigoMapper();
 	}
 
 	public function login() {
@@ -36,11 +46,11 @@ class UsuariosController extends BaseController {
 				$this->view->redirect("concurso", "view");
 			} else {
 				$msg = array();
-                array_push($msg, array("error", "Datos de sesión inválidos"));
+				array_push($msg, array("error", "Datos de sesión inválidos"));
 				$this->view->setFlash($msg);
 			}
 		}       
-    
+
 		$this->view->render("usuarios", "login");
 	}
 
@@ -48,7 +58,7 @@ class UsuariosController extends BaseController {
 	public function register() {
 
 		$user=NULL;
-    
+
 		if (isset($_POST["username"])){ 
 
 
@@ -76,18 +86,18 @@ class UsuariosController extends BaseController {
 						$user->setTipo(1);
 						$this->userMapper->save($user);
 
-                        $msg = array();
-                        array_push($msg, array("success", "El jurado popular se ha creado correctamente"));
-                        $this->view->setFlash($msg);
+						$msg = array();
+						array_push($msg, array("success", "El jurado popular se ha creado correctamente"));
+						$this->view->setFlash($msg);
 						$this->view->redirect("usuarios", "login");
 					} else {
-                        $msg = array();
-                        array_push($msg, array("error", "El usuario ya existe"));
-                        $this->view->setFlash($msg);
+						$msg = array();
+						array_push($msg, array("error", "El usuario ya existe"));
+						$this->view->setFlash($msg);
 					}
 				} catch(ValidationException $ex) {
 					$errors = $ex->getErrors();
-                    $this->view->setFlash($errors);
+					$this->view->setFlash($errors);
 				}
 			} else {
 				$user = new Establecimiento($_POST["username"], $_POST["passwd"]);
@@ -115,17 +125,17 @@ class UsuariosController extends BaseController {
 						$this->estabMapper->registrarEstablecimiento($user);
 
 						$msg = array();
-                        array_push($msg, array("success", "El establecimiento se ha creado correctamente"));
-                        $this->view->setFlash($msg);
+						array_push($msg, array("success", "El establecimiento se ha creado correctamente"));
+						$this->view->setFlash($msg);
 						$this->view->redirect("usuarios", "login");
 					} else {
-                        $msg = array();
-                        array_push($msg, array("error", "El usuario ya existe"));
-                        $this->view->setFlash($msg);
+						$msg = array();
+						array_push($msg, array("error", "El usuario ya existe"));
+						$this->view->setFlash($msg);
 					}
 				} catch(ValidationException $ex) {
-                    $errors = $ex->getErrors();
-                    $this->view->setFlash($errors);
+					$errors = $ex->getErrors();
+					$this->view->setFlash($errors);
 				}
 			}
 
@@ -136,14 +146,14 @@ class UsuariosController extends BaseController {
 	}
 
 	public function index(){
-        $this->view->setVariable("jpops", $this->userMapper->listarJuradoPopular());
-        $this->view->render("usuarios","index");
-    }
+		$this->view->setVariable("jpops", $this->userMapper->listarJuradoPopular());
+		$this->view->render("usuarios","index");
+	}
 
 	public function modificar() {
 		if(isset($_SESSION["user"]) && $_SESSION["type"] == Usuario::JURADO_POPULAR || $_SESSION["type"] == Usuario::ORGANIZADOR){
 			if(isset($_POST["email"])) {
-			
+
 				$jpop = new Usuario($_POST["email"]);
 				$this->userMapper->fill($jpop);
 
@@ -158,10 +168,10 @@ class UsuariosController extends BaseController {
 					$jpop->setFotoUsuario($name);
 				}
 				$this->userMapper->edit($_POST["email"], $jpop);
-	 			$msg = array();
-		       	array_push($msg, array("success", "Usuario modificado correctamente"));
-		        $this->view->setFlash($msg);
-		        $this->view->setVariable("usuario", $jpop);
+				$msg = array();
+				array_push($msg, array("success", "Usuario modificado correctamente"));
+				$this->view->setFlash($msg);
+				$this->view->setVariable("usuario", $jpop);
 				$this->view->render("usuarios", "view");
 			} else {
 				$jpop = new Usuario($_GET["id"]);
@@ -171,20 +181,20 @@ class UsuariosController extends BaseController {
 			}
 		} else {
 			$msg = array();
-		    array_push($msg, array("error", "Debe estar logueado para modificar su Usuario"));
-		    $this->view->setFlash($msg);
-		    $this->view->redirect("usuarios", "login");
+			array_push($msg, array("error", "Debe estar logueado para modificar su Usuario"));
+			$this->view->setFlash($msg);
+			$this->view->redirect("usuarios", "login");
 		}
 
 
 	}
 
 	public function view(){
-	    if(isset($_GET['id'])){
-	      $usuario = new Usuario($_GET["id"]);
-	      $this->userMapper->fill($usuario);
-	      $this->view->setVariable('usuario',$usuario);
-	      $this->view->render('usuarios','view');
+		if(isset($_GET['id'])){
+			$usuario = new Usuario($_GET["id"]);
+			$this->userMapper->fill($usuario);
+			$this->view->setVariable('usuario',$usuario);
+			$this->view->render('usuarios','view');
 	    } /*else {
 	        if(isset($_SESSION["user"]) && ($_SESSION["type"] == Usuario::ESTABLECIMIENTO)){
 	          if ($this->pinchoMapper->existePincho($_SESSION["user"])) {
@@ -197,25 +207,30 @@ class UsuariosController extends BaseController {
 	        } else {
 	        $this->view->redirect("pinchos","listar");
 	      	}
-	    }*/
-		$this->view->redirect('concurso','view');
-    }
-		
-	public function eliminar(){
-	    if(isset($_GET['id'])){
-	      $usuario = new Usuario($_GET["id"]);
+	      }*/
+	      $this->view->redirect('concurso','view');
+	  }
+
+	  public function eliminar(){
+	  	if(isset($_GET['id'])){
+
+	  	  $pinchosUsuario = $this->pinchoMapper->listarPinchosUsuario($_GET["id"]);
+	  	  foreach ($pinchosUsuario as $pincho) {
+	  	  	$this->codigoMapper->borrar($pincho->getIdPincho());
+	  	  }	
+	  	  $usuario = new Usuario($_GET["id"]);
 	      $this->userMapper->fill($usuario); //PUEDE SOBRAR
 	      $this->userMapper->remove($usuario);
 	      $msg = array();
-		  array_push($msg, array("success", "El usuario ha sido eliminado exitosamente"));
-		  $this->view->setFlash($msg);
+	      array_push($msg, array("success", "El usuario ha sido eliminado exitosamente"));
+	      $this->view->setFlash($msg);
 	      $this->view->redirect("usuarios","index");
 	    }/* else {
 	      $msg = array();
 		  array_push($msg, array("error", "Debe indicar el usuario que desea eliminar"));
 		  $this->view->setFlash($msg);
-	    } */
-    }
+		} */
+	}
 
 	public function logout() {
 		session_destroy();
