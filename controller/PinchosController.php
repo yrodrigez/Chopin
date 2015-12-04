@@ -126,10 +126,11 @@ class PinchosController extends BaseController {
           array_push($idQuemar, $pincho);
         }
       }
+
       if($this->pinchoMapper->agregarVoto(
-          $this->pinchoMapper->getCodigoPincho($idElegido),
-          $this->pinchoMapper->getCodigoPincho($idQuemar[0]),
-          $this->pinchoMapper->getCodigoPincho($idQuemar[1]),
+          $this->pinchoMapper->getCodigoPinchoNoUtilizado($idElegido),
+          $this->pinchoMapper->getCodigoPinchoNoUtilizado($idQuemar[0]),
+          $this->pinchoMapper->getCodigoPinchoNoUtilizado($idQuemar[1]),
           date ("Y-m-d H:i:s",time())
       )){
         $msg = array();

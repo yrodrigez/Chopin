@@ -99,6 +99,15 @@ class PinchoMapper {
     return null;
   }
 
+  public function getCodigoPinchoNoUtilizado($idPincho) {
+    $stmt = $this->db->prepare("SELECT idcodigo FROM codigo WHERE idpincho= ? AND email = ? AND utilizado = ?");
+    if($stmt->execute(array($idPincho, $_SESSION["user"], Pincho::NO_UTILIZADO))){
+      return $stmt->fetchColumn();
+    }
+    return null;
+  }
+
+
   /**
    * Checks if there's an ingredient like the one specified
    * 
@@ -178,6 +187,7 @@ class PinchoMapper {
         $idCodigoUtilizado1,
         $idCodigoUtilizado2
     )) {
+
       $stmt = $this->db->prepare("UPDATE codigo
                                   SET utilizado = ?,
                                   elegido = ?,
@@ -211,6 +221,7 @@ class PinchoMapper {
       $idCodigoUtilizado1,
       $idCodigoUtilizado2
   ) {
+
     $propuestas= array();
     $stmt = $this->db->prepare("SELECT idpincho FROM codigo WHERE idcodigo= ? OR idcodigo= ? OR idcodigo= ?");
     $stmt->execute(array(
