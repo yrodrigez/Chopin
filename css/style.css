@@ -4,6 +4,11 @@
     src: url('Allura-Regular.ttf');
 }
 
+html {
+	width: 100%;
+	height: 100%;
+}
+
 body {
 
 	background-color: #fcf8f2;
@@ -51,6 +56,7 @@ body {
     position: absolute;
     margin-top: 0px;
     margin-right: 0px;
+    border-left: 1px solid #461111;
 }
 
 .nav-pills > li {
@@ -118,9 +124,13 @@ body {
 #footer {
 	background-image: url("banner.jpg");
 	background-size: 100%;
-	background-color: #FFF;
+	position: relative;
+	width: 100%;
+	bottom: 0px;
 	border: 1px solid #461111;
 	padding-top:8px;
+	margin-left: 0px;
+	margin-right: 0px;
 	margin-top: 20px;
 	margin-bottom: 0px;
 }
