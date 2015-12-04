@@ -27,7 +27,7 @@ $view->setVariable("title", "Datos del concurso"); ?>
 			</tr>
 			<tr>
 				<th>Fecha de inicio</th>
-				<td><?= $concurso->getFecha(); ?></td>
+				<td><?= (new DateTime($concurso->getFecha()))->format('d/m/Y'); ?></td>
 			</tr>
 		</table>
 	</div>
