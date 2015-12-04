@@ -36,19 +36,17 @@ body {
 	font-family: Allura;
 	font-size: 70px;
 	color: #eea269;
-	text-align: left;
+	text-align: center;
 	width: 100%;
 	height: 66px;
 	margin-right: 0px;
 }
 
 #logo{
-	background-image: url("hamburger.png");
 	background-repeat: no-repeat;
-	width: 58px;
-	height: 64px;
-	margin-left: 40%;
-	margin-right: 0px;
+	height: 50px;
+	margin-top: -20px;
+	margin-right: 10px;
 }
 
 #sidebar {	
@@ -278,7 +276,7 @@ body {
 	50% { opacity: 0.0; }
 }
 .navbar {
-	background-color:#ddcfb6;
+	background-color:#6c2105;
 	margin-bottom: 0px;
 }
 
@@ -287,16 +285,11 @@ body {
 	margin-right: 5px;
 }
 
-.navbar-brand {
-	color: white !important;
-	font-style: italic;
-}
-
 .navbar-nav {
 	margin-bottom: 0px;
 }
 .navbar-nav * a ,.navbar-nav * a:active{
-	color: #461111 !important;
+	color: #c25129 !important;
 }
 
 .navbar-nav * a:hover,.navbar-brand {
@@ -304,20 +297,25 @@ body {
 }
 
 #logonav{
-	background-image: url("hamburger.png");
 	background-repeat: no-repeat;
-	width: 100%;
-	height: 66px;
-	margin-left: 0px;
+	height: 35px;
+	margin-left: -6px;
 	margin-right: 0px;
+	margin-top:-4px;
 }
 
 .nav-pill{
 	border-bottom: 1px solid #461111;
 }
 
+
 .navbar-toggle,.navbar-toggle:hover,.navbar-toggle:active {
-	margin-top: 15px;
+	margin-top: 10px;
 	margin-right: 0px;
 	background-color: #988665 !important;
+}
+
+.navbar-header {
+	padding-left: 10px;
+	padding-right: 10px;
 }

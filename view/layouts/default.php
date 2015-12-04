@@ -11,58 +11,59 @@
 	function getNavItems($phone) {
 		$concurso = (new ConcursoMapper())->getInfo();
 		$started = $concurso->isStarted();
+		$rowClass = ($phone)?"nav-pill-collapse":'class="nav-pill"';
 
-		$items = '<li class="nav-pill"><a href="index.php?controller=concurso&amp;action=view">Concurso</a></li>';
+		$items = '<li ' .$rowClass .'><a href="index.php?controller=concurso&amp;action=view">Concurso</a></li>';
 		if($started or isset($_SESSION["type"]) and $_SESSION["type"]==Usuario::ORGANIZADOR) {
-			$items .= '<li class="nav-pill"><a href="index.php?controller=pinchos&amp;action=listar">Pinchos</a></li>';
+			$items .= '<li ' .$rowClass .'><a href="index.php?controller=pinchos&amp;action=listar">Pinchos</a></li>';
 		}
 		if (!isset($_SESSION["user"])) {
 			if($started) {
-				$items .= '<li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
+				$items .= '<li ' .$rowClass .'><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
 			}
 
-			$items .= '<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=login">'. (($phone)?'<span class="glyphicon glyphicon-log-in"></span> ':'') . 'Identificarse</a></li>';
+			$items .= '<li ' .$rowClass .'><a href="index.php?controller=usuarios&amp;action=login">'. (($phone)?'<span class="glyphicon glyphicon-log-in"></span> ':'') . 'Identificarse</a></li>';
 
 			if($started) {
-				$items .= '<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=register">'. (($phone)?'<span class="glyphicon glyphicon-user"></span> ':'') . 'Registrarse</a></li>';
+				$items .= '<li ' .$rowClass .'><a href="index.php?controller=usuarios&amp;action=register">'. (($phone)?'<span class="glyphicon glyphicon-user"></span> ':'') . 'Registrarse</a></li>';
 			} else {
-				$items .= '<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=register">'. (($phone)?'<span class="glyphicon glyphicon-user"></span> ':'') . 'Registrar establecimiento</a></li>';
+				$items .= '<li ' .$rowClass .'><a href="index.php?controller=usuarios&amp;action=register">'. (($phone)?'<span class="glyphicon glyphicon-user"></span> ':'') . 'Registrar establecimiento</a></li>';
 			}
 
 		} else {
 			if($_SESSION["type"]==Usuario::ORGANIZADOR and !$started) {
-				$items .= '<li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
-				$items.= '<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=index">Jurado Popular</a></li>';
-				$items.= '<li class="nav-pill"><a href="index.php?controller=establecimiento&amp;action=index">Establecimientos</a></li>';
+				$items .= '<li ' .$rowClass .'><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
+				$items.= '<li ' .$rowClass .'><a href="index.php?controller=usuarios&amp;action=index">Jurado Popular</a></li>';
+				$items.= '<li ' .$rowClass .'><a href="index.php?controller=establecimiento&amp;action=index">Establecimientos</a></li>';
 			} else if($_SESSION["type"]==Usuario::JURADO_POPULAR) {
-				$items .= '<li class="nav-pill"><a href="index.php?controller=pinchos&amp;action=listarPinchosUsuario">Mis pinchos</a></li><li><a href="index.php?controller=codigos&amp;action=introducir">Introducir Código</a></li><li><a href="index.php?controller=pinchos&amp;action=misVotos">Mis Votaciones</a></li><li><a href="index.php?controller=usuarios&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
+				$items .= '<li ' .$rowClass .'><a href="index.php?controller=pinchos&amp;action=listarPinchosUsuario">Mis pinchos</a></li><li><a href="index.php?controller=codigos&amp;action=introducir">Introducir Código</a></li><li><a href="index.php?controller=pinchos&amp;action=misVotos">Mis Votaciones</a></li><li><a href="index.php?controller=usuarios&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
 			} else if($_SESSION["type"]==Usuario::ORGANIZADOR and $started) {
-				$items.= '<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=index">Jurado Popular</a></li>';
+				$items.= '<li ' .$rowClass .'><a href="index.php?controller=usuarios&amp;action=index">Jurado Popular</a></li>';
 			} else if($_SESSION["type"]==Usuario::ESTABLECIMIENTO) {
 
 				if(!$started and !(new PinchoMapper())->existePincho($_SESSION["user"])) {
-					$items .= '<li class="nav-pill"><a href="index.php?controller=pinchos&amp;action=presentar">Propuesta</a></li>';
+					$items .= '<li ' .$rowClass .'><a href="index.php?controller=pinchos&amp;action=presentar">Propuesta</a></li>';
 				} else {
-					$items .= '<li class="nav-pill"><a href="index.php?controller=pinchos&amp;action=view">Propuesta</a></li>';
+					$items .= '<li ' .$rowClass .'><a href="index.php?controller=pinchos&amp;action=view">Propuesta</a></li>';
 				}
 
 				if((new PinchoMapper())->getPinchoValidado($_SESSION["user"])<>-1) {
-					$items .= '<li class="nav-pill"><a href="index.php?controller=codigos&amp;action=generar">Generar c&oacute;digos</a></li>';
+					$items .= '<li ' .$rowClass .'><a href="index.php?controller=codigos&amp;action=generar">Generar c&oacute;digos</a></li>';
 				}
 
-				$items .= '<li class="nav-pill"><a href="index.php?controller=establecimiento&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
+				$items .= '<li ' .$rowClass .'><a href="index.php?controller=establecimiento&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
 			} else if($_SESSION["type"]==Usuario::JURADO_PROFESIONAL) {
-				$items .= '<li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
+				$items .= '<li ' .$rowClass .'><a href="index.php?controller=juradoprofesional&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
 			}
 
 
 
 			if($started) {
-				$items .= '<li class="nav-pill"><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
-				$items.= '<li class="nav-pill"><a href="index.php?controller=establecimiento&amp;action=index">Establecimientos</a></li>';
+				$items .= '<li ' .$rowClass .'><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
+				$items.= '<li ' .$rowClass .'><a href="index.php?controller=establecimiento&amp;action=index">Establecimientos</a></li>';
 			}
 
-			$items .= '<li class="nav-pill"><a href="index.php?controller=usuarios&amp;action=logout">Desconectar <?= $currentuser ?></a></li>';
+			$items .= '<li ' .$rowClass .'><a href="index.php?controller=usuarios&amp;action=logout">Desconectar <?= $currentuser ?></a></li>';
 
 		}
 		return $items;
@@ -112,16 +113,16 @@
 
 		<nav class="navbar navbar-inverse visible-xs">
 			<div class="container-fluid">
-				<div class="navbar-header" id="logonav">
+				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#"></a>
+					<a class="navbar-brand" href="#"><img id="logonav" src="css/hamburger.png"></a>
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
-					<ul class="nav navbar-nav"> <?= getNavItems(true); ?> </ul>
+					<ul class="nav navbar-nav nav-container-collapse"> <?= getNavItems(true); ?> </ul>
 				</div>
 			</div>
 		</nav>
@@ -129,8 +130,7 @@
 
 		<div class="row" id="banner">
 			<div id="title">
-				<div class="col-sm-1 hidden-xs" id="logo"></div>
-				Chopin
+				<img id="logo" src="css/hamburger.png" class="hidden-xs"><span>Chopin</span>
 			</div>
 		</div>
 
