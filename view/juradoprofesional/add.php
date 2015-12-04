@@ -9,7 +9,7 @@
  $view->setVariable("title", "Añadir jurado profesional");
 ?>
 
-<h2>Añadir jurado profesional</h2>
+<div class="view-title"><h2>Añadir jurado profesional</h2></div>
 <form role="form" action="index.php?controller=juradoprofesional&amp;action=add" method="POST" enctype="multipart/form-data" data-toggle="validator">
     <div class="form-group">
       <label for="email">Email:</label>

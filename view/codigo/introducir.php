@@ -4,7 +4,7 @@ $view = ViewManager::getInstance();
 $view->setVariable("title", "Introducir código");
 ?>
 
-<h2>Introduce tu código</h2>
+<div class="view-title"><h2>Introduce tu código</h2></div>
 
 <form action="index.php?controller=codigos&amp;action=introducir" method="POST">
     <div class="form-group">

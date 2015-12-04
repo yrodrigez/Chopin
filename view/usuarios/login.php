@@ -6,7 +6,7 @@
  $view->setVariable("title", "Identificación");
 ?>
 
-<h2><?= "Iniciar sesi&oacute;n" ?></h2>
+<div class="view-title"><h2><?= "Iniciar sesi&oacute;n" ?></h2></div>
 
 <form role="form" action="index.php?controller=usuarios&amp;action=login" method="POST" enctype="multipart/form-data" data-toggle="validator">
     <div class="form-group">

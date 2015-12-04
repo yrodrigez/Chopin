@@ -5,7 +5,7 @@ $view->setVariable("title", "Generar códigos");
 $codigos = $view->getVariable("codigos");
 ?>
 
-<h2>Generar c&oacute;digos</h2>
+<div class="view-title"><h2>Generar c&oacute;digos</h2></div>
 
 <form action="index.php?controller=codigos&amp;action=generar" method="POST" data-toggle="validator">
     <div class="form-group">

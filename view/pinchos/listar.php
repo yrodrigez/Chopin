@@ -9,8 +9,8 @@ $pinchos = $view->getVariable("pinchos");
 
 
 <div>
-	<div class="headerForm">
-		<span>Pinchos participantes</span>
+	<div class="view-title">
+		<h2>Pinchos participantes</h2>
 	</div>
 	<?php foreach ($pinchos as $pincho): ?>
 		<a href="index.php?controller=pinchos&amp;action=view&amp;id=<?= $pincho->getIdPincho()?>">

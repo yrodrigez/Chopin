@@ -12,8 +12,8 @@ $view->setVariable("title", "Jurados profesional");
 ?>
 
 <div>
-    <div class="headerForm">
-        <span>Jurados Popular</span>
+    <div class="view-title">
+        <h2>Jurados Popular</h2>
     </div>
     <?php foreach ($jurado as $jp): ?>
         <a href="index.php?controller=juradoprofesional&amp;action=view&amp;id=<?= $jp->getEmail()?>">

@@ -47,7 +47,10 @@
 
 
 		<div class="row" id="banner">
-			<div id="title">Chopin</div>
+			<div id="title">
+				<div class="col-sm-1 hidden-xs" id="logo"></div>
+				Chopin
+			</div>
 		</div>
 
 		<div class="container">
@@ -57,15 +60,15 @@
 					<?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>
 				</div>
 			</div>
-			
-			
-			<div class="row" id="footer">
+
+		</div>
+
+		<div class="row" id="footer">
 				<div class="container text-center">
 					<p class="text-muted">Chopin: <a href="#" data-toggle="tooltip" data-placement="top" title="Hooray!">ABP Project.</a></p>
 				</div>
-			</div>
-
 		</div>
+
 	</body>
 
 

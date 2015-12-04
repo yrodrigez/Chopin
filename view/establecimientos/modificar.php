@@ -15,8 +15,8 @@ $establecimiento = $view->getVariable("establecimiento");
 
 
 <div id="formPresentarPincho">
-    <div class="headerForm">
-        <span>Introduzca los datos que desea modificar</span>
+    <div class="view-title">
+        <h2>Introduzca los datos que desea modificar</h2>
     </div>
     <form class="form-horizontal"
           action="index.php?controller=establecimiento&action=modificar"

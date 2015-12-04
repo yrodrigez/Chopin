@@ -12,8 +12,8 @@ $view->setVariable("title", "Establecimientos registrados");
 ?>
 
 <div>
-    <div class="headerForm">
-        <span>Establecimientos Registrados</span>
+    <div class="view-title">
+        <h2>Establecimientos Registrados</h2>
     </div>
     <?php foreach ($establecimientos as $establecimiento): ?>
         <a href="index.php?controller=establecimiento&amp;action=view&amp;id=<?= $establecimiento->getEmail()?>">

@@ -7,7 +7,7 @@ $view->setVariable("title", "Configurar concurso");
 <div id="formConfigurarConcurso">
 
 	<form class="form-horizontal" action="index.php?controller=concurso&action=configurar" method="POST" data-toggle="validator" enctype="multipart/form-data">
-		<div class="headerForm">
+		<div class="view-title">
 			<h2>Datos del concurso</h2>
 		</div>
 

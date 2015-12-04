@@ -10,7 +10,7 @@
  $user = $view->getVariable("user");
  $view->setVariable("title", "Registro");
 ?>
-<h2>Registro</h2>
+<div class="view-title"><h2>Registro</h2></div>
 <form role="form" action="index.php?controller=usuarios&amp;action=register" method="POST" enctype="multipart/form-data" data-toggle="validator">
     <div class="form-group">
         <label for="username">Email:</label>

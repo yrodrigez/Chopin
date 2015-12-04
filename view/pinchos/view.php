@@ -13,7 +13,7 @@ $view->setVariable("title", "Datos del pincho"); ?>
 
 
 <div>
-	<div class="view-title"><h1><?= $pincho->getNombrePincho(); ?></h1></div>
+	<div class="view-title"><h2><?= $pincho->getNombrePincho(); ?></h2></div>
 	<div class="view-img"><img src="<?= 'img/pinchos/'.$pincho->getFotoPincho(); ?>"></div>
 	<div class="view-description">
 

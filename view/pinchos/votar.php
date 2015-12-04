@@ -8,8 +8,8 @@ $codigos = $view->getVariable("codigos");
 $isVotar = $view->getVariable("votar");
 ?>
 <div>
-    <div class="headerForm">
-        <span>Votar</span>
+    <div class="view-title">
+        <h2>Votar</h2>
         <br/>
         <?php if($isVotar == 0): ?>
             <span>Selecciona los tres pinchos que vas a usar para votar</span>

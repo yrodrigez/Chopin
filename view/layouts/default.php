@@ -128,13 +128,16 @@
 
 
 		<div class="row" id="banner">
-			<div id="title">Chopin</div>
+			<div id="title">
+				<div class="col-sm-1 hidden-xs" id="logo"></div>
+				Chopin
+			</div>
 		</div>
 
-		<div class="container">
+		<div class="container" id="container">
 
 			<div class="row">
-				<div class="col-sm-3 hidden-xs">
+				<div class="col-sm-2 hidden-xs">
 					<div id="sidebar">
 						<ul class="nav nav-pills nav-stacked" role="tablist">
 							<?= getNavItems(false); ?>
@@ -142,18 +145,17 @@
 					</div>
 				</div>
 
-				<div class="col-xs-12 col-sm-9" id="content">
+				<div class="col-xs-12 col-sm-8" id="content">
 					<?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>
 				</div>
+			<div class="col-sm-2 hidden-xs"></div>
 			</div>
+		</div>
 
-			<div class="row" id="footer">
+		<div class="row" id="footer">
 				<div class="container text-center">
-					<p class="text-muted">Chopin: <a href="#">ABP Project.</a></p>
+					<p class="text-muted">Chopin: <a href="#" data-toggle="tooltip" data-placement="top" title="Hooray!">ABP Project.</a></p>
 				</div>
-			</div>
-
-
 		</div>
 
 	</body>

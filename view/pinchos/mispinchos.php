@@ -11,8 +11,8 @@ $porcentaje = round($mispinchosSinRepetir*100/$totalPinchos);
 
 
 <div>
-    <div class="headerForm">
-        <span>Mis Pinchos</span>
+    <div class="view-title">
+        <h2>Mis Pinchos</h2>
     </div>
     <span>Porcentaje de pinchos probados:</span>
     <div class="row"><br />

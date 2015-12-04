@@ -10,7 +10,7 @@ $establecimiento = $view->getVariable("establecimiento");
 $view->setVariable("title", "Datos del usuario"); ?>
 
 <div>
-    <div class="view-title"><h1><?= $establecimiento->getEmail(); ?></h1></div>
+    <div class="view-title"><h2><?= $establecimiento->getEmail(); ?></h2></div>
     <div class="view-img"><img src="<?= 'img/usuarios/'.$establecimiento->getFotoUsuario(); ?>"></div>
     <div class="view-description">
 

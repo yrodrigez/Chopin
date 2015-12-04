@@ -8,8 +8,8 @@ $votados = $view->getVariable("votados");
 
 
 <div>
-	<div class="headerForm">
-		<span>Mis pinchos votados</span>
+	<div class="view-title">
+		<h2>Mis pinchos votados</h2>
 	</div>
 	<?php if (sizeof ($votados) > 0) { ?>
 		<?php for($row = 0; $row < sizeof($votados); $row++){ ?>
