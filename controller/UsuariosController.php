@@ -152,9 +152,10 @@ class UsuariosController extends BaseController {
 				if($_POST["password"]) $jpop->setPassword($_POST["password"]);
 
 				if($_FILES['avatar'] and $_FILES['avatar']['name']) {
-					$path = "img/usuarios/" . basename( $_FILES['avatar']['name']);
+					$name =  $_POST["email"] . "." . substr(strrchr($_FILES['avatar']['name'], '.'), 1);
+					$path = "img/usuarios/" . $name;
 					move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
-					$jpop->setFotoUsuario(basename($_FILES['avatar']['name']));
+					$jpop->setFotoUsuario($name);
 				}
 				$this->userMapper->edit($_POST["email"], $jpop);
 	 			$msg = array();

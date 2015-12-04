@@ -72,9 +72,10 @@ class JuradoProfesionalController extends BaseController {
 			if($_POST["exp"]) $jp->setExperiencia($_POST["exp"]);
 
 			if($_FILES['avatar'] and $_FILES['avatar']['name']) {
-				$path = "img/usuarios/" . basename( $_FILES['avatar']['name']);
+				$name =  $_POST["email"] . "." . substr(strrchr($_FILES['avatar']['name'], '.'), 1);
+				$path = "img/usuarios/" . $name;
 				move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
-				$jp->setFotoUsuario(basename($_FILES['avatar']['name']));
+				$jp->setFotoUsuario($name);
 			}
 			
 			$this->juradoProfesionalMapper->modificarJuradoProfesional($_POST["email"], $jp);
