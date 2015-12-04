@@ -92,8 +92,8 @@ class PinchoMapper {
   public function getCodigoPincho(
     $idPincho
   ){
-    $stmt = $this->db->prepare("SELECT idcodigo FROM codigo WHERE idpincho= ?");
-    if($stmt->execute(array($idPincho))){
+    $stmt = $this->db->prepare("SELECT idcodigo FROM codigo WHERE idpincho= ? AND email = ?");
+    if($stmt->execute(array($idPincho, $_SESSION["user"]))){
       return $stmt->fetchColumn();
     }
     return null;
@@ -172,7 +172,7 @@ class PinchoMapper {
       $idCodigoUtilizado2,
       $fechaVotacion
   ) {
-    echo $idCodigoElegido.$idCodigoUtilizado1.$idCodigoUtilizado2.$fechaVotacion;
+    //echo $idCodigoElegido."-".$idCodigoUtilizado1."-".$idCodigoUtilizado2."-".$fechaVotacion;
     if($this->sonCodigosDistintos(
         $idCodigoElegido,
         $idCodigoUtilizado1,
@@ -323,6 +323,7 @@ class PinchoMapper {
         }
       }
     }
+
     return $pinchos;
   }
 
