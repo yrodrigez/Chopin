@@ -425,5 +425,31 @@ class PinchoMapper {
     }
   }
 
+  public function asignarPinchoAProfesional(
+    $idPincho,
+    $emailProfesional
+  ){
+    $stmt = $this->db->prepare(
+       "INSERT INTO valoracion(idpincho, email, puntuacion, fecha)
+      VALUES (?, ?, -1, NULL);"
+    );
+    if($stmt->execute(array($idPincho, $emailProfesional))) { // -1 para indicar que no fue votado, y NULL¿?
+      return True;
+    } else {
+      return False;
+    }
+  }
+
+  public function existePinchoProfesional(
+    $idPincho,
+    $emailProfesional
+  ){
+    $stmt = $this->db->prepare(
+       "SELECT COUNT(*) FROM valoracion WHERE email=? and idpincho = ?;");
+    if($stmt->execute(array($emailProfesional, $idPincho))) { // -1 para indicar que no fue votado, y NULL¿?
+      $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $resultado["COUNT(*)"];
+    }
+  }
 
 }

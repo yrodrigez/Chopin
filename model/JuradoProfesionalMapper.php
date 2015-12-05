@@ -97,8 +97,7 @@ class JuradoProfesionalMapper
             $stmt = $this->db->prepare(
                 "DELETE FROM juradoprofesional WHERE email= ?"
             );
-            if (
-            !($stmt->execute(array($juradoProfesional->getEmail())))
+            if (!($stmt->execute(array($juradoProfesional->getEmail())))
             )
                 return false;
         }
@@ -117,6 +116,16 @@ class JuradoProfesionalMapper
 		}
 
 		return $jurado;
+    }
+
+    public function getNumeroJurado(){
+        $stmt = $this->db->query("SELECT count(*) FROM juradoprofesional;");
+        if($stmt->execute()){
+            $res = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $res["count(*)"];
+        } else {
+            return -1;
+        }
     }
   
     public function fill($jurado) {
