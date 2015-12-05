@@ -6,7 +6,8 @@ $view = ViewManager::getInstance();
 $usuario = $view->getVariable("usuario");
 //$errors = $view->getVariable("errors");
  
-$view->setVariable("title", "Datos del usuario"); ?>
+$view->setVariable("title", "Datos del usuario"); 
+?>
 
 
 

@@ -440,4 +440,16 @@ class PinchoMapper {
     }
   }
 
+  public function existePinchoProfesional(
+    $idPincho,
+    $emailProfesional
+  ){
+    $stmt = $this->db->prepare(
+       "SELECT COUNT(*) FROM valoracion WHERE email=? and idpincho = ?;");
+    if($stmt->execute(array($emailProfesional, $idPincho))) { // -1 para indicar que no fue votado, y NULL¿?
+      $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $resultado["COUNT(*)"];
+    }
+  }
+
 }
