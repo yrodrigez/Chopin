@@ -6,6 +6,7 @@
  */
 
 require_once(__DIR__."/../core/PDOConnection.php");
+require_once(__DIR__."/../model/ComentarioMapper.php");
 require_once(__DIR__."/Usuario.php");
 
 class UsuarioMapper {
@@ -107,6 +108,7 @@ class UsuarioMapper {
         $usuario
     ) {
         if($this->exists($usuario)) {
+            (new ComentarioMapper())->deleteByEmail($usuario->getEmail());
             $stmt = $this->db->prepare("DELETE FROM usuario WHERE email= ?;");
             return $stmt->execute(array($usuario->getEmail()));
         }else{

@@ -3,6 +3,7 @@
 require_once(__DIR__."/../core/PDOConnection.php");
 require_once(__DIR__."/../model/Pincho.php");
 require_once(__DIR__."/../model/IngredienteMapper.php");
+require_once(__DIR__."/../model/ComentarioMapper.php");
 require_once(__DIR__."/../model/CodigoMapper.php");
 
 /**
@@ -271,7 +272,7 @@ class PinchoMapper {
   public function borrarPincho(
     $idPincho
     ) {
-    if((new CodigoMapper())->borrar($idPincho) and (new IngredienteMapper())->borrar($idPincho)) {
+    if((new CodigoMapper())->borrar($idPincho) and (new IngredienteMapper())->borrar($idPincho) and (new ComentarioMapper())->deleteByIdPincho($idPincho)) {
       $stmt = $this->db->prepare("DELETE FROM pincho WHERE idpincho= ?;");
       return $stmt->execute(array($idPincho));
     }

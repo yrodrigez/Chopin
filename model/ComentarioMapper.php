@@ -38,12 +38,17 @@ class ComentarioMapper {
 	/*public function modify($comentario){
 		$stmt = $this->db->prepare("UPDATE comentario SET contenido=? WHERE idcomentario = ?");
 		$stmt->execute(array($comentario->getContenido(),$comentario->getId()));
+	}*/
+
+	public function deleteByIdPincho($idPincho){
+		$stmt = $this->db->prepare("DELETE FROM comentario WHERE idpincho = ?");
+		$stmt->execute(array($idPincho));
 	}
 
-	public function delete($comentario){
-		$stmt = $this->db->prepare("DELETE FROM comentario WHERE idcomentario = ?");
-		$stmt->execute(array($comentario->getId()));
-	}*/
+	public function deleteByEmail($email){
+		$stmt = $this->db->prepare("DELETE FROM comentario WHERE email = ?");
+		$stmt->execute(array($email));
+	}
 
 }
 ?>
