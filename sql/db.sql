@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS usuario;
 DROP TABLE IF EXISTS valoracion;
 
 CREATE TABLE codigo (idcodigo varchar(255) NOT NULL, idpincho int(10) NOT NULL, email varchar(40), utilizado int(1) NOT NULL, elegido int(1), fechaVotacion date, PRIMARY KEY (idcodigo));
-CREATE TABLE comentario (idcomentario int(10) NOT NULL AUTO_INCREMENT, contenido varchar(255), fecha date, email varchar(40) NOT NULL, PRIMARY KEY (idcomentario));
+CREATE TABLE comentario (idcomentario int(10), idpincho int(10) NOT NULL, NOT NULL AUTO_INCREMENT, contenido varchar(255), fecha date, email varchar(40) NOT NULL, PRIMARY KEY (idcomentario));
 CREATE TABLE concurso (nombre varchar(50) NOT NULL, localizacion varchar(50) NOT NULL, fecha date NOT NULL, descripcion varchar(255), foto varchar(255), PRIMARY KEY (nombre));
 CREATE TABLE establecimiento (direccion varchar(100), coordenadas varchar(50), email varchar(40) NOT NULL);
 CREATE TABLE ingredientes (idpincho int(10) NOT NULL, nombreCategoria varchar(30) NOT NULL, PRIMARY KEY (idpincho, nombreCategoria));

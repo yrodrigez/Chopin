@@ -4,11 +4,12 @@
 //require_once(__DIR__."/../model/User.php");
 session_start();
 require_once(__DIR__."/../model/Pincho.php");
-
 require_once(__DIR__."/../model/PinchoMapper.php");
 
 require_once(__DIR__."/../model/Concurso.php");
 require_once(__DIR__."/../model/ConcursoMapper.php");
+
+require_once(__DIR__."/../model/ComentarioMapper.php");
 
 require_once(__DIR__."/../controller/BaseController.php");
 
@@ -208,8 +209,11 @@ class PinchosController extends BaseController {
     if(isset($_GET['id'])){
       $pincho = $this->pinchoMapper->getPincho($_GET['id']);
       $concurso = (new ConcursoMapper())->getInfo();
+      $comentarios = (new ComentarioMapper())->getById($_GET['id']);
+
       $this->view->setVariable('pincho',$pincho);
       $this->view->setVariable('concurso',$concurso);
+      $this->view->setVariable('comentarios',$comentarios);
       $this->view->render('pinchos','view');
     } else {
         if(isset($_SESSION["user"]) && ($_SESSION["type"] == Usuario::ESTABLECIMIENTO)){
