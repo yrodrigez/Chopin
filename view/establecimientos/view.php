@@ -42,11 +42,28 @@ $view->setVariable("title", "Datos del usuario"); ?>
         </div>
         <?php if($_SESSION["type"] == Usuario::ORGANIZADOR): ?>
             <div class="view-confirm">
-                <a href="index.php?controller=establecimiento&action=eliminar&id=<?= $establecimiento->getEmail(); ?>"
-                   onclick="return confirm('¿Esta seguro que desea eliminar Este establecimiento?')"
+                <a id="show"
                    class="btn btn-default"
                    role="button">Eliminar</a>
             </div>
         <?php endif; ?>
     <?php endif; ?>
 </div>
+
+
+<?php $view->moveToFragment("script"); ?>
+	$(function() {
+		$('#show').avgrund({
+			height: 150,
+			holderClass: 'custom',
+			showClose: true,
+			showCloseText: 'close',
+			onBlurContainer: '.container',
+			template: '<br><p class="confirm-title">¿Seguro que quieres eliminar el establecimiento seleccionado?</p>' +
+			'<div>' +
+			'<a href="index.php?controller=establecimiento&action=eliminar&id=<?= $establecimiento->getEmail(); ?>" class="btn btn-default confirm-btn">Si</a>' +
+				'<a href="index.php?controller=establecimiento&action=view&id=<?= $establecimiento->getEmail(); ?>" class="btn btn-default confirm-btn ">No</a>' +
+				'</div>'
+		});
+	});
+<?php $view->moveToDefaultFragment(); ?>

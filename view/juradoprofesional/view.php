@@ -9,8 +9,6 @@ $usuario = $view->getVariable("usuario");
 $view->setVariable("title", "Datos del usuario"); ?>
 
 
-
-
 <div>
 	<div class="view-title"><h2><?= $usuario->getEmail(); ?></h2></div>
 	<div class="view-img"><img src="<?= 'img/usuarios/'.$usuario->getFotoUsuario(); ?>"></div>
@@ -41,8 +39,26 @@ $view->setVariable("title", "Datos del usuario"); ?>
 		</div>
 		<?php if($_SESSION["type"] == Usuario::ORGANIZADOR): ?>
 		<div class="view-confirm">
-			<a href="index.php?controller=usuarios&action=delete&id=<?= $usuario->getEmail(); ?>" onclick="return confirm('¿Esta seguro que desea eliminar esta cuenta?')" class="btn btn-default" role="button">Eliminar</a>
+			<a id="show" class="btn btn-default" role="button">Eliminar</a>
 		</div>
 		<?php endif; ?>
 	<?php endif; ?>
 </div>
+
+
+<?php $view->moveToFragment("script"); ?>
+	$(function() {
+		$('#show').avgrund({
+			height: 150,
+			holderClass: 'custom',
+			showClose: true,
+			showCloseText: 'close',
+			onBlurContainer: '.container',
+			template: '<br><p class="confirm-title">¿Seguro que quieres eliminar el miembro de jurado profesional seleccionado?</p>' +
+			'<div>' +
+			'<a href="index.php?controller=juradoprofesional&action=delete&email=<?= $usuario->getEmail(); ?>" class="btn btn-default confirm-btn">Si</a>' +
+				'<a href="index.php?controller=juradoprofesional&action=view&id=<?= $usuario->getEmail(); ?>" class="btn btn-default confirm-btn ">No</a>' +
+				'</div>'
+		});
+	});
+<?php $view->moveToDefaultFragment(); ?>

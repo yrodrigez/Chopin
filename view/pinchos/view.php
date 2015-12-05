@@ -50,7 +50,7 @@ $view->setVariable("title", "Datos del pincho");
 	<?php endif; ?>
 	<?php if(isset($_SESSION["type"]) && $_SESSION["type"] == 0 and $pincho->getAprobadaPincho() == 1 and !$concurso->isStarted()): ?>
 		<div class="view-confirm">
-			<a href="index.php?controller=pinchos&action=borrar&id=<?= $pincho->getIdPincho(); ?>" class="btn btn-default" role="button">Borrar</a>
+			<a id="show" class="btn btn-default" role="button">Borrar</a>
 		</div>
 	<?php endif; ?>
 </div>
@@ -84,4 +84,20 @@ $view->setVariable("title", "Datos del pincho");
 
 <?php $view->moveToFragment("script"); ?>
 	$('[data-toggle="tooltip"]').tooltip();
+
+	$(function() {
+		$('#show').avgrund({
+			height: 150,
+			holderClass: 'custom',
+			showClose: true,
+			showCloseText: 'close',
+			onBlurContainer: '.container',
+			template: '<br><p class="confirm-title">¿Seguro que quieres eliminar la propuesta de pincho?</p>' +
+			'<div>' +
+			'<a href="index.php?controller=pinchos&action=borrar&id=<?= $pincho->getIdPincho(); ?>" class="btn btn-default confirm-btn">Si</a>' +
+				'<a href="index.php?controller=pinchos&action=view&id=<?= $pincho->getIdPincho(); ?>" class="btn btn-default confirm-btn ">No</a>' +
+				'</div>'
+		});
+	});
 <?php $view->moveToDefaultFragment(); ?>
+

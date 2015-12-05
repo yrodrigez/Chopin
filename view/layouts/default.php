@@ -81,6 +81,7 @@
         <link rel="stylesheet" href="css/fileinput.min.css" type="text/css">
 		<link rel="stylesheet" href="css/style.css" type="text/css">
 		<link rel="stylesheet" href="css/jquery.tagsinput.css" type="text/css">
+		<link rel="stylesheet" href="css/avgrund.css" type="text/css">
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700" type="text/css">
 		<link rel="stylesheet" href="Alex Brush.ttf">
@@ -90,6 +91,7 @@
 		<script src="js/fileinput.min.js"></script>
 		<script src="js/jquery.tagsinput.js"></script>
 		<script src="js/validator.js"></script>
+		<script src="js/avgrund.js"></script>
 
 	</head>
 
