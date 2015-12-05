@@ -312,10 +312,18 @@ class PinchosController extends BaseController {
             shuffle($pinchos);
             //shuffle($jprofs);
             foreach ($pinchos as $pincho){
-              //Queda comprobar que ese jprof no tenga ya ese pincho zzzzzzzz
               if($this->pinchoMapper->existePinchoProfesional($pincho->getIdPincho(), $jprofs[$cont]->getEmail()) == 0){
                 $this->pinchoMapper->asignarPinchoAProfesional($pincho->getIdPincho(), $jprofs[$cont]->getEmail());
-              } 
+              } else {
+                $asignado = true;
+                while($asignado){
+                  $random = array_rand($jprofs);
+                  if($this->pinchoMapper->existePinchoProfesional($pincho->getIdPincho(), $jprofs[$random]->getEmail()) == 0){
+                   $this->pinchoMapper->asignarPinchoAProfesional($pincho->getIdPincho(), $jprofs[$random]->getEmail());
+                   $asignado = false;
+                  }
+                }
+              }
               $cont++;
               if($cont >= count($jprofs)) $cont = 0;
             }
