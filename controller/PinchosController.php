@@ -10,6 +10,8 @@ require_once(__DIR__."/../model/PinchoMapper.php");
 require_once(__DIR__."/../model/Concurso.php");
 require_once(__DIR__."/../model/ConcursoMapper.php");
 
+require_once(__DIR__."/../model/JuradoProfesionalMapper.php");
+
 require_once(__DIR__."/../controller/BaseController.php");
 
 /**
@@ -29,6 +31,7 @@ class PinchosController extends BaseController {
     parent::__construct();
 
     $this->pinchoMapper = new PinchoMapper();
+    $this->jprofMapper = new JuradoProfesionalMapper();
   }
 
   /**
@@ -289,13 +292,53 @@ class PinchosController extends BaseController {
   public function borrar() {
     if(isset($_GET['id'])){
       $this->pinchoMapper->borrarPincho($_GET['id']);
-
       $msg = array();
-      array_push($msg, array("error", "Pincho borrado correctamente"));
+      array_push($msg, array("success", "Pincho borrado correctamente"));
       $this->view->setFlash($msg);
     }
 
     $this->view->redirect("pinchos", "listar");
+  }
+
+   public function asignar() {
+    if(isset($_SESSION["user"]) && $_SESSION["type"] == 0){
+      if(isset($_POST['nAsignar'])){
+        $maxProf = $this->jprofMapper->getNumeroJurado();
+        if(($_POST['nAsignar'] >= 1) and ($_POST['nAsignar'] <= $maxProf)){
+          $jprofs = $this->jprofMapper->findAll();
+          $pinchosNoRand = $this->pinchoMapper->getAllPinchos();
+          $jprofs = shuffle($jprofs);
+          $cont = 0;
+          for ($i = 0; $i < $_POST['nAsignar']; ++$i) {
+            $pinchos = shuffle($pinchosNoRand);
+            foreach ($pinchos as $pincho){
+              //Queda comprobar que ese jprof no tenga ya ese pincho zzzzzzzz
+              $this->pinchoMapper->asignarPinchoAProfesional($pincho->getIdPincho(), $jprofs[$cont]->getEmail());
+              $cont++;
+              if($cont >= count($jprofs)) $cont = 0;
+            }
+          }
+          $msg = array();
+          array_push($msg, array("sucess", "Pinchos asignados correctamente a los miembros del jurado Profesional"));
+          $this->view->setFlash($msg);
+          //$this->view->redirect("juradoprofesional", "index");
+        } else {
+          $msg = array();
+          array_push($msg, array("error", "El numero indicado no es valido"));
+          $this->view->setFlash($msg);
+          $this->view->redirectToReferer();
+        }
+      } else {
+        $nMax = $this->jprofMapper->getNumeroJurado();
+        $this->view->setVariable("nMax", $nMax);
+        $this->view->render("pinchos", "asignar");
+      }
+    } else {
+       $msg = array();
+       array_push($msg, array("error", "Esta accion esta disponible solo para el organizador"));
+       $this->view->setFlash($msg);
+       $this->view->redirect("juradoprofesional" , "index");
+    }
   }
 
 }
