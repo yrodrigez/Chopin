@@ -62,7 +62,7 @@ $view->setVariable("title", "Datos del usuario"); ?>
 			template: '<br><p class="confirm-title">¿Seguro que quieres eliminar el establecimiento seleccionado?</p>' +
 			'<div>' +
 			'<a href="index.php?controller=establecimiento&action=eliminar&id=<?= $establecimiento->getEmail(); ?>" class="btn btn-default confirm-btn">Si</a>' +
-				'<a href="index.php?controller=establecimiento&action=view&id=<?= $establecimiento->getEmail(); ?>" class="btn btn-default confirm-btn ">No</a>' +
+				'<a href="index.php?controller=establecimiento&action=view&id=<?= $establecimiento->getEmail(); ?>#" class="btn btn-default confirm-btn avgrund-close-ws">No</a>' +
 				'</div>'
 		});
 	});

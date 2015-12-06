@@ -56,7 +56,7 @@ $view->setVariable("title", "Datos del usuario");
 			template: '<br><p class="confirm-title">¿Seguro que quieres eliminar el miembro de jurado popular seleccionado?</p>' +
 			'<div>' +
 			'<a href="index.php?controller=usuarios&action=eliminar&id=<?= $usuario->getEmail(); ?>" class="btn btn-default confirm-btn">Si</a>' +
-				'<a href="index.php?controller=usuarios&action=view&id=<?= $usuario->getEmail(); ?>" class="btn btn-default confirm-btn ">No</a>' +
+				'<a href="index.php?controller=usuarios&action=view&id=<?= $usuario->getEmail(); ?>#" class="btn btn-default confirm-btn avgrund-close-ws">No</a>' +
 				'</div>'
 		});
 	});

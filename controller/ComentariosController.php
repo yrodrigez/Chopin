@@ -26,7 +26,6 @@ class ComentariosController extends BaseController{
             $this->view->setFlash(array(array("success", "Comentario añadido correctamente")));
             $this->view->redirect("pinchos", "view","id=".$_POST["questionid"]);
         } else {
-            echo "no"; die();
             $this->view->redirect("concurso", "view");
         }
 
