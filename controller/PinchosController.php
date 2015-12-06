@@ -280,8 +280,10 @@ class PinchosController extends BaseController {
     } else {
         if(isset($_SESSION["user"]) && ($_SESSION["type"] == Usuario::ESTABLECIMIENTO)){
           if ($this->pinchoMapper->existePincho($_SESSION["user"])) {
-           $pincho = $this->pinchoMapper->getPinchoEstablecimiento($_SESSION['user']);
+            $pincho = $this->pinchoMapper->getPinchoEstablecimiento($_SESSION['user']);
+            $concurso = (new ConcursoMapper())->getInfo();
             $this->view->setVariable('pincho',$pincho);
+            $this->view->setVariable('concurso',$concurso);
             $this->view->render('pinchos','view');
           } else {
             $this->view->redirect("pinchos","presentar");
