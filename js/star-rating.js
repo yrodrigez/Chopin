@@ -528,18 +528,13 @@
     };
 
     $.fn.ratingLocales.en = {
-        defaultCaption: '{rating} Estrellas',
+        defaultCaption: '{rating}',
         starCaptions: {
-            0.5: 'Media estrella',
-            1: 'Una estrella',
-            1.5: 'Una estrella y media',
-            2: 'Dos estrellas',
-            2.5: 'Dos estrellas y media',
-            3: 'Tres estrellas',
-            3.5: 'Tres estrellas y media',
-            4: 'Cuatro estrellas',
-            4.5: 'Cuatro estrellas y media',
-            5: '¡Cinco Estrellas!'
+            1: '1.0',
+            2: '2.0',
+            3: '3.0',
+            4: '4.0',
+            5: '5.0'
         },
         clearButtonTitle: 'Limpiar',
         clearCaption: 'Sin Valorar'
