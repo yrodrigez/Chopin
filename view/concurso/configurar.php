@@ -4,6 +4,46 @@ $view = ViewManager::getInstance();
 $view->setVariable("title", "Configurar concurso");
 ?>
 
+<script>
+    var geocoder;
+    var map;
+	var lastMarker = null;
+
+    function initialize() {
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(42.33578929999999, -7.863880999999992);
+        var mapOptions = {
+            zoom: 12,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    }
+
+    function codeAddress() {
+		var address = document.getElementById("localizacion").value;
+		geocoder.geocode({'address': address}, function (results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+
+				if (lastMarker != null) {
+					lastMarker.setMap(null);
+				}
+
+				map.setCenter(results[0].geometry.location);
+				var marker = new google.maps.Marker({
+					map: map,
+					position: results[0].geometry.location
+				});
+
+				lastMarker = marker;
+				document.getElementById("cord").value = results[0].geometry.location;
+			} else {
+				document.getElementById("cord").value = "";
+			}
+		});
+	}
+</script>
+
 <div id="formConfigurarConcurso">
 
 	<form class="form-horizontal" action="index.php?controller=concurso&action=configurar" method="POST" data-toggle="validator" enctype="multipart/form-data">
@@ -21,8 +61,14 @@ $view->setVariable("title", "Configurar concurso");
 		</div>
 		<div class="form-group">
 			<label for="localizacion">Localizacion:</label>
-			<input type="text" class="form-control" name="localizacion" placeholder="Indique la ciudad del concurso" required>
+			<input type="text" class="form-control" name="localizacion" id="localizacion" onkeypress="codeAddress()" placeholder="Indique la ciudad del concurso" required>
 		</div>
+		<div class="form-group">
+			<label for="cord">Coordenadas:</label>
+			<input type="text" class="form-control" name="cord" id="cord" placeholder="Se calculará en base a la localización" readonly required>
+		</div>
+		<div id="map-canvas"></div>
+
 		<div class="form-group">
 			<label for="fecha">Fecha:</label>
 			<input type="text" class="form-control" name="fecha" required="true" placeholder="DD/MM/AAAA" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" data-error="La fecha introducida no es válida">
@@ -79,3 +125,7 @@ $view->setVariable("title", "Configurar concurso");
 		</div>
 	</form>
 </div>
+
+<?php $view->moveToFragment("script"); ?>
+	initialize();
+<?php $view->moveToDefaultFragment(); ?>

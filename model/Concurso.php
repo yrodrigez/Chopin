@@ -18,14 +18,16 @@ class Concurso {
   private $localizacion;
   private $fecha;
   private $imagen;
+  private $coordenadas;
   
   
-  public function __construct($nombre=NULL, $descripcion=NULL, $localizacion=NULL, $fecha=NULL, $imagen=NULL) {
+  public function __construct($nombre=NULL, $descripcion=NULL, $localizacion=NULL, $fecha=NULL, $imagen=NULL, $coordenadas = NULL) {
     $this->nombre = $nombre;
 	$this->descripcion = $descripcion;
     $this->localizacion = $localizacion;    
     $this->fecha = $fecha;
     $this->imagen = $imagen;
+    $this->coordenadas = $coordenadas;
   }
   
   public function getNombre() {
@@ -74,5 +76,14 @@ class Concurso {
     $this->imagen = $imagen;
   }
 
+  public function getCoordenadas()
+  {
+    return $this->coordenadas;
+  }
+
+  public function setCoordenadas($coordenadas)
+  {
+    $this->coordenadas = $coordenadas;
+  }
 
 }

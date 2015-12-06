@@ -365,3 +365,14 @@ html {
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGklEQVQIW2NkYGD4D8SMQAwGcAY2AbBKDBUAVuYCBQPd34sAAAAASUVORK5CYII=);
 	background-repeat: repeat;
 }
+
+/* Google maps canvas */
+
+#map-canvas {
+	margin: auto;
+	width: 95%;
+	height: 480px;
+	margin-top: 20px;
+	margin-bottom: 15px;
+	background-color: #2e6da4;
+}

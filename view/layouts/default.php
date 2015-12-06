@@ -14,6 +14,7 @@
 		$rowClass = ($phone)?"nav-pill-collapse":'class="nav-pill"';
 
 		$items = '<li ' .$rowClass .'><a href="index.php?controller=concurso&amp;action=view">Concurso</a></li>';
+		$items .= '<li ' .$rowClass .'><a href="index.php?controller=concurso&amp;action=gastromapa">Gastromapa</a></li>';
 		if($started or isset($_SESSION["type"]) and $_SESSION["type"]==Usuario::ORGANIZADOR) {
 			$items .= '<li ' .$rowClass .'><a href="index.php?controller=pinchos&amp;action=listar">Pinchos</a></li>';
 		}
@@ -92,6 +93,7 @@
 		<script src="js/jquery.tagsinput.js"></script>
 		<script src="js/validator.js"></script>
 		<script src="js/avgrund.js"></script>
+		<script src="http://maps.googleapis.com/maps/api/js"></script>
 
 	</head>
 

@@ -24,7 +24,7 @@
 		<script src="js/fileinput.min.js"></script>
 		<script src="js/jquery.tagsinput.js"></script>
 		<script src="js/validator.js"></script>
-
+		<script src="http://maps.googleapis.com/maps/api/js"></script>
 	</head>
 
 	<body>

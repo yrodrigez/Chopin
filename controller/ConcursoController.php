@@ -4,8 +4,7 @@
 session_start();
 require_once(__DIR__ . "/../model/Concurso.php");
 require_once(__DIR__ . "/../model/Usuario.php");
-
-
+require_once(__DIR__ . "/../model/EstablecimientoMapper.php");
 
 require_once(__DIR__ . "/../controller/BaseController.php");
 
@@ -84,7 +83,7 @@ class ConcursoController extends BaseController
 
                     $concursomapper = new ConcursoMapper();
                     $fechaInicio = implode("-",array_reverse(explode("/", $_POST["fecha"])));
-                    $concurso = new Concurso($_POST["nombre"], $_POST["descripcion"], $_POST["localizacion"], $fechaInicio, $imgConcurso);
+                    $concurso = new Concurso($_POST["nombre"], $_POST["descripcion"], $_POST["localizacion"], $fechaInicio, $imgConcurso, $_POST["cord"]);
                     $concursomapper->add($concurso);
 
 
@@ -140,6 +139,15 @@ class ConcursoController extends BaseController
         }
 
         return true;
+    }
+
+    public function gastromapa() {
+        require_once(__DIR__ . "/../model/ConcursoMapper.php");
+        $concurso = (new ConcursoMapper())->getInfo();
+        $establecimientos = (new EstablecimientoMapper())->listarEstablecimientos();
+        $this->view->setVariable("establecimientos", $establecimientos);
+        $this->view->setVariable("concurso", $concurso);
+        $this->view->render("concurso", "gastromapa");
     }
 
 }

@@ -10,6 +10,47 @@
  $user = $view->getVariable("user");
  $view->setVariable("title", "Registro");
 ?>
+
+<script>
+    var geocoder;
+    var map;
+    var lastMarker = null;
+
+    function initialize() {
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(<?= preg_replace("/\\(([0-9.-]*), ([0-9.-]*)\\)/", "$1, $2", $concurso->getCoordenadas()) ?>);
+        var mapOptions = {
+            zoom: 8,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    }
+
+    function codeAddress() {
+        var address = document.getElementById("dir").value;
+        geocoder.geocode({'address': address}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+
+                if(lastMarker != null) {
+                    lastMarker.setMap(null);
+                }
+
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+
+                lastMarker = marker;
+                document.getElementById("cord").value = results[0].geometry.location;
+            } else {
+                document.getElementById("cord").value = "";
+            }
+        });
+    }
+</script>
+
 <div class="view-title"><h2>Registro</h2></div>
 <form role="form" action="index.php?controller=usuarios&amp;action=register" method="POST" enctype="multipart/form-data" data-toggle="validator">
     <div class="form-group">
@@ -40,14 +81,18 @@
     <?php if(!$concurso->isStarted()): ?>
         <div class="form-group">
             <label for="dir">Direcci&oacute;n</label>
-            <input type="text" class="form-control" name="dir" id="dir" placeholder="Introduce una direcci&oacute;n" required>
+            <input type="text" class="form-control" name="dir" id="dir" placeholder="Introduce una direcci&oacute;n" onkeypress="codeAddress()" required>
         </div>
         <div class="form-group">
             <label for="cord">Coordenadas:</label>
-            <input type="text" class="form-control" name="cord" id="cord" placeholder="Introduce unas coordenadas">
+            <input type="text" class="form-control" name="cord" id="cord" placeholder="Se calculará en base a la dirección" readonly required>
         </div>
+        <div id="map-canvas"></div>
     <?php endif; ?>
 
     <button type="submit" class="btn btn-default">Registrar</button>
 </form>
 
+<?php $view->moveToFragment("script"); ?>
+    initialize();
+<?php $view->moveToDefaultFragment(); ?>
