@@ -380,3 +380,9 @@ html {
 	margin-bottom: 15px;
 	background-color: #2e6da4;
 }
+
+.social-icon {
+	width:25px;
+	margin-left: 5px;
+	margin-top: 10px;
+}

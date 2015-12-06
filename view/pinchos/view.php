@@ -9,14 +9,13 @@ $concurso = $view->getVariable("concurso");
 $comentarios = $view->getVariable("comentarios");
 $view->setVariable("title", "Datos del pincho");
 
-
+$url = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+if(strpos($url, "&id=")==0) $url .= "&id=" . $pincho->getIdPincho();
 ?>
 
 
-
-
 <div>
-	<div class="view-title"><h2><?= $pincho->getNombrePincho(); ?></h2></div>
+	<div class="view-title"><h2><?= $pincho->getNombrePincho(); ?><div class="pull-right"><a href="https://www.facebook.com/sharer/sharer.php?u=<?= $url?>" target="_blank"><img src="img/sys/facebook.png" class="social-icon"></a><a href="http://twitter.com/home?status=<?= $url?>" target="_blank"><img src="img/sys/twitter.png" class="social-icon"></a><a href="https://plus.google.com/share?url=<?= $url?>" target="_blank"><img src="img/sys/plus.png" class="social-icon"></a></div></h2></div>
 	<div class="view-img"><img src="<?= 'img/pinchos/'.$pincho->getFotoPincho(); ?>"></div>
 	<div class="view-description">
 
