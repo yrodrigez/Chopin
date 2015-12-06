@@ -227,11 +227,31 @@ class PinchosController extends BaseController {
             "pincho",
             $this->pinchoMapper->getPincho($_GET["id"])
         );
+        $valoracion= $this->pinchoMapper->dameMiValoracion($_GET["id"], $_SESSION["user"]);
+        $this->view->setVariable("valoracion", $valoracion );
         $this->view->render("juradoprofesional", "valorar");
       }
     }
   }
 
+  public function valorar() {
+    if(isset($_SESSION["user"])
+        && isset($_SESSION["type"])
+        && isset($_POST["valoracion"])
+    ) {
+      if (
+          $_SESSION['type'] == Usuario::JURADO_PROFESIONAL
+      ) {
+        $this->pinchoMapper->guardarValoracion($_POST["valoracion"], $_SESSION["user"], $_POST["idpincho"]);
+        $this->view->setVariable(
+            "pincho",
+            $this->pinchoMapper->getPincho($_POST["idpincho"])
+        );
+        $this->view->setVariable("valoracion", $this->pinchoMapper->dameMiValoracion($_POST["idpincho"], $_SESSION["user"]));
+        $this->view->render("juradoprofesional", "valorar");
+      }
+    }
+  }
 
 
   public function misVotos(){

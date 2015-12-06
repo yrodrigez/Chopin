@@ -6,8 +6,8 @@ $view = ViewManager::getInstance();
  * @var $pincho Pincho
  */
 $pincho = $view->getVariable("pincho");
+$valoracion= $view->getVariable("valoracion");
 $view->setVariable("title", "Valoración: ".$pincho->getNombrePincho());
-
 ?>
 
 <div class="view-title">
@@ -16,9 +16,43 @@ $view->setVariable("title", "Valoración: ".$pincho->getNombrePincho());
 <!-- FOTO DEL PINCHO -->
 <div class="view-img"><img src="<?= 'img/pinchos/'.$pincho->getFotoPincho(); ?>"></div>
 <!-- VALORACIÓN A BASE DE ESTRELLAS -->
-<form class="form-valoracion">
-    <input id="input-21b" value="0" type="number" class="rating" min=0 max=5 step=0.1 data-size="lg">
-    <button type="submit" class="btn btn-default">Valorar</button>
+<form class="form-valoracion" method="post" action="index.php?controller=pinchos&amp;action=valorar">
+    <?php if($valoracion < 0): ?>
+        <input
+            id="input-21b"
+            name = "valoracion"
+            value="0"
+            type="number"
+            class="rating"
+            min=0 max=5
+            step=0.1
+            data-size="lg"
+        >
+
+        <button
+            type="submit"
+            class="btn btn-default"
+        >Valorar</button>
+    <?php else: ?>
+
+        <input
+            id="input-21b"
+            name = "valoracion"
+            value="<?= $valoracion ?>"
+            type="number" class="rating"
+            min=0 max=5 step=0.1
+            data-size="lg"
+            disabled="disabled"
+        >
+        <button
+            type="submit"
+            class="btn btn-default"
+            disabled="disabled"
+        >Valorado</button>
+
+    <?php endif; ?>
+    <input type="hidden" value="<?= $pincho->getIdPincho() ?>" name="idpincho">
+
 </form>
 <!-- INFORMACIÓN ADICIONAL DEL PINCHO -->
 <div class="view-description">
@@ -59,9 +93,9 @@ $view->setVariable("title", "Valoración: ".$pincho->getNombrePincho());
         });
 
         $('#rating-input').rating({
-            min: 0,
-            max: 5,
-            step: 1,
+            min: 0.0,
+            max: 5.0,
+            step: 0.1,
             size: 'lg',
             showClear: false
         });
@@ -82,11 +116,19 @@ $view->setVariable("title", "Valoración: ".$pincho->getNombrePincho());
             $("#kartik").rating('create');
         });
 
-        $('#rating-input').on('rating.change', function() {
-            alert($('#rating-input').val());
+        $('.rb-rating').rating({
+            'showCaption':true,
+            'stars':'5',
+            min: 0.0,
+            max: 5.0,
+            step: 0.1,
+            'size':'xs',
+            'starCaptions': {
+                0:'status:nix',
+                1:'status:wackelt',
+                2:'status:geht',
+                3:'status:laeuft'
+            }
         });
-
-
-        $('.rb-rating').rating({'showCaption':true, 'stars':'3', 'min':'0', 'max':'3', 'step':'1', 'size':'xs', 'starCaptions': {0:'status:nix', 1:'status:wackelt', 2:'status:geht', 3:'status:laeuft'}});
     });
 </script>

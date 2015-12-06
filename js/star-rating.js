@@ -528,21 +528,21 @@
     };
 
     $.fn.ratingLocales.en = {
-        defaultCaption: '{rating} Stars',
+        defaultCaption: '{rating} Estrellas',
         starCaptions: {
-            0.5: 'Half Star',
-            1: 'One Star',
-            1.5: 'One & Half Star',
-            2: 'Two Stars',
-            2.5: 'Two & Half Stars',
-            3: 'Three Stars',
-            3.5: 'Three & Half Stars',
-            4: 'Four Stars',
-            4.5: 'Four & Half Stars',
-            5: 'Five Stars'
+            0.5: 'Media estrella',
+            1: 'Una estrella',
+            1.5: 'Una estrella y media',
+            2: 'Dos estrellas',
+            2.5: 'Dos estrellas y media',
+            3: 'Tres estrellas',
+            3.5: 'Tres estrellas y media',
+            4: 'Cuatro estrellas',
+            4.5: 'Cuatro estrellas y media',
+            5: '¡Cinco Estrellas!'
         },
-        clearButtonTitle: 'Clear',
-        clearCaption: 'Not Rated'
+        clearButtonTitle: 'Limpiar',
+        clearCaption: 'Sin Valorar'
     };
 
     $.extend($.fn.rating.defaults, $.fn.ratingLocales.en);
