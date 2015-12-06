@@ -10,10 +10,14 @@ INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) V
 INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("establecimiento4@gmail.com", "123456", "default.png", "999999999", 3, "");
 INSERT INTO juradoprofesional(experiencia, email) values ("5 estrellas michelin","jprof@gmail.com");
 INSERT INTO juradoprofesional(experiencia, email) values ("3 estrellas michelin","jprof2@gmail.com");
-INSERT INTO establecimiento(direccion, coordenadas, email) VALUES ("Direccion establecimiento 1", "Coordenadas establecimiento 1", "establecimiento@gmail.com");
-INSERT INTO establecimiento(direccion, coordenadas, email) VALUES ("Direccion establecimiento 2", "Coordenadas establecimiento 2", "establecimiento2@gmail.com");
-INSERT INTO establecimiento(direccion, coordenadas, email) VALUES ("Direccion establecimiento 3", "Coordenadas establecimiento 3", "establecimiento3@gmail.com");
-INSERT INTO establecimiento(direccion, coordenadas, email) VALUES ("Direccion establecimiento 4", "Coordenadas establecimiento 4", "establecimiento4@gmail.com");
+INSERT INTO establecimiento(direccion, coordenadas, email) VALUES ("(42.33578929999999, -7.863880999999992)
+", "Coordenadas establecimiento 1", "establecimiento@gmail.com");
+INSERT INTO establecimiento(direccion, coordenadas, email) VALUES ("(42.33578929999999, -7.863880999999992)
+", "Coordenadas establecimiento 2", "establecimiento2@gmail.com");
+INSERT INTO establecimiento(direccion, coordenadas, email) VALUES ("(42.33578929999999, -7.863880999999992)
+", "Coordenadas establecimiento 3", "establecimiento3@gmail.com");
+INSERT INTO establecimiento(direccion, coordenadas, email) VALUES ("(42.33578929999999, -7.863880999999992)
+", "Coordenadas establecimiento 4", "establecimiento4@gmail.com");
 INSERT INTO pincho(precio, idpincho, nombre, descripcion, email, aprobada, foto) VALUES (2.55, 1, "Calamares en su tinta", "Calamares cocinados con su tinta", "establecimiento@gmail.com", 1, "default.png");
 INSERT INTO pincho(precio, idpincho, nombre, descripcion, email, aprobada, foto) VALUES (3.00, 2, "Pincho de tortilla", "Utiliza huevos y patatas", "establecimiento2@gmail.com", 1, "default.png");
 INSERT INTO pincho(precio, idpincho, nombre, descripcion, email, aprobada, foto) VALUES (5.00, 3, "Vegetariano", "Compuesto por vegetales", "establecimiento3@gmail.com", 1, "default.png");
