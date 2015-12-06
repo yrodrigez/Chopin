@@ -55,6 +55,7 @@
 				$items .= '<li ' .$rowClass .'><a href="index.php?controller=establecimiento&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
 			} else if($_SESSION["type"]==Usuario::JURADO_PROFESIONAL) {
 				$items .= '<li ' .$rowClass .'><a href="index.php?controller=juradoprofesional&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
+				$items .= '<li ' .$rowClass .'><a href="index.php?controller=pinchos&amp;action=listarPinchosJuradoProfesional">Mis pinchos</a></li>';
 			}
 
 
@@ -83,17 +84,19 @@
 		<link rel="stylesheet" href="css/style.css" type="text/css">
 		<link rel="stylesheet" href="css/jquery.tagsinput.css" type="text/css">
 		<link rel="stylesheet" href="css/avgrund.css" type="text/css">
+		<link rel="stylesheet" href="css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700" type="text/css">
 		<link rel="stylesheet" href="Alex Brush.ttf">
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/fileinput.min.js"></script>
 		<script src="js/jquery.tagsinput.js"></script>
 		<script src="js/validator.js"></script>
 		<script src="js/avgrund.js"></script>
 		<script src="http://maps.googleapis.com/maps/api/js"></script>
+		<script src="js/star-rating.js" type="text/javascript"></script>
 
 	</head>
 

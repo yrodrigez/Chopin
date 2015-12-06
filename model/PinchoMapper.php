@@ -338,6 +338,24 @@ class PinchoMapper {
 
     return $pinchos;
   }
+  public function listarPinchosJuradoProfesional(
+      $idUsuario
+  ) {
+    $pinchos = array();
+    $stmt = $this->db->prepare("SELECT idpincho FROM valoracion WHERE email= ?");
+
+    if($stmt->execute(array($idUsuario))){
+      if($stmt->rowCount() > 0){
+        $i = $stmt->rowCount();
+        while($i>0) {
+          array_push($pinchos, $this->getPincho($stmt->fetchColumn()));
+          $i--;
+        }
+      }
+    }
+
+    return $pinchos;
+  }
 
   /**
    * @param $idUsuario
@@ -451,6 +469,35 @@ class PinchoMapper {
       $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
       return $resultado["COUNT(*)"];
     }
+  }
+
+  public function dameMiValoracion(
+    $idPincho,
+    $idProfesional
+  ){
+    $stmt= $this->db->prepare(
+        "SELECT puntuacion FROM valoracion WHERE idpincho= ? AND email=?"
+    );
+    $stmt->execute(array($idPincho, $idProfesional));
+    $row= $stmt->fetch(PDO::FETCH_ASSOC);
+    return $row["puntuacion"];
+  }
+
+  public function guardarValoracion(
+      $valoracion,
+      $idUsuario,
+      $idPincho
+  ){
+    $stmt= $this->db->prepare(
+        "UPDATE valoracion SET puntuacion= ? WHERE email= ? AND idpincho=?"
+    );
+     $stmt->execute(
+        array(
+          $valoracion,
+          $idUsuario,
+          $idPincho
+        )
+    );
   }
 
 }

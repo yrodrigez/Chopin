@@ -178,23 +178,81 @@ class PinchosController extends BaseController {
   public function listarPinchosUsuario(){
     if(isset($_SESSION["user"])
         && isset($_SESSION["type"])
-        && $_SESSION['type'] == Usuario::JURADO_POPULAR
     ) {
-      $this->view->setVariable(
-          "pinchos",
-          $this->pinchoMapper->listarPinchosUsuario($_SESSION['user'])
-      );
-      $this->view->setVariable(
-          "totalSinRepetir",
-          $this->pinchoMapper->getPinchosUsuarioGroupBy($_SESSION['user'])
-      );
-      $this->view->setVariable(
-          "totalPinchos",
-          count($this->pinchoMapper->getAllPinchos())
-      );
-      $this->view->render("pinchos", "mispinchos");
+      if(
+          $_SESSION['type'] == Usuario::JURADO_POPULAR
+      ) {
+        $this->view->setVariable(
+            "pinchos",
+            $this->pinchoMapper->listarPinchosUsuario($_SESSION['user'])
+        );
+        $this->view->setVariable(
+            "totalSinRepetir",
+            $this->pinchoMapper->getPinchosUsuarioGroupBy($_SESSION['user'])
+        );
+        $this->view->setVariable(
+            "totalPinchos",
+            count($this->pinchoMapper->getAllPinchos())
+        );
+        $this->view->render("pinchos", "mispinchos");
+      }
     }
   }
+
+  public function listarPinchosJuradoProfesional(){
+    if(isset($_SESSION["user"])
+        && isset($_SESSION["type"])
+    ) {
+      if(
+          $_SESSION['type'] == Usuario::JURADO_PROFESIONAL
+      ) {
+        $this->view->setVariable(
+            "pinchos",
+            $this->pinchoMapper->listarPinchosJuradoProfesional($_SESSION['user'])
+        );
+        $this->view->render("juradoprofesional", "mispinchos");
+      }
+    }
+  }
+
+  public function iniciarValoracion() {
+    if(isset($_SESSION["user"])
+        && isset($_SESSION["type"])
+        && isset($_GET["id"])
+    ) {
+      if(
+          $_SESSION['type'] == Usuario::JURADO_PROFESIONAL
+      ) {
+        $this->view->setVariable(
+            "pincho",
+            $this->pinchoMapper->getPincho($_GET["id"])
+        );
+        $valoracion= $this->pinchoMapper->dameMiValoracion($_GET["id"], $_SESSION["user"]);
+        $this->view->setVariable("valoracion", $valoracion );
+        $this->view->render("juradoprofesional", "valorar");
+      }
+    }
+  }
+
+  public function valorar() {
+    if(isset($_SESSION["user"])
+        && isset($_SESSION["type"])
+        && isset($_POST["valoracion"])
+    ) {
+      if (
+          $_SESSION['type'] == Usuario::JURADO_PROFESIONAL
+      ) {
+        $this->pinchoMapper->guardarValoracion($_POST["valoracion"], $_SESSION["user"], $_POST["idpincho"]);
+        $this->view->setVariable(
+            "pincho",
+            $this->pinchoMapper->getPincho($_POST["idpincho"])
+        );
+        $this->view->setVariable("valoracion", $this->pinchoMapper->dameMiValoracion($_POST["idpincho"], $_SESSION["user"]));
+        $this->view->render("juradoprofesional", "valorar");
+      }
+    }
+  }
+
 
   public function misVotos(){
     if(isset($_SESSION["user"])
