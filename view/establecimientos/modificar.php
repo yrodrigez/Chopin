@@ -13,6 +13,49 @@ $view->setVariable("title", "Modificar usuario");
 $establecimiento = $view->getVariable("establecimiento");
 ?>
 
+<script>
+    var geocoder;
+    var map;
+    var lastMarker = null;
+
+    function initialize() {
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(<?= preg_replace("/\\(([0-9.-]*), ([0-9.-]*)\\)/", "$1, $2", $establecimiento->getCoordenadas()) ?>);
+        var mapOptions = {
+            zoom: 12,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+        var pos = <?= preg_replace("/\\(([0-9.-]*), ([0-9.-]*)\\)/", "{lat: $1, lng: $2}", $establecimiento->getCoordenadas()) ?>;
+        var marker = new google.maps.Marker({map: map, position: pos});
+    }
+
+    function codeAddress() {
+        var address = document.getElementById("direccion").value;
+        geocoder.geocode({'address': address}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+
+                if(lastMarker != null) {
+                    lastMarker.setMap(null);
+                }
+
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+
+                lastMarker = marker;
+                document.getElementById("coordenadas").value = results[0].geometry.location;
+            } else {
+                document.getElementById("coordenadas").value = "";
+            }
+        });
+    }
+
+</script>
 
 <div id="formPresentarPincho">
     <div class="view-title">
@@ -59,21 +102,25 @@ $establecimiento = $view->getVariable("establecimiento");
             <input type="file" class="file file-loading" name="avatar" id="avatar" data-show-upload="false" data-allowed-file-extensions='["jpg", "png", "bmp", "gif"]'>
         </div>
         <div class="form-group">
-            <label for="preferencias">Dirección</label>
+            <label for="direccion">Dirección</label>
             <input type="text"
                    class="form-control"
                    name="direccion"
                    id="direccion"
+                   onkeypress="codeAddress()"
                    value="<?= $establecimiento->getDireccion();?>">
         </div>
         <div class="form-group">
-            <label for="preferencias">Coordenadas</label>
+            <label for="coordenadas">Coordenadas</label>
             <input type="text"
                    class="form-control"
                    name="coordenadas"
                    id="coordenadas"
+                   readonly
+                   required
                    value="<?= $establecimiento->getCoordenadas();?>">
         </div>
+        <div id="map-canvas"></div>
         <div id="divBtn" class="form-group">
             <button type="submit" class="btn btn-default btnForm">Modificar</button>
         </div>
@@ -85,4 +132,6 @@ $establecimiento = $view->getVariable("establecimiento");
     $("#avatar").fileinput({
     defaultPreviewContent: '<img src=img/usuarios/<?= ($establecimiento->getFotoUsuario())?$establecimiento->getFotoUsuario():"default.png" ?> alt="Avatar">',
     });
+
+    initialize();
 <?php $view->moveToDefaultFragment(); ?>

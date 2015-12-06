@@ -9,6 +9,26 @@ $establecimiento = $view->getVariable("establecimiento");
 
 $view->setVariable("title", "Datos del usuario"); ?>
 
+
+<script>
+    var geocoder;
+    var map;
+    function initialize() {
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(<?= preg_replace("/\\(([0-9.-]*), ([0-9.-]*)\\)/", "$1, $2", $establecimiento->getCoordenadas()) ?>);
+        var mapOptions = {
+            zoom: 12,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+        var pos = <?= preg_replace("/\\(([0-9.-]*), ([0-9.-]*)\\)/", "{lat: $1, lng: $2}", $establecimiento->getCoordenadas()) ?>;
+        var marker = new google.maps.Marker({map: map, position: pos});
+    }
+
+</script>
+
 <div>
     <div class="view-title"><h2><?= $establecimiento->getEmail(); ?></h2></div>
     <div class="view-img"><img src="<?= 'img/usuarios/'.$establecimiento->getFotoUsuario(); ?>"></div>
@@ -33,6 +53,7 @@ $view->setVariable("title", "Datos del usuario"); ?>
             </tr>
         </table>
     </div>
+
     <?php if(isset($_SESSION["type"]) && $_SESSION["type"] == Usuario::ORGANIZADOR || $_SESSION["type"] == Usuario::ESTABLECIMIENTO): ?>
         <div class="view-confirm">
             <a href="index.php?controller=establecimiento&action=modificar&id=<?= $establecimiento->getEmail(); ?>"
@@ -48,6 +69,8 @@ $view->setVariable("title", "Datos del usuario"); ?>
             </div>
         <?php endif; ?>
     <?php endif; ?>
+
+    <div id="map-canvas"></div>
 </div>
 
 
@@ -66,4 +89,6 @@ $view->setVariable("title", "Datos del usuario"); ?>
 				'</div>'
 		});
 	});
+
+    initialize();
 <?php $view->moveToDefaultFragment(); ?>

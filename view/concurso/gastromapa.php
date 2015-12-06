@@ -29,7 +29,7 @@ $view->setVariable("title", "Gastromapa");
 
 </script>
 
-<div id="map-canvas" onclick="initialize()"></div>
+<div id="map-canvas"></div>
 
 <?php $view->moveToFragment("script"); ?>
     initialize();
