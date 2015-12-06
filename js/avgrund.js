@@ -67,11 +67,11 @@
 
             function onDocumentClick (e) {
                 if (options.closeByDocument) {
-                    if ($(e.target).is('.avgrund-overlay, .avgrund-close')) {
+                    if ($(e.target).is('.avgrund-overlay, .avgrund-close') || $(e.target).is('.avgrund-close-ws')) {
                         e.preventDefault();
                         deactivate();
                     }
-                } else if ($(e.target).is('.avgrund-close')) {
+                } else if ($(e.target).is('.avgrund-close') || $(e.target).is('.avgrund-close-ws')) {
                         e.preventDefault();
                         deactivate();
                 }

@@ -56,8 +56,8 @@ $view->setVariable("title", "Datos del usuario"); ?>
 			onBlurContainer: '.container',
 			template: '<br><p class="confirm-title">¿Seguro que quieres eliminar el miembro de jurado profesional seleccionado?</p>' +
 			'<div>' +
-			'<a href="index.php?controller=juradoprofesional&action=delete&email=<?= $usuario->getEmail(); ?>" class="btn btn-default confirm-btn">Si</a>' +
-				'<a href="index.php?controller=juradoprofesional&action=view&id=<?= $usuario->getEmail(); ?>" class="btn btn-default confirm-btn ">No</a>' +
+			'<a href="index.php?controller=juradoprofesional&action=delete&email=<?= $usuario->getEmail(); ?>" class="btn btn-default confirm-btn ">Si</a>' +
+				'<a href="index.php?controller=juradoprofesional&action=view&id=<?= $usuario->getEmail(); ?>#" class="btn btn-default confirm-btn avgrund-close-ws">No</a>' +
 				'</div>'
 		});
 	});

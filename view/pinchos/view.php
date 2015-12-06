@@ -55,7 +55,7 @@ $view->setVariable("title", "Datos del pincho");
 	<?php endif; ?>
 </div>
 
-<?php if($concurso->isStarted()): ?>
+<?php if($concurso->isStarted() and isset($_SESSION["user"])): ?>
 	<div class="row comment-area">
 		<br><hr><br>
 
@@ -95,7 +95,7 @@ $view->setVariable("title", "Datos del pincho");
 			template: '<br><p class="confirm-title">¿Seguro que quieres eliminar la propuesta de pincho?</p>' +
 			'<div>' +
 			'<a href="index.php?controller=pinchos&action=borrar&id=<?= $pincho->getIdPincho(); ?>" class="btn btn-default confirm-btn">Si</a>' +
-				'<a href="index.php?controller=pinchos&action=view&id=<?= $pincho->getIdPincho(); ?>" class="btn btn-default confirm-btn ">No</a>' +
+				'<a href="index.php?controller=pinchos&action=view&id=<?= $pincho->getIdPincho(); ?>#" class="btn btn-default confirm-btn avgrund-close-ws">No</a>' +
 				'</div>'
 		});
 	});
