@@ -54,6 +54,7 @@
 				$items .= '<li ' .$rowClass .'><a href="index.php?controller=establecimiento&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
 			} else if($_SESSION["type"]==Usuario::JURADO_PROFESIONAL) {
 				$items .= '<li ' .$rowClass .'><a href="index.php?controller=juradoprofesional&amp;action=view&amp;id='.$_SESSION["user"].'">Mi cuenta</a></li>';
+				$items .= '<li ' .$rowClass .'><a href="index.php?controller=pinchos&amp;action=listarPinchosJuradoProfesional">Mis pinchos</a></li>';
 			}
 
 

@@ -338,6 +338,24 @@ class PinchoMapper {
 
     return $pinchos;
   }
+  public function listarPinchosJuradoProfesional(
+      $idUsuario
+  ) {
+    $pinchos = array();
+    $stmt = $this->db->prepare("SELECT idpincho FROM valoracion WHERE email= ?");
+
+    if($stmt->execute(array($idUsuario))){
+      if($stmt->rowCount() > 0){
+        $i = $stmt->rowCount();
+        while($i>0) {
+          array_push($pinchos, $this->getPincho($stmt->fetchColumn()));
+          $i--;
+        }
+      }
+    }
+
+    return $pinchos;
+  }
 
   /**
    * @param $idUsuario

@@ -6,7 +6,7 @@ $view->setVariable("title", "Mis pinchos");
 $pinchos = $view->getVariable("pinchos");
 $totalPinchos = $view->getVariable("totalPinchos");
 $mispinchosSinRepetir= $view->getVariable("totalSinRepetir");
-$porcentaje = round($mispinchosSinRepetir*100/$totalPinchos);
+$porcentaje = $totalPinchos > 0 ? round($mispinchosSinRepetir*100/$totalPinchos) : 0;
 ?>
 
 
