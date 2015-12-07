@@ -18,10 +18,10 @@ INSERT INTO establecimiento(direccion, coordenadas, email) VALUES ("Ourense
 ", "(42.33578929999999, -7.863880999999992)", "establecimiento3@gmail.com");
 INSERT INTO establecimiento(direccion, coordenadas, email) VALUES ("Ourense
 ", "(42.33578929999999, -7.863880999999992)", "establecimiento4@gmail.com");
-INSERT INTO pincho(precio, idpincho, nombre, descripcion, email, aprobada, foto) VALUES (2.55, 1, "Calamares en su tinta", "Calamares cocinados con su tinta", "establecimiento@gmail.com", 1, "default.png");
-INSERT INTO pincho(precio, idpincho, nombre, descripcion, email, aprobada, foto) VALUES (3.00, 2, "Pincho de tortilla", "Utiliza huevos y patatas", "establecimiento2@gmail.com", 1, "default.png");
-INSERT INTO pincho(precio, idpincho, nombre, descripcion, email, aprobada, foto) VALUES (5.00, 3, "Vegetariano", "Compuesto por vegetales", "establecimiento3@gmail.com", 1, "default.png");
-INSERT INTO pincho(precio, idpincho, nombre, descripcion, email, aprobada, foto) VALUES (1.50, 4, "Brochetas de Queso", "Brochetas de quesos variados", "establecimiento4@gmail.com", 0, "default.png");
+INSERT INTO pincho(precio, idpincho, nombre, descripcion, email, aprobada, foto) VALUES (2.55, 1, "Calamares en su tinta", "Calamares cocinados con su tinta", "establecimiento@gmail.com", 1, "calamares.jpg");
+INSERT INTO pincho(precio, idpincho, nombre, descripcion, email, aprobada, foto) VALUES (3.00, 2, "SocialGüiso", "Utiliza huevos y patatas", "establecimiento2@gmail.com", 1, "pincho.jpg");
+INSERT INTO pincho(precio, idpincho, nombre, descripcion, email, aprobada, foto) VALUES (5.00, 3, "Vegetariano", "Compuesto por vegetales", "establecimiento3@gmail.com", 1, "vegetariano.jpg");
+INSERT INTO pincho(precio, idpincho, nombre, descripcion, email, aprobada, foto) VALUES (1.50, 4, "Brochetas de Queso", "Brochetas de quesos variados", "establecimiento4@gmail.com", 0, "queso.jpg");
 INSERT INTO ingredientes(idpincho, nombreCategoria) VALUES (1, "Calamares");
 INSERT INTO ingredientes(idpincho, nombreCategoria) VALUES (2, "Huevos");
 INSERT INTO ingredientes(idpincho, nombreCategoria) VALUES (2, "Patatas");
