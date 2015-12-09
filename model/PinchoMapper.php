@@ -272,11 +272,12 @@ class PinchoMapper {
   public function borrarPincho(
     $idPincho
     ) {
-    if((new CodigoMapper())->borrar($idPincho) and (new IngredienteMapper())->borrar($idPincho) and (new ComentarioMapper())->deleteByIdPincho($idPincho)) {
+      (new CodigoMapper())->borrar($idPincho);
+      (new IngredienteMapper())->borrar($idPincho);
+      (new ComentarioMapper())->deleteByIdPincho($idPincho);
+
       $stmt = $this->db->prepare("DELETE FROM pincho WHERE idpincho= ?;");
-      return $stmt->execute(array($idPincho));
-    }
-    return false;
+      $stmt->execute(array($idPincho));
   }
 
 
@@ -284,7 +285,7 @@ class PinchoMapper {
       $estab
   ) {
     $id = $this->getPinchoEstablecimiento($estab)->getIdPincho();
-    return $this->borrarPincho($id);
+    $this->borrarPincho($id);
   }
 
   /**

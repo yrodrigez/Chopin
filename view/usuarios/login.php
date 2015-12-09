@@ -16,7 +16,7 @@
     </div>
     <div class="form-group">
         <label for="passwd">Password:</label>
-        <input type="password" class="form-control" name="passwd" id="passwd" placeholder="Introduce una nueva contrase&ntilde;a">
+        <input type="password" class="form-control" name="passwd" id="passwd" placeholder="Introduce una nueva contrase&ntilde;a" required>
     </div>
     <button type="submit" class="btn btn-default">Acceder</button>
 </form>

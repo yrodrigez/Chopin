@@ -84,15 +84,14 @@ class EstablecimientoController extends BaseController{
             $email = $_GET["id"];
             $estab = new Establecimiento($email);
 
-            if((new PinchoMapper())->borrarPinchoEstablecimiento($email)) {
-                $this->establecimientoMapper->borrarEstablecimiento($estab);
+            (new PinchoMapper())->borrarPinchoEstablecimiento($email);
+            $this->establecimientoMapper->borrarEstablecimiento($estab);
 
-                $msg = array();
-                array_push($msg, array("success", "El establecimiento se ha borrado correctamente"));
-                $this->view->setFlash($msg);
+            $msg = array();
+            array_push($msg, array("success", "El establecimiento se ha borrado correctamente"));
+            $this->view->setFlash($msg);
 
-                $this->view->redirect("establecimiento", "index");
-            }
+            $this->view->redirect("establecimiento", "index");
         }
 
         $this->view->redirect("concurso", "view");
