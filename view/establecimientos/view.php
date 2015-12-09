@@ -58,7 +58,7 @@ $view->setVariable("title", "Datos del usuario"); ?>
         </table>
     </div>
 
-    <?php if(isset($_SESSION["type"]) && $_SESSION["type"] == Usuario::ORGANIZADOR || $_SESSION["type"] == Usuario::ESTABLECIMIENTO): ?>
+    <?php if(isset($_SESSION["type"]) && $_SESSION["type"] == Usuario::ORGANIZADOR || ($_SESSION["type"] == Usuario::ESTABLECIMIENTO && $establecimiento->getEmail() == $_SESSION["user"])): ?>
         <div class="view-confirm">
             <a href="index.php?controller=establecimiento&action=modificar&id=<?= $establecimiento->getEmail(); ?>"
                class="btn btn-default"

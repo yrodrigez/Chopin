@@ -195,6 +195,10 @@ class UsuariosController extends BaseController {
 		if(isset($_GET['id'])){
 			$usuario = new Usuario($_GET["id"]);
 			$this->userMapper->fill($usuario);
+
+			if($usuario->getTipo() == Usuario::ESTABLECIMIENTO) $this->view->redirect("establecimiento","view","id=".$_GET["id"]);
+			if($usuario->getTipo() == Usuario::JURADO_PROFESIONAL) $this->view->redirect("juradoprofesional","view","id=".$_GET["id"]);
+
 			$this->view->setVariable('usuario',$usuario);
 			$this->view->render('usuarios','view');
 	    } /*else {
