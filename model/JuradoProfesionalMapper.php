@@ -7,6 +7,7 @@
  */
 require_once("JuradoProfesional.php");
 require_once("UsuarioMapper.php");
+require_once("ValoracionMapper.php");
 
 class JuradoProfesionalMapper
 {
@@ -93,7 +94,10 @@ class JuradoProfesionalMapper
     public function borrarJuradoProfesional(
         $juradoProfesional
     ) {
-        if(self::existeJuradoProfesional($juradoProfesional)) {
+        if($this->existeJuradoProfesional($juradoProfesional)) {
+
+            (new ValoracionMapper())->borrar($juradoProfesional->getEmail());
+
             $stmt = $this->db->prepare(
                 "DELETE FROM juradoprofesional WHERE email= ?"
             );
