@@ -55,6 +55,8 @@ class EstablecimientoController extends BaseController{
             $establecimiento->setTelefono($_POST["telefono"]);
             $establecimiento->setCoordenadas($_POST["coordenadas"]);
             $establecimiento->setDireccion($_POST["direccion"]);
+            $establecimiento->setNombre($_POST["nombre"]);
+            $establecimiento->setHorario($_POST["horario"]);
 
 
             if($this->establecimientoMapper->modificarEstablecimiento($_POST["email"],$establecimiento)){

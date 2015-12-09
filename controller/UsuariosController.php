@@ -109,6 +109,8 @@ class UsuariosController extends BaseController {
 
 						if($_POST["tel"]) $user->setTelefono($_POST["tel"]);
 						if($_POST["prefs"]) $user->setPreferencias($_POST["prefs"]);
+						if($_POST["nombre"]) $user->setNombre($_POST["nombre"]);
+						if($_POST["horario"]) $user->setHorario($_POST["horario"]);
 						if($_FILES['avatar'] and $_FILES['avatar']['name']) {
 							$name = $_POST["username"] . "." . substr(strrchr($_FILES['avatar']['name'], '.'), 1);
 							$path = "img/usuarios/" . $name;

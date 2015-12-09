@@ -30,27 +30,31 @@ $view->setVariable("title", "Datos del usuario"); ?>
 </script>
 
 <div>
-    <div class="view-title"><h2><?= $establecimiento->getEmail(); ?></h2></div>
+    <div class="view-title"><h2><?= $establecimiento->getNombre(); ?></h2></div>
     <div class="view-img"><img src="<?= 'img/usuarios/'.$establecimiento->getFotoUsuario(); ?>"></div>
     <div class="view-description">
 
         <table class="table table-striped table-bordered">
             <tr>
-                <th>Email: </th>
-                <td><?= $establecimiento->getEmail(); ?></td>
+                <th>Dirección: </th>
+                <td><?= $establecimiento->getDireccion(); ?></td>
+            </tr>
+            <tr>
+                <th>Horario: </th>
+                <td><?= $establecimiento->getHorario(); ?></td>
             </tr>
             <tr>
                 <th>Telefono: </th>
                 <td><?= $establecimiento->getTelefono(); ?></td>
             </tr>
             <tr>
-                <th>Dirección: </th>
-                <td><?= $establecimiento->getDireccion(); ?></td>
+                <th>Email: </th>
+                <td><?= $establecimiento->getEmail(); ?></td>
             </tr>
-            <tr>
+            <!--<tr>
                 <th>Coordenadas: </th>
                 <td><?= $establecimiento->getCoordenadas(); ?></td>
-            </tr>
+            </tr>-->
         </table>
     </div>
 
@@ -58,7 +62,7 @@ $view->setVariable("title", "Datos del usuario"); ?>
         <div class="view-confirm">
             <a href="index.php?controller=establecimiento&action=modificar&id=<?= $establecimiento->getEmail(); ?>"
                class="btn btn-default"
-               role="button">Modificar mi cuenta</a>
+               role="button">Modificar cuenta</a>
 
         </div>
         <?php if($_SESSION["type"] == Usuario::ORGANIZADOR): ?>

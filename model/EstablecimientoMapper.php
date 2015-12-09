@@ -49,13 +49,15 @@ class EstablecimientoMapper
             return false;
         }
         $stmt= $this->db->prepare(
-            "INSERT INTO establecimiento(direccion, coordenadas, email) VALUES (?,?,?)"
+            "INSERT INTO establecimiento(direccion, coordenadas, email, nombre, horario) VALUES (?,?,?,?,?)"
         );
         return $stmt->execute(
             array(
                 $establecimiento->getDireccion(),
                 $establecimiento->getCoordenadas(),
-                $establecimiento->getEmail()
+                $establecimiento->getEmail(),
+                $establecimiento->getNombre(),
+                $establecimiento->getHorario()
             )
         );
     }
@@ -78,7 +80,9 @@ class EstablecimientoMapper
            establecimiento.coordenadas = ?,
            usuario.telefono= ?,
            usuario.fotoperfil= ?,
-           usuario.password=?
+           usuario.password=?,
+           establecimiento.nombre=?,
+           establecimiento.horario=?
            WHERE usuario.email= establecimiento.email AND establecimiento.email =?"
         );
 
@@ -88,6 +92,8 @@ class EstablecimientoMapper
             $establecimiento->getTelefono(),
             $establecimiento->getFotoUsuario(),
             $establecimiento->getPassword(),
+            $establecimiento->getNombre(),
+            $establecimiento->getHorario(),
             $email
             )
         );
@@ -135,7 +141,9 @@ class EstablecimientoMapper
                 $row["telefono"],
                 $row["fotoperfil"],
                 $row["coordenadas"],
-                $row["direccion"]));
+                $row["direccion"],
+                $row["nombre"],
+                $row["horario"]));
         }else{
             return false;
         }

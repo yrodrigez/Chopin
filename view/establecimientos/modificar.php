@@ -88,6 +88,22 @@ $establecimiento = $view->getVariable("establecimiento");
             <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text"
+                   class="form-control"
+                   name="nombre" id="nombre"
+                   value="<?= $establecimiento->getNombre();?>"
+                   required>
+        </div>
+        <div class="form-group">
+            <label for="horario">Horario:</label>
+            <input type="text"
+                   class="form-control"
+                   name="horario" id="horario"
+                   value="<?= $establecimiento->getHorario();?>"
+                   required>
+        </div>
+        <div class="form-group">
             <label for="tel">Tel&eacute;fono:</label>
             <input type="text"
                    class="form-control"
