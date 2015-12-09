@@ -220,22 +220,25 @@ class UsuariosController extends BaseController {
 	  public function eliminar(){
 	  	if(isset($_GET['id'])){
 
-	  	  $pinchosUsuario = $this->pinchoMapper->listarPinchosUsuario($_GET["id"]);
+	  	  $pinchosUsuario = array_merge($this->pinchoMapper->listarPinchosUsuario($_GET["id"]),
+				  						$this->pinchoMapper->listarPinchosQuemadosUsuario($_GET["id"]));
+
 	  	  foreach ($pinchosUsuario as $pincho) {
 	  	  	$this->codigoMapper->borrar($pincho->getIdPincho());
 	  	  }	
 	  	  $usuario = new Usuario($_GET["id"]);
-	      $this->userMapper->fill($usuario); //PUEDE SOBRAR
 	      $this->userMapper->remove($usuario);
+
 	      $msg = array();
 	      array_push($msg, array("success", "El usuario ha sido eliminado exitosamente"));
 	      $this->view->setFlash($msg);
 	      $this->view->redirect("usuarios","index");
-	    }/* else {
+	    } else {
 	      $msg = array();
 		  array_push($msg, array("error", "Debe indicar el usuario que desea eliminar"));
 		  $this->view->setFlash($msg);
-		} */
+		  $this->view->redirect("usuarios","index");
+		}
 	}
 
 	public function logout() {

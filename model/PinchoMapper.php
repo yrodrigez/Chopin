@@ -339,6 +339,26 @@ class PinchoMapper {
 
     return $pinchos;
   }
+
+  public function listarPinchosQuemadosUsuario(
+      $idUsuario
+  ) {
+    $pinchos = array();
+    $stmt = $this->db->prepare("SELECT idpincho FROM codigo WHERE email= ? AND utilizado= ?");
+
+    if($stmt->execute(array($idUsuario, Pincho::UTILIZADO))){
+      if($stmt->rowCount() > 0){
+        $i = $stmt->rowCount();
+        while($i>0) {
+          array_push($pinchos, $this->getPincho($stmt->fetchColumn()));
+          $i--;
+        }
+      }
+    }
+
+    return $pinchos;
+  }
+
   public function listarPinchosJuradoProfesional(
       $idUsuario
   ) {
