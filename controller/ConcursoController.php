@@ -5,6 +5,7 @@ session_start();
 require_once(__DIR__ . "/../model/Concurso.php");
 require_once(__DIR__ . "/../model/Usuario.php");
 require_once(__DIR__ . "/../model/EstablecimientoMapper.php");
+require_once(__DIR__ . "/../model/PinchoMapper.php");
 
 require_once(__DIR__ . "/../controller/BaseController.php");
 
@@ -53,13 +54,20 @@ class ConcursoController extends BaseController
     {
         require_once(__DIR__ . "/../model/ConcursoMapper.php");
         $concursomapper = new ConcursoMapper();
-
-        if (!$concursomapper->existeConcurso()) {
-            $this->view->render("concurso", "configurar");
-        } else {
-            $concurso = $concursomapper->getInfo();
-            $this->view->setVariable("concurso", $concurso);
-            $this->view->render("concurso", "view");
+        /*Este if debería comprobar si el concurso ha terminado*/
+        if(1==2){
+                $mapper = new PinchoMapper();
+                $ganadoresPop = $mapper->getGanadoresPopulares(5);
+                $this->view->setVariable("ganadores", $ganadoresPop);
+                $this->view->render("concurso", "ganadores");
+            }else{
+             if (!$concursomapper->existeConcurso()) {
+                $this->view->render("concurso", "configurar");
+            } else {
+                $concurso = $concursomapper->getInfo();
+                $this->view->setVariable("concurso", $concurso);
+                $this->view->render("concurso", "view");
+            }
         }
     }
 
@@ -67,54 +75,54 @@ class ConcursoController extends BaseController
     {
         if (isset($_POST["nombre"])) {
 
-                if ($this->importSQL("sql/db.sql", "127.0.0.1", $_POST["db_username"], $_POST["db_password"])) {
+            if ($this->importSQL("sql/db.sql", "127.0.0.1", $_POST["db_username"], $_POST["db_password"])) {
 
-                    require_once(__DIR__ . "/../model/ConcursoMapper.php");
-                    require_once(__DIR__ . "/../model/UsuarioMapper.php");
+                require_once(__DIR__ . "/../model/ConcursoMapper.php");
+                require_once(__DIR__ . "/../model/UsuarioMapper.php");
 
-                    if($_FILES['imagenConcurso'] and $_FILES['imagenConcurso']['name']) {
-                        $name =  "concurso." . substr(strrchr($_FILES['imagenConcurso']['name'], '.'), 1);
-                        $path = "img/" . $name;
-                        move_uploaded_file($_FILES['imagenConcurso']['tmp_name'], $path);
-                        $imgConcurso = $name;
-                    } else {
-                        $imgConcurso = "default.png";
-                    }
-
-                    $concursomapper = new ConcursoMapper();
-                    $fechaInicio = implode("-",array_reverse(explode("/", $_POST["fecha"])));
-                    $concurso = new Concurso($_POST["nombre"], $_POST["descripcion"], $_POST["localizacion"], $fechaInicio, $imgConcurso, $_POST["cord"]);
-                    $concursomapper->add($concurso);
-
-
-                    if($_FILES['imagenOrganizador'] and $_FILES['imagenOrganizador']['name']) {
-                        $name =  $_POST["username"] . "." . substr(strrchr($_FILES['imagenOrganizador']['name'], '.'), 1);
-                        $path = "img/usuarios/" . $name;
-                        move_uploaded_file($_FILES['imagenOrganizador']['tmp_name'], $path);
-                        $imgOrganizador = $name;
-                    } else {
-                        $imgOrganizador="default.png";
-                    }
-
-                    $user = new Usuario($_POST["username"], $_POST["password"]);
-                    $user->setTipo(0);
-                    $user->setFotoUsuario($imgOrganizador);
-                    (new UsuarioMapper())->save($user);
-
-                    if(isset($_POST["sampleData"]))
-                        $this->importSQL("sql/data.sql", "127.0.0.1", $_POST["db_username"], $_POST["db_password"]);
-
-
-                    $msg = array();
-                    array_push($msg, array("success", "El concurso se ha creado correctamente"));
-                    $this->view->setFlash($msg);
-                    $this->view->redirect("concurso", "view");
+                if($_FILES['imagenConcurso'] and $_FILES['imagenConcurso']['name']) {
+                    $name =  "concurso." . substr(strrchr($_FILES['imagenConcurso']['name'], '.'), 1);
+                    $path = "img/" . $name;
+                    move_uploaded_file($_FILES['imagenConcurso']['tmp_name'], $path);
+                    $imgConcurso = $name;
                 } else {
-                    $msg = array();
-                    array_push($msg, array("error", "No se ha podido conectar a la base de datos. Compruebe los datos de acceso."));
-                    $this->view->setFlash($msg);
-                    $this->view->redirect("concurso", "view");
+                    $imgConcurso = "default.png";
                 }
+
+                $concursomapper = new ConcursoMapper();
+                $fechaInicio = implode("-",array_reverse(explode("/", $_POST["fecha"])));
+                $concurso = new Concurso($_POST["nombre"], $_POST["descripcion"], $_POST["localizacion"], $fechaInicio, $imgConcurso, $_POST["cord"]);
+                $concursomapper->add($concurso);
+
+
+                if($_FILES['imagenOrganizador'] and $_FILES['imagenOrganizador']['name']) {
+                    $name =  $_POST["username"] . "." . substr(strrchr($_FILES['imagenOrganizador']['name'], '.'), 1);
+                    $path = "img/usuarios/" . $name;
+                    move_uploaded_file($_FILES['imagenOrganizador']['tmp_name'], $path);
+                    $imgOrganizador = $name;
+                } else {
+                    $imgOrganizador="default.png";
+                }
+
+                $user = new Usuario($_POST["username"], $_POST["password"]);
+                $user->setTipo(0);
+                $user->setFotoUsuario($imgOrganizador);
+                (new UsuarioMapper())->save($user);
+
+                if(isset($_POST["sampleData"]))
+                    $this->importSQL("sql/data.sql", "127.0.0.1", $_POST["db_username"], $_POST["db_password"]);
+
+
+                $msg = array();
+                array_push($msg, array("success", "El concurso se ha creado correctamente"));
+                $this->view->setFlash($msg);
+                $this->view->redirect("concurso", "view");
+            } else {
+                $msg = array();
+                array_push($msg, array("error", "No se ha podido conectar a la base de datos. Compruebe los datos de acceso."));
+                $this->view->setFlash($msg);
+                $this->view->redirect("concurso", "view");
+            }
 
 
         }

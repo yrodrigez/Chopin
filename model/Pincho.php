@@ -244,5 +244,10 @@ class pincho {
   ) {
     $this->fotoPincho = $fotoPincho;
   }
+
+  public function getPinchosGanadoresPopulares(){
+    $mapper = new PinchoMapper();
+    return $mapper->getGanadoresPopulares();
+  }
 }
 ?>

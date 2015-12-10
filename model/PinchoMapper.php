@@ -521,4 +521,32 @@ class PinchoMapper {
     );
   }
 
+  public function getGanadoresPopulares($numGanadores){
+    $stmt= $this->db->prepare("SELECT * FROM codigo WHERE elegido = '1'");
+    $stmt->execute();
+    $votosPopular = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $arrayVotos = "";
+    foreach ($votosPopular as $fila) {
+      if (isset($arrayVotos[$fila["idpincho"]])){
+        $arrayVotos[$fila["idpincho"]]++;
+      }else{
+        $arrayVotos[$fila["idpincho"]] = 1;
+      }
+    }
+    arsort($arrayVotos);
+    $count = 0;
+    foreach ($arrayVotos as $key => $value) {
+      
+      $mapper = new PinchoMapper();
+      $target = $mapper->getPincho($key);
+      $toRet["pincho_".$key."_obj"] = $target;
+      $toRet["pincho_".$key."_votos"] = $value;
+      $count++;
+      if($count == $numGanadores) break;
+    }
+    return $toRet;
+    //print_r($toRet);
+    //die(); 
+  }
+
 }
