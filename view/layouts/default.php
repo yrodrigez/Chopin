@@ -20,7 +20,9 @@
 		}
 		if (!isset($_SESSION["user"])) {
 			if($started) {
+				$items.= '<li ' .$rowClass .'><a href="index.php?controller=establecimiento&amp;action=index">Establecimientos</a></li>';
 				$items .= '<li ' .$rowClass .'><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
+				$items.= '<li ' .$rowClass .'><a href="index.php?controller=pinchos&amp;action=buscar">Búsqueda</a></li>';
 			}
 
 			$items .= '<li ' .$rowClass .'><a href="index.php?controller=usuarios&amp;action=login">'. (($phone)?'<span class="glyphicon glyphicon-log-in"></span> ':'') . 'Identificarse</a></li>';
@@ -63,6 +65,7 @@
 			if($started) {
 				$items .= '<li ' .$rowClass .'><a href="index.php?controller=juradoprofesional&amp;action=index">Jurado Profesional</a></li>';
 				$items.= '<li ' .$rowClass .'><a href="index.php?controller=establecimiento&amp;action=index">Establecimientos</a></li>';
+				$items.= '<li ' .$rowClass .'><a href="index.php?controller=pinchos&amp;action=buscar">Búsqueda</a></li>';
 			}
 
 			$items .= '<li ' .$rowClass .'><a href="index.php?controller=usuarios&amp;action=logout">Desconectar <?= $currentuser ?></a></li>';

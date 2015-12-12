@@ -136,7 +136,6 @@ class EstablecimientoMapper
             return (new Establecimiento(
                 $row["email"],
                 $row["password"],
-                "",
                 Usuario::ESTABLECIMIENTO,
                 $row["telefono"],
                 $row["fotoperfil"],
@@ -171,4 +170,14 @@ class EstablecimientoMapper
 
     }
 
+    public function buscar($text) {
+        $stmt= $this->db->prepare("SELECT * FROM establecimiento,usuario WHERE usuario.email=establecimiento.email and establecimiento.nombre like ?");
+        $stmt->execute(array("%".$text."%"));
+        $establecimientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $ret = [];
+        foreach ($establecimientos as $est) {
+            array_push($ret, new Establecimiento($est["email"], NULL, $est["tipo"], $est["telefono"], $est["fotoperfil"], $est["coordenadas"], $est["direccion"], $est["nombre"]));
+        }
+        return $ret;
+    }
 }

@@ -13,6 +13,7 @@ require_once(__DIR__."/../model/ConcursoMapper.php");
 require_once(__DIR__."/../model/ComentarioMapper.php");
 
 require_once(__DIR__."/../model/JuradoProfesionalMapper.php");
+require_once(__DIR__."/../model/EstablecimientoMapper.php");
 
 require_once(__DIR__."/../controller/BaseController.php");
 
@@ -413,6 +414,28 @@ class PinchosController extends BaseController {
        array_push($msg, array("error", "Esta accion esta disponible solo para el organizador"));
        $this->view->setFlash($msg);
        $this->view->redirect("juradoprofesional" , "index");
+    }
+  }
+
+
+  public function buscar() {
+    if(isset($_POST["text"]) and $_POST["cat"]) {
+      //echo $_POST["text"]."-".$_POST["cat"]; die();
+
+      switch($_POST["cat"]) {
+        case "Pincho":
+            $pinchos = $this->pinchoMapper->buscar($_POST["text"]);
+            $this->view->setVariable("res", $pinchos);
+            $this->view->setVariable("cat", "Pincho");
+          break;
+        case "Establecimiento":
+          $establecimientos = (new EstablecimientoMapper())->buscar($_POST["text"]);
+          $this->view->setVariable("res", $establecimientos);
+          $this->view->setVariable("cat", "Establecimiento");
+      }
+      $this->view->render("pinchos", "buscar");
+    } else {
+      $this->view->render("pinchos", "buscar");
     }
   }
 

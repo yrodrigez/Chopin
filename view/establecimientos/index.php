@@ -13,7 +13,7 @@ $view->setVariable("title", "Establecimientos registrados");
 
 <div>
     <div class="view-title">
-        <h2>Establecimientos Registrados</h2>
+        <h2>Establecimientos</h2>
     </div>
     <?php foreach ($establecimientos as $establecimiento): ?>
         <a href="index.php?controller=establecimiento&amp;action=view&amp;id=<?= $establecimiento->getEmail()?>">
@@ -27,7 +27,7 @@ $view->setVariable("title", "Establecimientos registrados");
                         }?> alt="Foto Usuario" class="user-img img-circle">
                     </div>
                     <div class="col-xs-5 col-sm-5 col-height col-middle">
-                        <div class=""><?=$establecimiento->getEmail()?></div>
+                        <div class=""><?=$establecimiento->getNombre()?></div>
                     </div>
 
                     <div class="col-xs-4 col-sm-2 col-height col-middle">

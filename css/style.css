@@ -386,3 +386,9 @@ html {
 	margin-left: 5px;
 	margin-top: 10px;
 }
+
+#btnSearch {
+	position: relative;
+	left: 2%;
+	margin-top: 10px;
+}

@@ -549,4 +549,15 @@ class PinchoMapper {
     //die(); 
   }
 
+  public function buscar($text) {
+      $stmt= $this->db->prepare("SELECT * FROM pincho WHERE nombre like ?");
+      $stmt->execute(array("%".$text."%"));
+      $pinchos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $ret = [];
+      foreach ($pinchos as $pincho) {
+          array_push($ret, new Pincho($pincho["idpincho"], $pincho["nombre"], $pincho["descripcion"], NULL, $pincho["precio"], $pincho["email"], $pincho["aprobada"], $pincho["foto"]));
+      }
+      return $ret;
+  }
+
 }

@@ -16,7 +16,6 @@ class Establecimiento extends Usuario {
     public function __construct(
         $email,
         $password=NULL,
-        $nombre=NULL,
         $tipo=NULL,
         $telefono=NULL,
         $fotoUsuario=NULL,
