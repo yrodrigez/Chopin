@@ -90,8 +90,10 @@ class ConcursoController extends BaseController
                 }
 
                 $concursomapper = new ConcursoMapper();
-                $fechaInicio = implode("-",array_reverse(explode("/", $_POST["fecha"])));
-                $concurso = new Concurso($_POST["nombre"], $_POST["descripcion"], $_POST["localizacion"], $fechaInicio, $imgConcurso, $_POST["cord"]);
+                $fechaInicio = implode("-",array_reverse(explode("/", $_POST["fechaInicio"])));
+                $fechaFinalistas = implode("-",array_reverse(explode("/", $_POST["fechaFinalistas"])));
+                $fechaFin = implode("-",array_reverse(explode("/", $_POST["fechaFin"])));
+                $concurso = new Concurso($_POST["nombre"], $_POST["descripcion"], $_POST["localizacion"], $fechaInicio, $imgConcurso, $_POST["cord"], $fechaFinalistas, $fechaFin);
                 $concursomapper->add($concurso);
 
 

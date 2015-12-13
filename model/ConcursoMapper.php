@@ -15,8 +15,8 @@ class ConcursoMapper {
   }
   
   public function add(Concurso $concurso) {
-    $stmt = $this->db->prepare("INSERT INTO concurso(nombre, descripcion, localizacion, fecha, foto, coordenadas) values (?,?,?,?,?,?)");
-    $stmt->execute(array($concurso->getNombre(), $concurso->getDescripcion(), $concurso->getLocalizacion(), $concurso->getFecha(), $concurso->getImagen(), $concurso->getCoordenadas()));
+    $stmt = $this->db->prepare("INSERT INTO concurso(nombre, descripcion, localizacion, fechainicio, foto, coordenadas, fechafinalistas, fechafin) values (?,?,?,?,?,?,?,?)");
+    $stmt->execute(array($concurso->getNombre(), $concurso->getDescripcion(), $concurso->getLocalizacion(), $concurso->getFechaInicio(), $concurso->getImagen(), $concurso->getCoordenadas(), $concurso->getFechaFinalistas(), $concurso->getFechaFin()));
   }
   
   public function getInfo() {
@@ -24,7 +24,7 @@ class ConcursoMapper {
 	 $concurso = $stmt->fetch(PDO::FETCH_ASSOC);
 	
 	 if($concurso != null) {
-		return new Concurso($concurso["nombre"], $concurso["descripcion"], $concurso["localizacion"], $concurso["fecha"], $concurso["foto"], $concurso["coordenadas"]);
+		return new Concurso($concurso["nombre"], $concurso["descripcion"], $concurso["localizacion"], $concurso["fechainicio"], $concurso["foto"], $concurso["coordenadas"], $concurso["fechafinalistas"], $concurso["fechafin"]);
 	 } else {
 		return NULL;
 	 }

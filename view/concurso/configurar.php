@@ -70,8 +70,18 @@ $view->setVariable("title", "Configurar concurso");
 		<div id="map-canvas"></div>
 
 		<div class="form-group">
-			<label for="fecha">Fecha:</label>
-			<input type="text" class="form-control" name="fecha" required="true" placeholder="DD/MM/AAAA" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" data-error="La fecha introducida no es válida">
+			<label for="fechaInicio">Fecha de inicio:</label>
+			<input type="text" class="form-control" name="fechaInicio" id="fechaInicio" required="true" placeholder="DD/MM/AAAA" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" data-error="La fecha introducida no es válida">
+			<div class="help-block with-errors"></div>
+		</div>
+		<div class="form-group">
+			<label for="fechaFinalistas">Fecha de decisión de los finalistas:</label>
+			<input type="text" class="form-control" name="fechaFinalistas" id="fechaFinalistas" required="true" placeholder="DD/MM/AAAA" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" data-error="La fecha introducida no es válida">
+			<div class="help-block with-errors"></div>
+		</div>
+		<div class="form-group">
+			<label for="fechaFin">Fecha de fin:</label>
+			<input type="text" class="form-control" name="fechaFin" id="fechaFin" required="true" placeholder="DD/MM/AAAA" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" data-error="La fecha introducida no es válida">
 			<div class="help-block with-errors"></div>
 		</div>
 		<div class="form-group">

@@ -29,7 +29,15 @@ $url = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
 			</tr>
 			<tr>
 				<th>Fecha de inicio</th>
-				<td><?= (new DateTime($concurso->getFecha()))->format('d/m/Y'); ?></td>
+				<td><?= (new DateTime($concurso->getFechaInicio()))->format('d/m/Y'); ?></td>
+			</tr>
+			<tr>
+				<th>Fecha de finalistas</th>
+				<td><?= (new DateTime($concurso->getFechaFinalistas()))->format('d/m/Y'); ?></td>
+			</tr>
+			<tr>
+				<th>Fecha de fin</th>
+				<td><?= (new DateTime($concurso->getFechaFin()))->format('d/m/Y'); ?></td>
 			</tr>
 		</table>
 	</div>
