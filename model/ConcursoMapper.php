@@ -33,10 +33,7 @@ class ConcursoMapper {
   public function existeConcurso() {
     $stmt = $this->db->prepare("SELECT * FROM concurso");
     $stmt->execute();
-    if($stmt->rowCount()>0)
-      return true;
-    else
-      return false;   
+    return $stmt->rowCount() > 0;
   }
 
 }

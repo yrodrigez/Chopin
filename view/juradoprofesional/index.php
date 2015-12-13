@@ -5,6 +5,7 @@ $view = ViewManager::getInstance();
 
 $jurado = $view->getVariable("jurado");
 $concurso = $view->getVariable("concurso");
+$iter2asign = $view->getVariable("iter2asign");
 
 //$errors = $view->getVariable("errors");
 
@@ -44,7 +45,7 @@ $view->setVariable("title", "Jurados profesional");
     <?php if(isset($_SESSION["type"]) && $_SESSION["type"] == Usuario::ORGANIZADOR && !$concurso->isStarted()): ?>
         <a class="btn btn-default" href="index.php?controller=juradoprofesional&amp;action=add">A&ntilde;adir</a>
     <?php endif; ?>
-    <?php if(isset($_SESSION["type"]) && $_SESSION["type"] == Usuario::ORGANIZADOR && $concurso->isStarted() && sizeof($jurado)>0): ?>
+    <?php if(isset($_SESSION["type"]) && $_SESSION["type"] == Usuario::ORGANIZADOR && sizeof($jurado)>0 && isset($iter2asign)): ?>
         <a class="btn btn-default" href="index.php?controller=pinchos&amp;action=asignar">Asignar pinchos</a>
     <?php endif; ?>
 </div>

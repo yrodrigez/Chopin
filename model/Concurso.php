@@ -66,10 +66,6 @@ class Concurso {
     $this->fechaInicio = $fecha;
   }
 
-  public function isStarted() {
-	  return strtotime($this->getFechaInicio()) <= strtotime(date("Y-m-d",time()));
-  }
-
   public function getImagen()
   {
     return $this->imagen;
@@ -110,6 +106,16 @@ class Concurso {
     $this->fechaFin = $fechaFin;
   }
 
+  public function isStarted() {
+    return strtotime($this->getFechaInicio()) <= strtotime(date("Y-m-d",time()));
+  }
 
+  public function isStarted2Iter() {
+    return strtotime($this->getFechaFinalistas()) <= strtotime(date("Y-m-d",time()));
+  }
+
+  public function isFinished() {
+    return strtotime($this->getFechaFin()) <= strtotime(date("Y-m-d",time()));
+  }
 
 }

@@ -374,18 +374,23 @@ class PinchosController extends BaseController {
           $jprofs = $this->jprofMapper->findAll();
           $pinchos = $this->pinchoMapper->getAllPinchos();
           $cont = 0;
+
+          $iter=1;
+          $c = (new ConcursoMapper())->getInfo();
+          if($c->isStarted2Iter() && !$this->pinchoMapper->asignadaIter(2) && !$c->isFinished()) $iter=2;
+          //echo $iter; die();
           for ($i = 0; $i < $_POST['nAsignar']; ++$i) {
             shuffle($pinchos);
             //shuffle($jprofs);
             foreach ($pinchos as $pincho){
-              if($this->pinchoMapper->existePinchoProfesional($pincho->getIdPincho(), $jprofs[$cont]->getEmail()) == 0){
-                $this->pinchoMapper->asignarPinchoAProfesional($pincho->getIdPincho(), $jprofs[$cont]->getEmail());
+              if($this->pinchoMapper->existePinchoProfesional($pincho->getIdPincho(), $jprofs[$cont]->getEmail(), $iter) == 0){
+                $this->pinchoMapper->asignarPinchoAProfesional($pincho->getIdPincho(), $jprofs[$cont]->getEmail(), $iter);
               } else {
                 $asignado = true;
                 while($asignado){
                   $random = array_rand($jprofs);
-                  if($this->pinchoMapper->existePinchoProfesional($pincho->getIdPincho(), $jprofs[$random]->getEmail()) == 0){
-                   $this->pinchoMapper->asignarPinchoAProfesional($pincho->getIdPincho(), $jprofs[$random]->getEmail());
+                  if($this->pinchoMapper->existePinchoProfesional($pincho->getIdPincho(), $jprofs[$random]->getEmail(), $iter) == 0){
+                   $this->pinchoMapper->asignarPinchoAProfesional($pincho->getIdPincho(), $jprofs[$random]->getEmail(), $iter);
                    $asignado = false;
                   }
                 }

@@ -467,26 +467,24 @@ class PinchoMapper {
 
   public function asignarPinchoAProfesional(
     $idPincho,
-    $emailProfesional
+    $emailProfesional,
+    $iter
   ){
     $stmt = $this->db->prepare(
-       "INSERT INTO valoracion(idpincho, email, puntuacion, fecha)
-      VALUES (?, ?, -1, NULL);"
+       "INSERT INTO valoracion(idpincho, email, puntuacion, fecha, iteracion)
+      VALUES (?, ?, -1, NULL, ?);"
     );
-    if($stmt->execute(array($idPincho, $emailProfesional))) { // -1 para indicar que no fue votado, y NULL¿?
-      return True;
-    } else {
-      return False;
-    }
+    return $stmt->execute(array($idPincho, $emailProfesional, $iter));
   }
 
   public function existePinchoProfesional(
     $idPincho,
-    $emailProfesional
+    $emailProfesional,
+    $iter
   ){
     $stmt = $this->db->prepare(
-       "SELECT COUNT(*) FROM valoracion WHERE email=? and idpincho = ?;");
-    if($stmt->execute(array($emailProfesional, $idPincho))) { // -1 para indicar que no fue votado, y NULL¿?
+       "SELECT COUNT(*) FROM valoracion WHERE email=? and idpincho = ? and iteracion = ?;");
+    if($stmt->execute(array($emailProfesional, $idPincho, $iter))) {
       $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
       return $resultado["COUNT(*)"];
     }
@@ -545,8 +543,6 @@ class PinchoMapper {
       if($count == $numGanadores) break;
     }
     return $toRet;
-    //print_r($toRet);
-    //die(); 
   }
 
   public function buscar($text) {
@@ -558,6 +554,13 @@ class PinchoMapper {
           array_push($ret, new Pincho($pincho["idpincho"], $pincho["nombre"], $pincho["descripcion"], NULL, $pincho["precio"], $pincho["email"], $pincho["aprobada"], $pincho["foto"]));
       }
       return $ret;
+  }
+
+  public function asignadaIter($num) {
+    $stmt = $this->db->prepare("SELECT * FROM valoracion WHERE iteracion=?;");
+
+    $stmt->execute(array($num));
+    return $stmt->rowCount()>0;
   }
 
 }

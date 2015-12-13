@@ -4,6 +4,7 @@ require_once(__DIR__."/../core/ViewManager.php");
 
 require_once(__DIR__."/../model/Concurso.php");
 require_once(__DIR__."/../model/ConcursoMapper.php");
+require_once(__DIR__."/../model/PinchoMapper.php");
 
 require_once(__DIR__."/../model/JuradoProfesional.php");
 require_once(__DIR__."/../model/JuradoProfesionalMapper.php");
@@ -26,6 +27,10 @@ class JuradoProfesionalController extends BaseController {
 		$concurso = (new ConcursoMapper())->getInfo();
 		$this->view->setVariable("jurado", $jurado);
 		$this->view->setVariable("concurso", $concurso);
+		$c = (new ConcursoMapper())->getInfo();
+		if($c->isStarted() && !(new PinchoMapper())->asignadaIter(1) && !$c->isStarted2Iter()
+				|| $c->isStarted2Iter() && !(new PinchoMapper())->asignadaIter(2) && !$c->isFinished())
+			$this->view->setVariable("iter2asign", "1");
 		$this->view->render("juradoprofesional", "index");
 	}
 	
