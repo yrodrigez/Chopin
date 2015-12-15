@@ -50,10 +50,11 @@ class JuradoProfesionalMapper
             return false;
         }
         $stmt= $this->db->prepare(
-            "INSERT INTO juradoprofesional(experiencia, email) values (?,?)"
+            "INSERT INTO juradoprofesional(experiencia, nombre, email) values (?,?,?)"
         );
         $stmt->execute(array(
             $juradoProfesional->getExperiencia(),
+            $juradoProfesional->getNombre(),
             $juradoProfesional->getEmail()
         ));
         return $stmt;
@@ -73,10 +74,11 @@ class JuradoProfesionalMapper
     ) {
 
         $stmt = $this->db->prepare(
-            "UPDATE juradoProfesional SET experiencia = ? WHERE email= ?"
+            "UPDATE juradoProfesional SET experiencia = ?, nombre = ? WHERE email= ?"
         );
         $stmt->execute(array(
             $juradoProfesional->getExperiencia(),
+            $juradoProfesional->getNombre(),
             $email
         ));
 
@@ -116,7 +118,7 @@ class JuradoProfesionalMapper
 		$jurado = array();
 		
 		foreach ($jp_db as $jp) {
-			array_push($jurado, new JuradoProfesional($jp["email"], $jp["password"], "", $jp["telefono"], $jp["fotoperfil"], ""));
+			array_push($jurado, new JuradoProfesional($jp["email"], $jp["password"], "", $jp["telefono"], $jp["fotoperfil"], $jp["experiencia"], $jp["nombre"]));
 		}
 
 		return $jurado;
@@ -141,6 +143,7 @@ class JuradoProfesionalMapper
 		$fillData = $stmt->fetch(PDO::FETCH_ASSOC);
 		if($fillData != null) {
 			$jurado->setExperiencia($fillData["experiencia"]);
+            $jurado->setNombre($fillData["nombre"]);
 		}
 	}
 }

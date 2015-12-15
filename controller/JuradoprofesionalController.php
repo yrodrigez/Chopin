@@ -41,9 +41,10 @@ class JuradoProfesionalController extends BaseController {
 			$pwd = $_POST["pwd"];
 			$tel = ($_POST["tel"])?$_POST["tel"]:NULL;
 			$exp = ($_POST["exp"])?$_POST["exp"]:NULL;
+			$nombre = ($_POST["nombre"])?$_POST["nombre"]:NULL;
 
 			if($_FILES['avatar'] and $_FILES['avatar']['name']) {
-				$name = $_POST["username"] . "." . substr(strrchr($_FILES['avatar']['name'], '.'), 1);
+				$name = $_POST["email"] . "." . substr(strrchr($_FILES['avatar']['name'], '.'), 1);
 				$path = "img/usuarios/" . $name;
 				move_uploaded_file($_FILES['avatar']['tmp_name'], $path);
 				$avatar = $name;
@@ -51,7 +52,7 @@ class JuradoProfesionalController extends BaseController {
 				$avatar="default.png";
 			}
 			
-			$jp = new JuradoProfesional($email, $pwd, "", $tel, $avatar, $exp);
+			$jp = new JuradoProfesional($email, $pwd, "", $tel, $avatar, $exp, $nombre);
 			$this->juradoProfesionalMapper->resgitrarJuradoProfesional($jp);
 
 			$msg = array();
@@ -76,6 +77,7 @@ class JuradoProfesionalController extends BaseController {
 			if($_POST["pwd"]) $jp->setPassword($_POST["pwd"]);
 			if($_POST["tel"]) $jp->setTelefono($_POST["tel"]);
 			if($_POST["exp"]) $jp->setExperiencia($_POST["exp"]);
+			if($_POST["nombre"]) $jp->setNombre($_POST["nombre"]);
 
 			if($_FILES['avatar'] and $_FILES['avatar']['name']) {
 				$name =  $_POST["email"] . "." . substr(strrchr($_FILES['avatar']['name'], '.'), 1);

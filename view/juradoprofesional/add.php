@@ -21,6 +21,10 @@
       <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Introduce una contrase&ntilde;a" data-minlength="6" data-error="La contraseña debe tener al menos 6 caracteres" required>
       <div class="help-block with-errors"></div>
     </div>
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="nombre" class="form-control" name="nombre" id="nombre" placeholder="Introduce el nombre del miembro de jurado profesional" required>
+    </div>
 	<div class="form-group">
       <label for="tel">Tel&eacute;fono:</label>
       <input type="text" class="form-control" name="tel" id="tel" placeholder="Introduce un tel&eacute;fono" pattern="^[0-9]{9}$" data-error="El teléfono introducido no es válido">
@@ -30,9 +34,9 @@
       <label for="avatar">Foto de perfil:</label>
         <input type="file" class="file file-loading" name="avatar" id="avatar" data-show-upload="false" data-allowed-file-extensions='["jpg", "png", "bmp", "gif"]'>
     </div>
-	<div class="form-group">
-      <label for="exp">Experiencia:</label>
-      <textarea class="form-control" rows="5" name="exp" id="exp"></textarea>
+    <div class="form-group">
+        <label for="exp">Experiencia:</label>
+        <textarea class="form-control" rows="5" name="exp" id="exp"></textarea>
     </div>
 
     <button type="submit" class="btn btn-default">A&ntilde;adir</button>

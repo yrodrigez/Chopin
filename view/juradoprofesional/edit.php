@@ -13,8 +13,9 @@
  $view->setVariable("title", "Editar jurado profesional");
 ?>
 
-<div class="view-title"><h2>Añadir jurado profesional</h2></div>
+<div class="view-title"><h2>Modificar jurado profesional</h2></div>
 <form role="form" action="index.php?controller=juradoprofesional&amp;action=edit" method="POST" enctype="multipart/form-data" data-toggle="validator">
+
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" class="form-control" readonly name="email" id="email" placeholder="Introduce un email" value="<?= $miembro->getEmail() ?>">
@@ -23,6 +24,10 @@
       <label for="pwd">Password:</label>
       <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Introduce una nueva contrase&ntilde;a" data-minlength="6" data-error="La contraseña debe tener al menos 6 caracteres">
       <div class="help-block with-errors"></div>
+    </div>
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="nombre" class="form-control" name="nombre" id="nombre" placeholder="Introduce el nombre del miembro de jurado profesional" value="<?= $miembro->getNombre() ?>" required>
     </div>
 	<div class="form-group">
       <label for="tel">Tel&eacute;fono:</label>

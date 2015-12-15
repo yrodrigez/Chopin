@@ -11,6 +11,7 @@ include_once("Usuario.php");
 class JuradoProfesional extends Usuario {
 
     private $experiencia;
+    private $nombre;
 
     public function __construct(
         $email,
@@ -18,16 +19,20 @@ class JuradoProfesional extends Usuario {
         $nombre=NULL,
         $telefono=NULL,
         $fotoUsuario=NULL,
-        $experiencia=NULL
+        $experiencia=NULL,
+        $nombre=NULL,
+        $preferencias=NULL
     ) {
         parent::__construct(
             $email,
             $password,
             2,
             $telefono,
-            $fotoUsuario
+            $fotoUsuario,
+            $preferencias
         );
-        self::setExperiencia($experiencia);
+        $this->setExperiencia($experiencia);
+        $this->setNombre($nombre);
     }
 
     public function getExperiencia()
@@ -40,4 +45,13 @@ class JuradoProfesional extends Usuario {
         $this->experiencia = $experiencia;
     }
 
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+    }
 }

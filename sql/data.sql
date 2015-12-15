@@ -9,8 +9,8 @@ INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) V
 INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("establecimiento3@gmail.com", "123456", "establecimiento3@gmail.com.jpg", "999999999", 3, "");
 INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("establecimiento4@gmail.com", "123456", "establecimiento4@gmail.com.jpg", "999999999", 3, "");
 INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("establecimiento5@gmail.com", "123456", "establecimiento5@gmail.com.jpg", "999999999", 3, "");
-INSERT INTO juradoprofesional(experiencia, email) values ("5 años de experiencia", "jprof@gmail.com");
-INSERT INTO juradoprofesional(experiencia, email) values ("3 años de experiencia", "jprof2@gmail.com");
+INSERT INTO juradoprofesional(experiencia, nombre, email) values ("5 años de experiencia", "Pepa Gutiérrez Torres", "jprof@gmail.com");
+INSERT INTO juradoprofesional(experiencia, nombre, email) values ("3 años de experiencia", "Julia Alberti Lagos", "jprof2@gmail.com");
 INSERT INTO establecimiento(direccion, coordenadas, email, nombre, horario) VALUES ("Praza do Ferro, 7
 ", "(42.33767719999999, -7.863247000000001)", "establecimiento@gmail.com", "Taberna do Meigallo", "13:00-16:00, 20:00-00:00");
 INSERT INTO establecimiento(direccion, coordenadas, email, nombre, horario) VALUES ("Plaza Eironciños dos Cabaleiros, 1

@@ -31,11 +31,11 @@ $view->setVariable("title", "Jurados profesional");
                         }?> alt="Foto Usuario" class="user-img img-circle">
                     </div>
                     <div class="col-xs-5 col-sm-5 col-height col-middle">
-                        <div class=""><?=$jp->getEmail()?></div>
+                        <div class=""><?=$jp->getNombre()?></div>
                     </div>
 
                     <div class="col-xs-4 col-sm-2 col-height col-middle">
-                        <div class=""><?=$jp->getPreferencias()?></div>
+                        <div class=""><?=$jp->getEmail()?></div>
                     </div>
                 </div>
             </div>

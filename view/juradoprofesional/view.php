@@ -10,22 +10,18 @@ $view->setVariable("title", "Datos del usuario"); ?>
 
 
 <div>
-	<div class="view-title"><h2><?= $usuario->getEmail(); ?></h2></div>
+	<div class="view-title"><h2><?= $usuario->getNombre(); ?></h2></div>
 	<div class="view-img"><img src="<?= 'img/usuarios/'.$usuario->getFotoUsuario(); ?>"></div>
 	<div class="view-description">
 
 		<table class="table table-striped table-bordered">
-			<tr>
+			<tr>	
 				<th>Email: </th>
 				<td><?= $usuario->getEmail(); ?></td>
 			</tr>
 			<tr>
 				<th>Telefono: </th>
 				<td><?= $usuario->getTelefono(); ?></td>
-			</tr>
-			<tr>
-				<th>Preferencias: </th>
-				<td><?= $usuario->getPreferencias(); ?></td>
 			</tr>
 			<tr>
 				<th>Experiencia: </th>
