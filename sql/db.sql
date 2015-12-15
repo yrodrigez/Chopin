@@ -20,7 +20,7 @@ CREATE TABLE establecimiento (direccion varchar(100), coordenadas varchar(50), e
 CREATE TABLE ingredientes (idpincho int(10) NOT NULL, nombreCategoria varchar(30) NOT NULL, PRIMARY KEY (idpincho, nombreCategoria));
 CREATE TABLE juradoprofesional (experiencia varchar(255), nombre varchar(100) NOT NULL, email varchar(40) NOT NULL);
 CREATE TABLE pincho (precio decimal(3, 2) NOT NULL, idpincho int(10) NOT NULL AUTO_INCREMENT, nombre varchar(50) NOT NULL, descripcion varchar(255) NOT NULL, email varchar(40) NOT NULL, aprobada int(1), foto varchar(255), PRIMARY KEY (idpincho));
-CREATE TABLE usuario (email varchar(40) NOT NULL, password varchar(30) NOT NULL, fotoperfil varchar(255), telefono varchar(14), tipo int(1) NOT NULL, preferencias varchar(255), PRIMARY KEY (email));
+CREATE TABLE usuario (email varchar(40) NOT NULL, password varchar(32) NOT NULL, fotoperfil varchar(255), telefono varchar(14), tipo int(1) NOT NULL, preferencias varchar(255), PRIMARY KEY (email));
 CREATE TABLE valoracion (idpincho int(10) NOT NULL, email varchar(40) NOT NULL, puntuacion decimal(2, 1), fecha date, iteracion int(1) NOT NULL, PRIMARY KEY (idpincho, email,iteracion));
 ALTER TABLE juradoprofesional ADD INDEX FKjuradoprof655776 (email), ADD CONSTRAINT FKjuradoprof655776 FOREIGN KEY (email) REFERENCES usuario (email);
 ALTER TABLE valoracion ADD INDEX FKvaloracion745033 (email), ADD CONSTRAINT FKvaloracion745033 FOREIGN KEY (email) REFERENCES juradoprofesional (email);

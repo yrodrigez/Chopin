@@ -1,14 +1,14 @@
 USE chopin;
-INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("jpop@gmail.com", "123456", "jpop@gmail.com.png", "999999999", 1, "Prefiero el sushi!");
-INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("jpop2@gmail.com", "123456", "jpop2@gmail.com.png", "999999999", 1, "Yo prefiero los tacos!");
-INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("jpop3@gmail.com", "123456", "jpop3@gmail.com.png", "999999999", 1, "Prefiero orella");
-INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("jprof@gmail.com", "123456", "jprof@gmail.com.png", "999999999", 2, "Comida picante");
-INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("jprof2@gmail.com", "123456", "jprof2@gmail.com.png", "999999999", 2, "Comida italiana");
-INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("establecimiento@gmail.com", "123456", "establecimiento@gmail.com.jpg", "999999999", 3, "");
-INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("establecimiento2@gmail.com", "123456", "establecimiento2@gmail.com.jpg", "999999999", 3, "");
-INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("establecimiento3@gmail.com", "123456", "establecimiento3@gmail.com.jpg", "999999999", 3, "");
-INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("establecimiento4@gmail.com", "123456", "establecimiento4@gmail.com.jpg", "999999999", 3, "");
-INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("establecimiento5@gmail.com", "123456", "establecimiento5@gmail.com.jpg", "999999999", 3, "");
+INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("jpop@gmail.com", "8abea94e29e855c9c4f036afeb7c051d", "jpop@gmail.com.png", "999999999", 1, "Prefiero el sushi!");
+INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("jpop2@gmail.com", "8abea94e29e855c9c4f036afeb7c051d", "jpop2@gmail.com.png", "999999999", 1, "Yo prefiero los tacos!");
+INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("jpop3@gmail.com", "8abea94e29e855c9c4f036afeb7c051d", "jpop3@gmail.com.png", "999999999", 1, "Prefiero orella");
+INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("jprof@gmail.com", "8abea94e29e855c9c4f036afeb7c051d", "jprof@gmail.com.png", "999999999", 2, "Comida picante");
+INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("jprof2@gmail.com", "8abea94e29e855c9c4f036afeb7c051d", "jprof2@gmail.com.png", "999999999", 2, "Comida italiana");
+INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("establecimiento@gmail.com", "8abea94e29e855c9c4f036afeb7c051d", "establecimiento@gmail.com.jpg", "999999999", 3, "");
+INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("establecimiento2@gmail.com", "8abea94e29e855c9c4f036afeb7c051d", "establecimiento2@gmail.com.jpg", "999999999", 3, "");
+INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("establecimiento3@gmail.com", "8abea94e29e855c9c4f036afeb7c051d", "establecimiento3@gmail.com.jpg", "999999999", 3, "");
+INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("establecimiento4@gmail.com", "8abea94e29e855c9c4f036afeb7c051d", "establecimiento4@gmail.com.jpg", "999999999", 3, "");
+INSERT INTO usuario(email, password, fotoperfil, telefono, tipo, preferencias) VALUES ("establecimiento5@gmail.com", "8abea94e29e855c9c4f036afeb7c051d", "establecimiento5@gmail.com.jpg", "999999999", 3, "");
 INSERT INTO juradoprofesional(experiencia, nombre, email) values ("5 años de experiencia", "Pepa Gutiérrez Torres", "jprof@gmail.com");
 INSERT INTO juradoprofesional(experiencia, nombre, email) values ("3 años de experiencia", "Julia Alberti Lagos", "jprof2@gmail.com");
 INSERT INTO establecimiento(direccion, coordenadas, email, nombre, horario) VALUES ("Praza do Ferro, 7

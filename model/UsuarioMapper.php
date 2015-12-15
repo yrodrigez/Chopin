@@ -40,7 +40,7 @@ class UsuarioMapper {
         );
 
         return $stmt->execute(array(
-            $usuario->getPassword(),
+            md5($usuario->getPassword().Usuario::SALT),
             $usuario->getFotoUsuario(),
             $usuario->getTelefono(),
             $usuario->getPreferencias(),
@@ -62,7 +62,7 @@ class UsuarioMapper {
 
             return $stmt->execute(array(
                 $usuario->getEmail(),
-                $usuario->getPassword(),
+                md5($usuario->getPassword().Usuario::SALT),
                 $usuario->getFotoUsuario(),
                 $usuario->getTelefono(),
                 $usuario->getTipo(),
@@ -96,7 +96,8 @@ class UsuarioMapper {
         $stmt= $this->db->prepare(
             "SELECT count(email) FROM usuario where email=? and password=?"
         );
-        $stmt->execute(array($usuario->getEmail(), $usuario->getPassword()));
+
+        $stmt->execute(array($usuario->getEmail(), md5($usuario->getPassword().Usuario::SALT)));
         return $stmt->fetchColumn() > 0;
     }
 

@@ -17,7 +17,7 @@ $usuario = $view->getVariable("jpop");
 		<input type="hidden" name="email" value="<?= $usuario->getEmail();?>">
 		<div class="form-group">
 			<label for="passwd">Password:</label>
-        	<input type="password" class="form-control" name="password" id="password" value="<?= $usuario->getPassword();?>" data-minlength="6" data-error="La contraseña debe tener al menos 6 caracteres" required>
+        	<input type="password" class="form-control" name="password" id="password" placeholder="Introduce una nueva contrase&ntilde;a" data-minlength="6" data-error="La contraseña debe tener al menos 6 caracteres">
 		</div>
 		<div class="form-group">
 			<label for="tel">Tel&eacute;fono:</label>

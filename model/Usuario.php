@@ -6,6 +6,8 @@ class Usuario {
     const JURADO_PROFESIONAL = 2;
     const ESTABLECIMIENTO = 3;
 
+    const SALT = "&B|;kH=AQr#vaZ*3*bOHauSx";
+
     private $email;
     private $password;
     private $tipo;
