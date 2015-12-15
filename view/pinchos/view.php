@@ -4,6 +4,7 @@ require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 
 $pincho = $view->getVariable("pincho");
+$ingredientes = implode(", ", $pincho->getIngredientesPincho());
 //$errors = $view->getVariable("errors");
 $concurso = $view->getVariable("concurso");
 $comentarios = $view->getVariable("comentarios");
@@ -27,6 +28,10 @@ if(strpos($url, "&id=")==0) $url .= "&id=" . $pincho->getIdPincho();
 			<tr>
 				<th>Precio</th>
 				<td><?= $pincho->getPrecioPincho(); ?> €</td>
+			</tr>
+			<tr>
+				<th>Ingredientes</th>
+				<td><?= $ingredientes; ?></td>
 			</tr>
 			<tr>
 				<th>Contacto</th>
