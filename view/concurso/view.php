@@ -1,6 +1,8 @@
 <?php
 //file: view/posts/view.php
 require_once(__DIR__."/../../core/ViewManager.php");
+require_once(__DIR__."/../../model/Concurso.php");
+require_once(__DIR__."/../../model/ConcursoMapper.php");
 $view = ViewManager::getInstance();
 
 $concurso = $view->getVariable("concurso");
@@ -10,6 +12,16 @@ $pincho = $view->getVariable("pincho");
 
 $view->setVariable("title", "Datos del concurso");
 $url = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+
+if($concurso->isFinished()) {
+	$estado = "Finalizado";
+} else if($concurso->isStarted2Iter()) {
+	$estado = "En evaluación de finalistas";
+} else if($concurso->isStarted()) {
+	$estado = "Empezado";
+} else {
+	$estado = "No empezado";
+}
 ?>
 
 
@@ -26,6 +38,10 @@ $url = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
 			<tr>
 				<th>Localización</th>
 				<td><?= $concurso->getLocalizacion(); ?></td>
+			</tr>
+			<tr>
+				<th>Estado</th>
+				<td><?= $estado; ?></td>
 			</tr>
 			<tr>
 				<th>Fecha de inicio</th>
