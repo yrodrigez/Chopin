@@ -195,6 +195,8 @@ class PinchosController extends BaseController {
             "totalPinchos",
             count($this->pinchoMapper->getAllPinchos())
         );
+        $this->view->setVariable("concurso", (new ConcursoMapper())->getInfo());
+
         $this->view->render("pinchos", "mispinchos");
       }
     }

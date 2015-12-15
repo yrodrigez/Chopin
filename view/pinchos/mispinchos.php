@@ -7,6 +7,7 @@ $pinchos = $view->getVariable("pinchos");
 $totalPinchos = $view->getVariable("totalPinchos");
 $mispinchosSinRepetir= $view->getVariable("totalSinRepetir");
 $porcentaje = $totalPinchos > 0 ? round($mispinchosSinRepetir*100/$totalPinchos) : 0;
+$concurso = $view->getVariable("concurso");
 ?>
 
 
@@ -28,7 +29,7 @@ $porcentaje = $totalPinchos > 0 ? round($mispinchosSinRepetir*100/$totalPinchos)
 
 
     <div class="row">
-        <?php if(count($pinchos) >= 3): ?>
+        <?php if(count($pinchos) >= 3 and $concurso->isStarted() and !$concurso->isStarted2Iter()): ?>
             <div class="botonVotar col-md-12">
                 <input
                     type="button"
