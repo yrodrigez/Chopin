@@ -17,7 +17,7 @@ $view->setVariable("title", "Datos del usuario"); ?>
         geocoder = new google.maps.Geocoder();
         var latlng = new google.maps.LatLng(<?= preg_replace("/\\(([0-9.-]*), ([0-9.-]*)\\)/", "$1, $2", $establecimiento->getCoordenadas()) ?>);
         var mapOptions = {
-            zoom: 12,
+            zoom: 18,
             center: latlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
