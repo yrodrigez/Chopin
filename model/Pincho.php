@@ -249,5 +249,10 @@ class pincho {
     $mapper = new PinchoMapper();
     return $mapper->getGanadoresPopulares();
   }
+
+  public function getPinchosGanadoresProfesionales(){
+    $mapper = new PinchoMapper();
+    return $mapper->getGanadoresProfesionales();
+  }
 }
 ?>

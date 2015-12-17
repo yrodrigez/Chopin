@@ -545,6 +545,28 @@ class PinchoMapper {
     return $toRet;
   }
 
+  public function getGanadoresProfesionales($numGanadores){
+    $stmt= $this->db->prepare("SELECT V.idpincho, (SELECT ROUND(AVG(puntuacion),0) FROM valoracion A WHERE A.idpincho = V.idpincho) AS resultado FROM valoracion V GROUP BY V.idpincho");
+    $stmt->execute();
+    $votosProfesional = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $arrayVotosProf = "";
+    foreach ($votosProfesional as $fila) {
+      $arrayVotosProf[$fila["idpincho"]] = $fila["resultado"];
+    }
+    arsort($arrayVotosProf);
+    $count = 0;
+    foreach ($arrayVotosProf as $key => $value) {
+      
+      $mapper = new PinchoMapper();
+      $target = $mapper->getPincho($key);
+      $toRet["pincho_".$key."_obj"] = $target;
+      $toRet["pincho_".$key."_resultado"] = $value;
+      $count++;
+      if($count == $numGanadores) break;
+    }
+    return $toRet;
+  }
+
   public function buscar($text) {
       $stmt= $this->db->prepare("SELECT * FROM pincho WHERE nombre like ?");
       $stmt->execute(array("%".$text."%"));
