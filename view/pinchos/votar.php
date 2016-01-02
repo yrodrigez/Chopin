@@ -10,15 +10,14 @@ $isVotar = $view->getVariable("votar");
 <div>
     <div class="view-title">
         <h2>Votar</h2>
-        <br/>
-        <?php if($isVotar == 0): ?>
-            <span>Selecciona los tres pinchos que vas a usar para votar</span>
-        <?php endif ?>
-        <?php if($isVotar == 1): ?>
-            <span>Vota por el que mas te gusta</span>
-        <?php endif ?>
-
     </div>
+
+    <?php if($isVotar == 0): ?>
+        <span>Selecciona los tres pinchos que vas a usar para votar:</span>
+    <?php endif ?>
+    <?php if($isVotar == 1): ?>
+        <span>Vota por el que mas te gusta:</span>
+    <?php endif ?>
 
     <form
         <?php if($isVotar == 0): ?>

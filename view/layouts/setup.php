@@ -63,7 +63,7 @@
 
 		</div>
 
-		<div class="row" id="footer">
+		<div class="row" id="footer-in">
 				<div class="container text-center">
 					<p class="text-muted">Chopin: <a href="#" data-toggle="tooltip" data-placement="top" title="Hooray!">ABP Project.</a></p>
 				</div>
@@ -72,11 +72,21 @@
 	</body>
 
 
-    <script>
-        $(document).ready(function() {
-			$("#msg-container").delay(3000).fadeOut('slow');
-        });
+	<script>
 
-        <?= $view->getFragment("script") ?>
-    </script>
+		$(document).ready(function () {
+
+			if($(window).height() < $("#container").height() + 155) {
+				//$("#footer").addClass("fixed-bottom");
+				$("#footer").css("position", "relative");
+				$("#footer").css("padding-bottom", "10px");
+			}
+
+			$("#msg-container").delay(3000).fadeOut('slow');
+		});
+
+
+		<?= $view->getFragment("script") ?>
+
+	</script>
 </html>

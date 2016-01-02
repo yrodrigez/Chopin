@@ -18,7 +18,7 @@ function getNavItems($phone)
     $items = '<li ' . $rowClass . '><a href="index.php?controller=concurso&amp;action=view">Concurso</a></li>';
     $items .= '<li ' . $rowClass . '><a href="index.php?controller=concurso&amp;action=gastromapa">Gastromapa</a></li>';
     if ($started or isset($_SESSION["type"]) and $_SESSION["type"] == Usuario::ORGANIZADOR) {
-        $items .= '<li ' . $rowClass . '><a href="index.php?controller=pinchos&amp;action=listar">Pinchos</a></li>';
+        $items .= '<li ' . $rowClass . '><a href="index.php?controller=pinchos&amp;action=listar">Pinchos participantes</a></li>';
     }
     if (!isset($_SESSION["user"])) {
         if ($started) {
@@ -41,7 +41,7 @@ function getNavItems($phone)
             $items .= '<li ' . $rowClass . '><a href="index.php?controller=usuarios&amp;action=index">Jurado Popular</a></li>';
             $items .= '<li ' . $rowClass . '><a href="index.php?controller=establecimiento&amp;action=index">Establecimientos</a></li>';
         } else if ($_SESSION["type"] == Usuario::JURADO_POPULAR) {
-            $items .= '<li ' . $rowClass . '><a href="index.php?controller=pinchos&amp;action=listarPinchosUsuario">Mis pinchos</a></li><li><a href="index.php?controller=codigos&amp;action=introducir">Introducir Código</a></li><li><a href="index.php?controller=pinchos&amp;action=misVotos">Mis Votaciones</a></li><li><a href="index.php?controller=usuarios&amp;action=view&amp;id=' . $_SESSION["user"] . '">Mi cuenta</a></li>';
+            $items .= '<li ' . $rowClass . '><a href="index.php?controller=pinchos&amp;action=listarPinchosUsuario">Pinchos probados</a></li><li><a href="index.php?controller=codigos&amp;action=introducir">Introducir Código</a></li><li><a href="index.php?controller=pinchos&amp;action=misVotos">Mis Votaciones</a></li><li><a href="index.php?controller=usuarios&amp;action=view&amp;id=' . $_SESSION["user"] . '">Mi cuenta</a></li>';
         } else if ($_SESSION["type"] == Usuario::ORGANIZADOR and $started) {
             $items .= '<li ' . $rowClass . '><a href="index.php?controller=usuarios&amp;action=index">Jurado Popular</a></li>';
         } else if ($_SESSION["type"] == Usuario::ESTABLECIMIENTO) {
@@ -59,7 +59,7 @@ function getNavItems($phone)
             $items .= '<li ' . $rowClass . '><a href="index.php?controller=establecimiento&amp;action=view&amp;id=' . $_SESSION["user"] . '">Mi cuenta</a></li>';
         } else if ($_SESSION["type"] == Usuario::JURADO_PROFESIONAL) {
             $items .= '<li ' . $rowClass . '><a href="index.php?controller=juradoprofesional&amp;action=view&amp;id=' . $_SESSION["user"] . '">Mi cuenta</a></li>';
-            $items .= '<li ' . $rowClass . '><a href="index.php?controller=pinchos&amp;action=listarPinchosJuradoProfesional">Mis pinchos</a></li>';
+            $items .= '<li ' . $rowClass . '><a href="index.php?controller=pinchos&amp;action=listarPinchosJuradoProfesional">Pinchos asignados</a></li>';
         }
 
 
@@ -171,28 +171,17 @@ function getNavItems($phone)
 
 <script>
 
-    function bodyResize (){
-        $("#body-content").css("height", 0);
-        var altoCab = $("#cabecera").height();
-        var altoPie = $("#pie").height();
-        var altoPag = $("body").height();
-        $("#body-content").css("height", (altoPag - altoCab - altoPie) + "px");
-    }
-
     $(document).ready(function () {
 
         if($("#sidebar").height() > $("#content").height() - 50) {
-            $("#content").css("height", $("#sidebar").height() + 50)
+            $("#content").css("min-height", $("#sidebar").height() + 50)
         }
 
         if($(window).height() < $("#container").height() + 155) {
             //$("#footer").addClass("fixed-bottom");
             $("#footer").css("position", "relative");
             $("#footer").css("padding-bottom", "10px");
-            $("body").css("background-color", "black");
         }
-
-
 
         $("#msg-container").delay(3000).fadeOut('slow');
     });
