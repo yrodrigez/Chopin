@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 //file: view/layouts/default.php
 require_once(__DIR__ . "/../../core/ViewManager.php");
@@ -76,8 +77,7 @@ function getNavItems($phone)
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <title><?= $view->getVariable("title", "no title") ?></title>
@@ -91,7 +91,6 @@ function getNavItems($phone)
     <link rel="stylesheet" href="css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700" type="text/css">
-    <link rel="stylesheet" href="Alex Brush.ttf">
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -172,13 +171,32 @@ function getNavItems($phone)
 
 <script>
 
+    function bodyResize (){
+        $("#body-content").css("height", 0);
+        var altoCab = $("#cabecera").height();
+        var altoPie = $("#pie").height();
+        var altoPag = $("body").height();
+        $("#body-content").css("height", (altoPag - altoCab - altoPie) + "px");
+    }
+
     $(document).ready(function () {
-        if($(document).height() == $(window).height()) {
-            $("#footer").addClass("fixed-bottom");
+
+        if($("#sidebar").height() > $("#content").height() - 50) {
+            $("#content").css("height", $("#sidebar").height() + 50)
         }
+
+        if($(window).height() < $("#container").height() + 155) {
+            //$("#footer").addClass("fixed-bottom");
+            $("#footer").css("position", "relative");
+            $("#footer").css("padding-bottom", "10px");
+            $("body").css("background-color", "black");
+        }
+
+
 
         $("#msg-container").delay(3000).fadeOut('slow');
     });
+
 
     <?= $view->getFragment("script") ?>
 

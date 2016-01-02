@@ -21,7 +21,6 @@ body {
 	height: 100%;
 	margin-bottom: 0px;
 	overflow-x: hidden;
-	padding-bottom: 80px;
 }
 
 #banner {
@@ -34,6 +33,35 @@ body {
 	padding-bottom: 100px;
 	margin-bottom: 0px;
 	margin-left: 0px;
+}
+
+#container {
+	width: 100%;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 40px;
+}
+
+#content {
+	background-color: #FFF;
+	border-left: 1px solid #461111;
+	border-bottom: 1px solid #461111;
+	border-right: 1px solid #461111;
+	padding-bottom: 20px;
+}
+
+
+#footer {
+	background-image: url("banner.jpg");
+	background-size: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+	width: 100%;
+    height: 40px;
+	border: 1px solid #461111;
+	padding-top:8px;
 }
 
 #title {
@@ -58,7 +86,6 @@ body {
     margin-top: 0px;
     margin-right: 0px;
 	border-left: 1px solid #461111;
-	border-right: 1px solid #461111;
 }
 
 .col-sm-2 {
@@ -86,37 +113,6 @@ body {
 
 .nav-pills > li > a:hover {
 	color: #461111;
-}
-
-#container {
-	width: 100%;
-	margin-left: 0px;
-	margin-right: 0px;
-	padding-top: 0px;
-	padding-bottom: 50px;
-}
-
-#content {
-	background-color: #FFF;
-	border-left: 1px solid #461111;
-	border-bottom: 1px solid #461111;
-	border-right: 1px solid #461111;
-	padding-bottom: 20px;
-}
-
-
-
-#footer {
-	background-image: url("banner.jpg");
-	background-size: 100%;
-
-	width: 100%;
-	border: 1px solid #461111;
-	padding-top:8px;
-	margin-left: 0px;
-	margin-right: 0px;
-	margin-top: 20px;
-	margin-bottom: 0px;
 }
 
 #formPresentarPincho, #formConfigurarConcurso{
@@ -398,3 +394,4 @@ html {
 	left: 0px;
 	bottom: 0px;
 }
+
