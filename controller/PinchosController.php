@@ -205,16 +205,15 @@ class PinchosController extends BaseController {
   public function listarPinchosJuradoProfesional(){
     if(isset($_SESSION["user"])
         && isset($_SESSION["type"])
-    ) {
-      if(
-          $_SESSION['type'] == Usuario::JURADO_PROFESIONAL
-      ) {
-        $this->view->setVariable(
-            "pinchos",
-            $this->pinchoMapper->listarPinchosJuradoProfesional($_SESSION['user'])
-        );
+        && $_SESSION['type'] == Usuario::JURADO_PROFESIONAL) {
+
+        $concurso = (new ConcursoMapper())->getInfo();
+        $iter = 0;
+        if($concurso->isStarted2Iter() && !$concurso->isFinished()) $iter = 2;
+        else if($concurso->isStarted() && !$concurso->isStarted2Iter()) $iter = 1;
+
+        $this->view->setVariable("pinchos", $this->pinchoMapper->listarPinchosJuradoProfesional($_SESSION['user'], $this->iteracionActual()));
         $this->view->render("juradoprofesional", "mispinchos");
-      }
     }
   }
 
@@ -222,19 +221,25 @@ class PinchosController extends BaseController {
     if(isset($_SESSION["user"])
         && isset($_SESSION["type"])
         && isset($_GET["id"])
+        && $_SESSION['type'] == Usuario::JURADO_PROFESIONAL
     ) {
-      if(
-          $_SESSION['type'] == Usuario::JURADO_PROFESIONAL
-      ) {
         $this->view->setVariable(
             "pincho",
             $this->pinchoMapper->getPincho($_GET["id"])
         );
-        $valoracion= $this->pinchoMapper->dameMiValoracion($_GET["id"], $_SESSION["user"]);
+        $valoracion= $this->pinchoMapper->dameMiValoracion($_GET["id"], $_SESSION["user"], $this->iteracionActual());
         $this->view->setVariable("valoracion", $valoracion );
         $this->view->render("juradoprofesional", "valorar");
-      }
+
     }
+  }
+
+  private function iteracionActual() {
+      $concurso = (new ConcursoMapper())->getInfo();
+      $iter = 0;
+      if($concurso->isStarted2Iter() && !$concurso->isFinished()) $iter = 2;
+      else if($concurso->isStarted() && !$concurso->isStarted2Iter()) $iter = 1;
+      return $iter;
   }
 
   public function valorar() {
@@ -245,12 +250,12 @@ class PinchosController extends BaseController {
       if (
           $_SESSION['type'] == Usuario::JURADO_PROFESIONAL
       ) {
-        $this->pinchoMapper->guardarValoracion($_POST["valoracion"], $_SESSION["user"], $_POST["idpincho"]);
+        $this->pinchoMapper->guardarValoracion($_POST["valoracion"], $_SESSION["user"], $_POST["idpincho"], $this->iteracionActual());
         $this->view->setVariable(
             "pincho",
             $this->pinchoMapper->getPincho($_POST["idpincho"])
         );
-        $this->view->setVariable("valoracion", $this->pinchoMapper->dameMiValoracion($_POST["idpincho"], $_SESSION["user"]));
+        $this->view->setVariable("valoracion", $this->pinchoMapper->dameMiValoracion($_POST["idpincho"], $_SESSION["user"], $this->iteracionActual()));
         $this->view->render("juradoprofesional", "valorar");
       }
     }

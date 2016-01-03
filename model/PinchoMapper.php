@@ -360,12 +360,12 @@ class PinchoMapper {
   }
 
   public function listarPinchosJuradoProfesional(
-      $idUsuario
+      $idUsuario, $iter
   ) {
     $pinchos = array();
-    $stmt = $this->db->prepare("SELECT idpincho FROM valoracion WHERE email= ?");
+    $stmt = $this->db->prepare("SELECT idpincho FROM valoracion WHERE email= ? AND iteracion = ?");
 
-    if($stmt->execute(array($idUsuario))){
+    if($stmt->execute(array($idUsuario, $iter))) {
       if($stmt->rowCount() > 0){
         $i = $stmt->rowCount();
         while($i>0) {
@@ -492,12 +492,13 @@ class PinchoMapper {
 
   public function dameMiValoracion(
     $idPincho,
-    $idProfesional
+    $idProfesional,
+    $iter
   ){
     $stmt= $this->db->prepare(
-        "SELECT puntuacion FROM valoracion WHERE idpincho= ? AND email=?"
+        "SELECT puntuacion FROM valoracion WHERE idpincho= ? AND email=? AND iteracion = ?"
     );
-    $stmt->execute(array($idPincho, $idProfesional));
+    $stmt->execute(array($idPincho, $idProfesional, $iter));
     $row= $stmt->fetch(PDO::FETCH_ASSOC);
     return $row["puntuacion"];
   }
@@ -505,16 +506,19 @@ class PinchoMapper {
   public function guardarValoracion(
       $valoracion,
       $idUsuario,
-      $idPincho
+      $idPincho,
+      $iter
   ){
     $stmt= $this->db->prepare(
-        "UPDATE valoracion SET puntuacion= ? WHERE email= ? AND idpincho=?"
+        "UPDATE valoracion SET puntuacion = ? WHERE email = ? AND idpincho = ? AND iteracion = ?"
     );
+
      $stmt->execute(
         array(
           $valoracion,
           $idUsuario,
-          $idPincho
+          $idPincho,
+          $iter
         )
     );
   }
@@ -603,22 +607,6 @@ class PinchoMapper {
     return $fin;
   }
 
-  /*private function addToArrayChecking($array, $pincho, $num) {
-
-    $found = false;
-
-    foreach($array as $item) {
-      if($item->getIdPincho() == $pincho->getIdPincho()) {
-        $pincho["puntuacion"] += $num;
-        $found = true;
-      }
-    }
-
-    if($found == false) {
-      $pincho["puntuacion"] = $num;
-      array_push($array, $pincho);
-    }
-  }*/
 
   public function buscar($text) {
       $stmt= $this->db->prepare("SELECT * FROM pincho WHERE nombre like ?");
