@@ -17,9 +17,17 @@ function getNavItems($phone)
 
     $items = '<li ' . $rowClass . '><a href="index.php?controller=concurso&amp;action=view">Concurso</a></li>';
     $items .= '<li ' . $rowClass . '><a href="index.php?controller=concurso&amp;action=gastromapa">Gastromapa</a></li>';
+
+    if($concurso->isFinished()) {
+        $items .= '<li ' . $rowClass . '><a href="index.php?controller=concurso&amp;action=ganadores">Ganadores</a></li>';
+    } else if($concurso->isStarted2Iter()) {
+        $items .= '<li ' . $rowClass . '><a href="index.php?controller=concurso&amp;action=ganadores">Finalistas</a></li>';
+    }
+
     if ($started or isset($_SESSION["type"]) and $_SESSION["type"] == Usuario::ORGANIZADOR) {
         $items .= '<li ' . $rowClass . '><a href="index.php?controller=pinchos&amp;action=listar">Pinchos participantes</a></li>';
     }
+
     if (!isset($_SESSION["user"])) {
         if ($started) {
             $items .= '<li ' . $rowClass . '><a href="index.php?controller=establecimiento&amp;action=index">Establecimientos</a></li>';

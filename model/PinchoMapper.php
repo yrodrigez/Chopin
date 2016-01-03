@@ -546,7 +546,7 @@ class PinchoMapper {
   }
 
   public function getGanadoresProfesionales($numGanadores){
-    $stmt= $this->db->prepare("SELECT V.idpincho, (SELECT ROUND(AVG(puntuacion),0) FROM valoracion A WHERE A.idpincho = V.idpincho) AS resultado FROM valoracion V GROUP BY V.idpincho");
+    $stmt= $this->db->prepare("SELECT V.idpincho, (SELECT ROUND(AVG(puntuacion),2) FROM valoracion A WHERE A.idpincho = V.idpincho) AS resultado FROM valoracion V GROUP BY V.idpincho");
     $stmt->execute();
     $votosProfesional = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $arrayVotosProf = "";
@@ -566,6 +566,59 @@ class PinchoMapper {
     }
     return $toRet;
   }
+
+  /* Para la elección de los finalistas, se cogen los cinco mejor valorados tanto en la categoría popular
+     como profesional. Para cada uno de los grupos el mejor valorado aporta cinco puntos, el segundo tres
+     y los demás uno. */
+  public function getFinalistas($numFinalistas){
+    $pop = $this -> getGanadoresPopulares(5);
+    $pro = $this -> getGanadoresProfesionales(5);
+
+    foreach(array($pop, $pro) as $list) {
+      $num = 5;
+      foreach($list as $key => $value) {
+        $pos = substr($key, 7, strrpos($key, "_", 8)-7);
+        if(strrpos($key, "_obj")) {
+          if(!isset($punt[$pos])) $punt[$pos] = 0;
+          $punt[$pos] += $num;
+          if($num > 1) $num -= 2;
+        }
+      }
+    }
+
+    $fin = array();
+    $num = 1;
+    $limit = $numFinalistas;
+    foreach($punt as $id => $value) {
+      if(isset($pop["pincho_" . $id . "_obj"])) {
+        $fin["pincho_" . $num . "_obj"] = $pop["pincho_" . $id . "_obj"];
+      } else {
+        $fin["pincho_" . $num . "_obj"] = $pro["pincho_" . $id . "_obj"];
+      }
+      $num += 1;
+      $limit -=1;
+      if($limit == 0) break;
+    }
+
+    return $fin;
+  }
+
+  /*private function addToArrayChecking($array, $pincho, $num) {
+
+    $found = false;
+
+    foreach($array as $item) {
+      if($item->getIdPincho() == $pincho->getIdPincho()) {
+        $pincho["puntuacion"] += $num;
+        $found = true;
+      }
+    }
+
+    if($found == false) {
+      $pincho["puntuacion"] = $num;
+      array_push($array, $pincho);
+    }
+  }*/
 
   public function buscar($text) {
       $stmt= $this->db->prepare("SELECT * FROM pincho WHERE nombre like ?");

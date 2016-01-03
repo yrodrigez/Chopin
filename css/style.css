@@ -273,9 +273,15 @@ body {
 }
 
 .pinchoAprobado {
-	color: green;
-	font-weight: bold;
+    color: green;
+    font-weight: bold;
 }
+
+.pinchoNoAprobado {
+    color: red;
+    font-weight: bold;
+}
+
 .pinchoPendiente {
 	color: #881700;
 	font-weight: bold;
