@@ -54,16 +54,20 @@ class ConcursoController extends BaseController
         require_once(__DIR__ . "/../model/ConcursoMapper.php");
         $concursomapper = new ConcursoMapper();
         $mapper = new PinchoMapper();
-        $ganadoresPop = $mapper->getGanadoresPopulares(5);
-        $ganadoresProf = $mapper->getGanadoresProfesionales(3);
+
         $finalistas = $mapper->getFinalistas(3);
         $concurso = $concursomapper->getInfo();
 
-
-        $this->view->setVariable("ganadoresPo", $ganadoresPop);
-        $this->view->setVariable("ganadoresPr", $ganadoresProf);
         $this->view->setVariable("finalistas", $finalistas);
         $this->view->setVariable("concurso", $concurso);
+
+        if($concurso->isFinished()) {
+            $ganadoresPop = $mapper->getGanadoresPopulares(3);
+            $ganadoresProf = $mapper->getGanadoresProfesionales(3);
+
+            $this->view->setVariable("ganadoresPo", $ganadoresPop);
+            $this->view->setVariable("ganadoresPr", $ganadoresProf);
+        }
 
         $this->view->render("concurso", "ganadores");
     }
