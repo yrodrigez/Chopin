@@ -30,29 +30,6 @@ INSERT INTO ingredientes(idpincho, nombreCategoria) VALUES (2, "Huevos");
 INSERT INTO ingredientes(idpincho, nombreCategoria) VALUES (2, "Patatas");
 INSERT INTO ingredientes(idpincho, nombreCategoria) VALUES (3, "Tomates");
 INSERT INTO ingredientes(idpincho, nombreCategoria) VALUES (4, "Queso brie");
-
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953a02c6a40",1,"jpop@gmail.com",0,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953a47a4bdd",2,"jpop@gmail.com",0,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953a594a2d0",3,"jpop@gmail.com",0,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953a67131be",1,"jpop@gmail.com",0,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953a864be4b",2,"jpop@gmail.com",0,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953a8def5ff",3,"jpop@gmail.com",0,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953ab5c2073",1,"jpop@gmail.com",0,0,NULL);
-
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953b6a78677",1,"jpop2@gmail.com",0,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953b6a786da",2,"jpop2@gmail.com",0,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953b6a78724",3,"jpop2@gmail.com",1,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953b6a7876d",3,"jpop2@gmail.com",0,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953b6a787b4",2,"jpop2@gmail.com",1,1,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953b6a787fe",3,"jpop2@gmail.com",1,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953b6a78846",1,"jpop2@gmail.com",1,1,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953b6a7891a",2,"jpop2@gmail.com",1,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953b6a78964",1,"jpop2@gmail.com",1,0,NULL);
-
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953be1afc77",1,"jpop3@gmail.com",0,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953be1afd26",2,"jpop3@gmail.com",1,1,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953be1afd6c",3,"jpop3@gmail.com",1,1,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953be1afdad",1,"jpop3@gmail.com",1,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953be1afdf3",2,"jpop3@gmail.com",1,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953c5864db8",1,"jpop3@gmail.com",1,0,NULL);
-INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES ("56953c5864e08",3,"jpop3@gmail.com",1,1,NULL);
+INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES (1,1,"jpop@gmail.com",0,0,NULL);
+INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES (2,2,"jpop@gmail.com",0,0,NULL);
+INSERT INTO	codigo(idcodigo, idpincho, email , utilizado , elegido , fechaVotacion) VALUES (3,3,"jpop@gmail.com",0,0,NULL);
