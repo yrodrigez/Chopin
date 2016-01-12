@@ -7,6 +7,13 @@ $ganadoresPr = $view->getVariable("ganadoresPr");
 $finalistas = $view->getVariable("finalistas");
 $concurso = $view->getVariable("concurso");
 
+if ($concurso->isStarted2Iter()) {
+    $view->setVariable("title", "Gastromapa");
+} else if ($concurso->isFinished()){
+    $view->setVariable("title", "Finalistas");
+}
+
+
 ?>
 <?php if ($concurso->isStarted2Iter() && !$concurso->isFinished()): ?>
     <div>

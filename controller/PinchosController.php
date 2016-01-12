@@ -379,7 +379,14 @@ class PinchosController extends BaseController {
         $maxProf = $this->jprofMapper->getNumeroJurado();
         if(($_POST['nAsignar'] >= 1) and ($_POST['nAsignar'] <= $maxProf)){
           $jprofs = $this->jprofMapper->findAll();
-          $pinchos = $this->pinchoMapper->getAllPinchos();
+
+          $concurso = (new ConcursoMapper())->getInfo();
+          if($concurso->isStarted2Iter()) {
+              $pinchos = $this->pinchoMapper->getFinalistas(3);
+          } else {
+              $pinchos = $this->pinchoMapper->getAllPinchos();
+          }
+
           $cont = 0;
 
           $iter=1;
