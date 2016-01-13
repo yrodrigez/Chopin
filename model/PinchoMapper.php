@@ -550,7 +550,7 @@ class PinchoMapper {
   }
 
   public function getGanadoresProfesionales($numGanadores){
-    $stmt= $this->db->prepare("SELECT V.idpincho, (SELECT ROUND(AVG(puntuacion),2) FROM valoracion A WHERE A.idpincho = V.idpincho) AS resultado FROM valoracion V GROUP BY V.idpincho");
+    $stmt= $this->db->prepare("SELECT V.idpincho, (SELECT ROUND(AVG(puntuacion),2) FROM valoracion A WHERE A.idpincho = V.idpincho AND puntuacion <> -1) AS resultado FROM valoracion V WHERE puntuacion <> -1 GROUP BY V.idpincho");
     $stmt->execute();
     $votosProfesional = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $arrayVotosProf = "";
@@ -568,6 +568,7 @@ class PinchoMapper {
       $count++;
       if($count == $numGanadores) break;
     }
+
     return $toRet;
   }
 
