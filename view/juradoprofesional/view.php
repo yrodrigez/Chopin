@@ -29,7 +29,7 @@ $view->setVariable("title", "Datos del usuario"); ?>
 			</tr>
 		</table>
 	</div>
-	<?php if(isset($_SESSION["user"]) && $_SESSION["user"] == $usuario->getEmail() || $_SESSION["type"] == Usuario::ORGANIZADOR): ?>
+	<?php if(isset($_SESSION["user"]) && $_SESSION["user"] == $usuario->getEmail() || $_SESSION["type"] === Usuario::ORGANIZADOR): ?>
 		<div class="view-confirm">
 			<a href="index.php?controller=juradoprofesional&action=edit&id=<?= $usuario->getEmail(); ?>" class="btn btn-default" role="button">Modificar cuenta</a>
 		</div>
